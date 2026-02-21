@@ -1,6 +1,6 @@
 {
   "name": "kimera",
-  "description": "Kimera(R) — Professional print-ready .md.html document parser & formatter. Parses AI conversations and formats them into beautifully structured, paginated documents. Zero dependencies, works offline, opens in any browser.",
+  "description": "Kimera(R) — Professional print-ready document parser & super formatter. Parses AI conversations into beautifully structured, paginated HTML documents. Zero dependencies, works offline, opens in any browser.",
   "version": "1.0.0",
   "author": {
     "name": "Francesco Trani",

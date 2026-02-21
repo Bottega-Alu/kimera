@@ -10,10 +10,10 @@
 Sei un growth marketing strategist specializzato in developer tools e prodotti AI/tech open-source. Devi creare un piano marketing completo e GRATUITO (zero budget) per lanciare e far crescere **Kimera(R)** — un document parser & formatter open-source.
 
 ### Cos'e Kimera
-Kimera e un formato + skill AI che genera documenti professionali, impaginati e pronti per la stampa (.md.html) da conversazioni AI. Funziona con qualsiasi LLM (Claude, ChatGPT, Gemini, Llama). Un solo file HTML self-contained, zero dipendenze, si apre nel browser e si stampa. Licenza CC BY-NC 4.0 (free non-commercial, paid commercial).
+Kimera e un parser & super formatter che trasforma conversazioni AI in documenti HTML professionali, impaginati e pronti per la stampa (.md.html). Funziona con qualsiasi LLM (Claude, ChatGPT, Gemini, Llama). Un solo file HTML self-contained, zero dipendenze, si apre nel browser e si stampa. Licenza CC BY-NC 4.0 (free non-commercial, paid commercial).
 
 ### Unique Selling Points
-1. **Formato .md.html** — primo formato dual markdown+HTML pensato per la stampa da AI
+1. **Formato .md.html** — documenti HTML professionali, impaginati e stampabili generati da conversazioni AI
 2. **LLM-agnostic** — non e locked-in a nessun provider, funziona ovunque
 3. **Zero dependencies** — un file, offline, per sempre. Niente CDN, niente JS
 4. **Print-perfect** — risolve i 10 bug piu comuni della stampa da browser (phantom pages, footer stacking, color loss)

@@ -1,8 +1,8 @@
-# Kimera(R) — Professional Print-Ready Document Parser & Formatter
+# Kimera(R) — Professional Print-Ready Document Super Formatter & Viewer
 
-> **EN** Parse any AI conversation and format it into a beautifully structured, print-ready document.
-> **IT** Parsa qualsiasi conversazione AI e formattala in un documento professionale, pronto per la stampa.
-> **PT** Parse qualquer conversa de IA e formate-a em um documento profissional, pronto para impressao.
+> **EN** Parse AI conversations into professional, print-ready HTML documents.
+> **IT** Parsa conversazioni AI in documenti HTML professionali, pronti per la stampa.
+> **PT** Parse conversas de IA em documentos HTML profissionais, prontos para impressao.
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 [![Buy Me an Aperitivo](https://img.shields.io/badge/Buy%20Me%20an%20Aperitivo-FFDD00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/bottega.alu)
@@ -11,7 +11,7 @@
 
 ## Why "Kimera"?
 
-**Kimera** is the Italian spelling of *Chimera* — the mythical creature that fuses different beings into one. Just like its namesake, Kimera fuses **Markdown structure** and **HTML rendering** into a single self-contained file: the `.md.html` format.
+**Kimera** is the Italian spelling of *Chimera* — the mythical creature that fuses different beings into one. Just like its namesake, Kimera fuses **conversation parsing** and **professional HTML formatting** into a single self-contained file: the `.md.html` format.
 
 The name also carries a hidden play on words:
 
@@ -22,15 +22,15 @@ The name also carries a hidden play on words:
 
 One name. Two worlds. One file.
 
-*Kimera e la grafia italiana di Chimera — la creatura mitologica che fonde esseri diversi in uno. Proprio come il suo omonimo, Kimera fonde struttura Markdown e rendering HTML in un unico file autonomo.*
+*Kimera e la grafia italiana di Chimera — la creatura mitologica che fonde esseri diversi in uno. Proprio come il suo omonimo, Kimera fonde parsing di conversazioni e formattazione HTML professionale in un unico file autonomo.*
 
-*Kimera e a grafia italiana de Quimera — a criatura mitologica que funde seres diferentes em um so. Assim como seu homonimo, Kimera funde estrutura Markdown e renderizacao HTML em um unico arquivo autonomo.*
+*Kimera e a grafia italiana de Quimera — a criatura mitologica que funde seres diferentes em um so. Assim como seu homonimo, Kimera funde parsing de conversas e formatacao HTML profissional em um unico arquivo autonomo.*
 
 ---
 
 ## What is Kimera? | Cos'e Kimera? | O que e Kimera?
 
-Kimera is a **document format and AI skill** that parses AI conversations and formats them into professional, paginated, print-ready documents. Output files use the `.md.html` dual format — markdown-structured content rendered as self-contained HTML.
+Kimera is a **parser & super formatter** that transforms AI conversations into professional, paginated, print-ready HTML documents. Output files use the `.md.html` extension — self-contained HTML with embedded CSS, zero external dependencies.
 
 **One file. Zero dependencies. Open in browser. Print. Edit in Word.**
 
@@ -40,7 +40,7 @@ Kimera is a **document format and AI skill** that parses AI conversations and fo
 - **Self-contained** — Zero external dependencies (no CDN, no JS, no fonts to load)
 - **Works offline** — Save the file, open it anywhere, anytime
 - **LLM-agnostic** — Works with Claude, ChatGPT, Gemini, Llama, Copilot, and any LLM
-- **Human & AI readable** — Clean semantic structure parseable by both humans and machines
+- **Clean structure** — Semantic HTML parseable by both humans and machines
 - **Professional design** — 5-color semantic system, KPI cards, status badges, info boxes
 - **Multi-format** — A4, US Letter, US Legal page sizes
 - **Multi-type** — Status Memos, Sprint Reports, Technical Specs, Custom documents
@@ -110,13 +110,12 @@ cp -r skills/kimera/ ~/.claude/skills/kimera/
 
 ## The `.md.html` Format | Il formato `.md.html` | O formato `.md.html`
 
-The Kimera format uses the dual extension `.md.html`:
+The Kimera format uses the `.md.html` extension:
 
 | Aspect | Benefit |
 |--------|---------|
 | **`.html`** (last extension) | OS opens it in the browser natively |
-| **`.md.`** (prefix) | Signals markdown-structured content to developers |
-| **Self-contained** | Single file, no external resources needed |
+| **Self-contained** | Single HTML file with embedded CSS, no external resources |
 | **Print-ready** | `Ctrl+P` → Margins: None → exact page count |
 | **Word-editable** | Open in MS Word, LibreOffice, Google Docs for editing |
 | **Offline** | Works without internet, forever |
