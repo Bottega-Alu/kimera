@@ -1,8 +1,8 @@
-# Kimera(R) — Professional Print-Ready Document Generator
+# Kimera(R) — Professional Print-Ready Document Parser & Formatter
 
-> **EN** Turn any AI conversation into a beautifully formatted, print-ready document.
-> **IT** Trasforma qualsiasi conversazione AI in un documento professionale, pronto per la stampa.
-> **PT** Transforme qualquer conversa de IA em um documento profissional, pronto para impressao.
+> **EN** Parse any AI conversation and format it into a beautifully structured, print-ready document.
+> **IT** Parsa qualsiasi conversazione AI e formattala in un documento professionale, pronto per la stampa.
+> **PT** Parse qualquer conversa de IA e formate-a em um documento profissional, pronto para impressao.
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 [![Buy Me an Aperitivo](https://img.shields.io/badge/Buy%20Me%20an%20Aperitivo-FFDD00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/bottega.alu)
@@ -30,7 +30,7 @@ One name. Two worlds. One file.
 
 ## What is Kimera? | Cos'e Kimera? | O que e Kimera?
 
-Kimera is a **document format and AI skill** that generates professional, paginated, print-ready documents from AI conversations. Output files use the `.md.html` dual format — markdown-structured content rendered as self-contained HTML.
+Kimera is a **document format and AI skill** that parses AI conversations and formats them into professional, paginated, print-ready documents. Output files use the `.md.html` dual format — markdown-structured content rendered as self-contained HTML.
 
 **One file. Zero dependencies. Open in browser. Print. Edit in Word.**
 
@@ -234,7 +234,7 @@ cp skills/kimera/SKILL.md .claude/skills/kimera/
 
 # Commit to share with your team
 git add .claude/skills/kimera/
-git commit -m "feat: add Kimera document generator skill"
+git commit -m "feat: add Kimera document parser & formatter skill"
 ```
 
 ---

@@ -1,0 +1,516 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Kimera(R) Showcase — 2026-02-21</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 9pt; line-height: 1.4; color: #1a1a2e;
+    background: #e0e0e0;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .page {
+    width: 210mm; height: 297mm;
+    padding: 14mm 16mm 18mm 16mm;
+    margin: 4mm auto; background: #fff;
+    position: relative; overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0,0,0,.15);
+  }
+  @media print {
+    body { background: #fff; }
+    .page { margin: 0; box-shadow: none; page-break-after: always; }
+    .page:last-child { page-break-after: avoid; }
+  }
+  .hdr {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    border-bottom: 2.5px solid #0d47a1; padding-bottom: 6px; margin-bottom: 10px;
+  }
+  .hdr-left h1 { font-size: 15pt; font-weight: 700; color: #0d47a1; }
+  .hdr-left .sub { font-size: 8pt; color: #546e7a; margin-top: 1px; }
+  .hdr-right { text-align: right; font-size: 7.5pt; color: #455a64; line-height: 1.45; }
+  .hdr-right .dt { font-weight: 700; color: #0d47a1; font-size: 8.5pt; }
+  .conf {
+    background: #b71c1c; color: #fff; text-align: center;
+    padding: 4px 0; font-size: 7pt; font-weight: 700;
+    letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 10px;
+  }
+  .ftr {
+    position: absolute; bottom: 10mm; left: 16mm; right: 16mm;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1.5px solid #0d47a1; padding-top: 4px; font-size: 7pt; color: #546e7a;
+  }
+  .ftr-l { font-weight: 600; color: #0d47a1; }
+  .ftr-c { color: #b71c1c; font-weight: 700; letter-spacing: .8px; font-size: 6.5pt; }
+  .ftr-r { font-weight: 600; }
+  h2 {
+    font-size: 11pt; color: #0d47a1; font-weight: 700;
+    border-left: 3.5px solid #1565c0; padding-left: 8px; margin: 11px 0 6px 0;
+  }
+  h3 { font-size: 9.5pt; color: #1565c0; margin: 8px 0 4px 0; font-weight: 600; }
+  strong { color: #0d47a1; }
+  table { width: 100%; border-collapse: collapse; margin: 4px 0 8px 0; font-size: 8pt; }
+  thead th {
+    background: #0d47a1; color: #fff; padding: 4px 6px;
+    text-align: left; font-weight: 600; font-size: 7.5pt;
+    text-transform: uppercase; letter-spacing: .4px;
+  }
+  tbody td { padding: 3.5px 6px; border-bottom: 1px solid #e0e0e0; }
+  tbody tr:nth-child(even) { background: #f5f7fa; }
+  .b { display: inline-block; padding: 1px 6px; border-radius: 8px; font-size: 6.5pt; font-weight: 700; }
+  .b-ok  { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+  .b-w   { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+  .b-err { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+  .b-i   { background: #e3f2fd; color: #0d47a1; border: 1px solid #90caf9; }
+  .b-n   { background: #f3e5f5; color: #6a1b9a; border: 1px solid #ce93d8; }
+  .bx { border-radius: 4px; padding: 6px 10px; margin: 5px 0; font-size: 8pt; }
+  .bx-b { background: #e3f2fd; border-left: 3px solid #1565c0; }
+  .bx-g { background: #e8f5e9; border-left: 3px solid #2e7d32; }
+  .bx-o { background: #fff3e0; border-left: 3px solid #e65100; }
+  .bx-r { background: #ffebee; border-left: 3px solid #c62828; }
+  .kpi { display: flex; gap: 8px; margin: 8px 0 10px 0; }
+  .kc {
+    flex: 1; background: #f5f7fa; border: 1px solid #e0e0e0;
+    border-top: 3px solid #1565c0; border-radius: 0 0 4px 4px;
+    padding: 7px 6px; text-align: center;
+  }
+  .kc.g { border-top-color: #2e7d32; } .kc.o { border-top-color: #e65100; }
+  .kc.p { border-top-color: #6a1b9a; } .kc.r { border-top-color: #c62828; }
+  .kv { font-size: 16pt; font-weight: 700; color: #0d47a1; line-height: 1; }
+  .kc.g .kv { color: #2e7d32; } .kc.o .kv { color: #e65100; }
+  .kc.p .kv { color: #6a1b9a; } .kc.r .kv { color: #c62828; }
+  .kl { font-size: 6.5pt; color: #78909c; text-transform: uppercase; letter-spacing: .4px; margin-top: 2px; }
+  .author-block {
+    text-align: center; margin-top: 14px; padding: 10px 14px;
+    background: #f5f7fa; border: 1px solid #e0e0e0; border-radius: 4px;
+  }
+  .author-block .label { font-size: 7pt; color: #78909c; text-transform: uppercase; letter-spacing: 1.5px; }
+  .author-block .name { font-size: 11pt; font-weight: 700; color: #0d47a1; margin: 3px 0; }
+  .author-block .org { font-size: 7pt; color: #78909c; }
+  .author-block .legal { font-size: 6.5pt; color: #b71c1c; font-weight: 600; margin-top: 4px; letter-spacing: .4px; }
+
+  /* === SHOWCASE STYLES === */
+  .narrative { text-align: justify; margin: 4px 0 8px 0; line-height: 1.5; }
+  .cover-title { text-align: center; margin: 12px 0 6px 0; }
+  .cover-title .main { font-size: 28pt; font-weight: 800; color: #0d47a1; letter-spacing: 3px; }
+  .cover-title .reg { font-size: 12pt; color: #b71c1c; vertical-align: super; }
+  .cover-title .tagline { font-size: 11pt; color: #546e7a; margin-top: 3px; letter-spacing: 1px; font-weight: 400; }
+  .cover-title .version { font-size: 8pt; color: #78909c; margin-top: 2px; }
+
+  .lang-band { padding: 10px 14px; margin: 6px 0; border-radius: 4px; }
+  .lang-band .lang-label { font-size: 7.5pt; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 3px; }
+  .lang-band .lang-text { font-size: 9pt; font-style: italic; line-height: 1.45; }
+  .lang-band .lang-feat { font-size: 7pt; margin-top: 4px; letter-spacing: .5px; opacity: .8; }
+
+  .band-eu { background: #003399; color: #fff; border-left: 5px solid #FFCC00; }
+  .band-eu .lang-label { color: #FFCC00; }
+  .band-br { background: #009739; color: #002776; border-left: 5px solid #FEDD00; }
+  .band-br .lang-label { color: #FEDD00; }
+  .band-br .lang-text { color: #002776; }
+  .band-br .lang-feat { color: #002776; }
+  .band-it { background: #faf7f2; color: #1a1a2e; border-left: 5px solid #008C45; border-right: 3px solid #CD212A; border-top: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; }
+  .band-it .lang-label { color: #CD212A; }
+  .band-it .lang-feat { color: #008C45; opacity: 1; font-weight: 600; }
+
+  .accent-bar { height: 3px; margin-bottom: 8px; border-radius: 2px; }
+  .accent-eu { background: linear-gradient(90deg, #003399 70%, #FFCC00 70%); }
+  .accent-br { background: linear-gradient(90deg, #009739 40%, #FEDD00 40%, #FEDD00 70%, #002776 70%); }
+  .accent-it { background: linear-gradient(90deg, #008C45 33%, #f4f5f0 33%, #f4f5f0 66%, #CD212A 66%); }
+
+  .workflow { display: flex; align-items: center; gap: 0; margin: 6px 0 8px 0; flex-wrap: wrap; }
+  .wf-step {
+    background: #e3f2fd; border: 1px solid #90caf9; color: #0d47a1;
+    padding: 3px 8px; border-radius: 4px; font-size: 7.5pt; font-weight: 600;
+  }
+  .wf-arrow { color: #90caf9; font-size: 10pt; margin: 0 3px; font-weight: 700; }
+  .wf-step.wf-hl { background: #0d47a1; color: #fff; border-color: #0d47a1; }
+  .wf-step.wf-eu { background: #003399; color: #fff; border-color: #003399; }
+  .wf-step.wf-br { background: #009739; color: #fff; border-color: #009739; }
+  .wf-step.wf-it { background: #CD212A; color: #fff; border-color: #CD212A; }
+
+  .tbl-eu thead th { background: #003399; }
+  .tbl-br thead th { background: #009739; }
+  .tbl-it thead th { background: #CD212A; }
+
+  h2.h2-eu { border-left-color: #003399; color: #003399; }
+  h2.h2-br { border-left-color: #009739; color: #009739; }
+  h2.h2-it { border-left-color: #CD212A; color: #CD212A; }
+
+  .kc.eu  { border-top-color: #003399; } .kc.eu .kv  { color: #003399; }
+  .kc.gld { border-top-color: #c7a900; } .kc.gld .kv { color: #c7a900; }
+  .kc.brg { border-top-color: #009739; } .kc.brg .kv { color: #009739; }
+  .kc.bry { border-top-color: #c7a900; } .kc.bry .kv { color: #c7a900; }
+  .kc.brb { border-top-color: #002776; } .kc.brb .kv { color: #002776; }
+  .kc.itg { border-top-color: #008C45; } .kc.itg .kv { color: #008C45; }
+  .kc.itr { border-top-color: #CD212A; } .kc.itr .kv { color: #CD212A; }
+
+  .palette { display: flex; gap: 6px; margin: 6px 0 10px 0; }
+  .swatch {
+    flex: 1; text-align: center; padding: 10px 4px 6px 4px;
+    border-radius: 4px; font-size: 7pt; border: 1px solid #e0e0e0;
+  }
+  .swatch .sw-block { height: 18px; border-radius: 3px; margin-bottom: 4px; }
+  .swatch .sw-hex { font-family: 'Consolas', monospace; font-weight: 700; font-size: 7pt; }
+  .swatch .sw-role { text-transform: uppercase; letter-spacing: .4px; color: #78909c; margin-top: 1px; }
+
+  .typo-row { display: flex; align-items: baseline; margin: 2px 0; gap: 10px; }
+  .typo-size { font-family: 'Consolas', monospace; font-size: 7pt; color: #78909c; min-width: 35px; text-align: right; }
+  .typo-sample { color: #0d47a1; }
+</style>
+</head>
+<body>
+
+<!-- ==================== PAGE 1 — COVER ==================== -->
+<div class="page">
+  <div class="hdr">
+    <div class="hdr-left">
+      <h1>Kimera&reg; Showcase</h1>
+      <div class="sub">Cover &mdash; Trilingual Demo Document</div>
+    </div>
+    <div class="hdr-right">
+      <div class="dt">February 21, 2026 &mdash; 12:00 CET</div>
+      <div>Ref: <strong>KIMERA-DEMO-2026-02-21</strong></div>
+      <div>Author: <strong>Frisco &mdash; Bottega Alu</strong></div>
+    </div>
+  </div>
+  <div class="conf">&#9888; CONFIDENTIAL &mdash; Intellectual Property of Frisco / Bottega Alu &mdash; Unauthorized distribution prohibited &#9888;</div>
+
+  <div class="cover-title">
+    <div class="main">KIMERA<span class="reg">&reg;</span></div>
+    <div class="tagline">Professional Print-Ready Document Parser &amp; Formatter</div>
+    <div class="version">v1.0 &mdash; Session Showcase &mdash; .md.html Format</div>
+  </div>
+
+  <!-- EN BAND (EU colors) -->
+  <div class="lang-band band-eu">
+    <div class="lang-label">&#127466;&#127482; EN &mdash; European Union</div>
+    <div class="lang-text">&ldquo;Parse any AI conversation and format it into a beautifully structured, print-ready document.&rdquo;</div>
+    <div class="lang-feat">Self-contained &bull; Print-perfect &bull; LLM-agnostic &bull; Word-editable &bull; Offline-ready</div>
+  </div>
+
+  <!-- IT BAND (Tricolore) -->
+  <div class="lang-band band-it">
+    <div class="lang-label">&#127470;&#127481; IT &mdash; Italia</div>
+    <div class="lang-text">&ldquo;Parsa qualsiasi conversazione AI e formattala in un documento professionale, pronto per la stampa.&rdquo;</div>
+    <div class="lang-feat">Autonomo &bull; Stampabile &bull; Universale &bull; LLM-agnostico &bull; Funziona offline</div>
+  </div>
+
+  <!-- PT BAND (Brasil) -->
+  <div class="lang-band band-br">
+    <div class="lang-label">&#127463;&#127479; PT &mdash; Brasil</div>
+    <div class="lang-text">&ldquo;Parse qualquer conversa de IA e formate-a em um documento profissional, pronto para impress&atilde;o.&rdquo;</div>
+    <div class="lang-feat">Aut&ocirc;nomo &bull; Imprim&iacute;vel &bull; Compat&iacute;vel &bull; LLM-agn&oacute;stico &bull; Funciona offline</div>
+  </div>
+
+  <div class="kpi">
+    <div class="kc"><div class="kv">5</div><div class="kl">Pages</div></div>
+    <div class="kc g"><div class="kv">3</div><div class="kl">Languages</div></div>
+    <div class="kc p"><div class="kv">12</div><div class="kl">Components</div></div>
+    <div class="kc o"><div class="kv">0</div><div class="kl">Dependencies</div></div>
+  </div>
+
+  <div class="bx bx-b">
+    <strong>How to print:</strong> Open this file in any browser &rarr; <code>Ctrl+P</code> &rarr; Margins: <strong>None</strong> &rarr; Background graphics: <strong>On</strong> &rarr; Print or Save as PDF. Also editable in Microsoft Word, LibreOffice Writer, and Google Docs.
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-l">Kimera&reg; &mdash; Bottega Alu</div>
+    <div class="ftr-c">CONFIDENTIAL &mdash; &copy; Frisco / Bottega Alu 2026</div>
+    <div class="ftr-r">Page 1 / 5</div>
+  </div>
+</div>
+
+<!-- ==================== PAGE 2 — ENGLISH (EU) ==================== -->
+<div class="page">
+  <div class="hdr">
+    <div class="hdr-left">
+      <h1>Kimera&reg; Showcase</h1>
+      <div class="sub">English &mdash; Session Overview &amp; Milestones</div>
+    </div>
+    <div class="hdr-right">
+      <div class="dt">February 21, 2026 &mdash; 12:00 CET</div>
+      <div>Ref: <strong>KIMERA-DEMO-2026-02-21</strong></div>
+      <div>Author: <strong>Frisco &mdash; Bottega Alu</strong></div>
+    </div>
+  </div>
+  <div class="conf">&#9888; CONFIDENTIAL &mdash; Intellectual Property of Frisco / Bottega Alu &mdash; Unauthorized distribution prohibited &#9888;</div>
+  <div class="accent-bar accent-eu"></div>
+
+  <h2 class="h2-eu">Session Overview</h2>
+  <p class="narrative">
+    In a single development session, <strong>Kimera</strong> was born &mdash; conceived, designed, built, branded, and published to the world. What began as a simple request for a printable status memo evolved into a complete document parsing and formatting ecosystem. Kimera fuses Markdown structure with HTML rendering, producing self-contained <code>.md.html</code> files that open in any browser, print perfectly on any printer, and edit seamlessly in Microsoft Word, LibreOffice, or Google Docs. No dependencies. No internet required. One file that works everywhere, forever.
+  </p>
+
+  <h2 class="h2-eu">Session Milestones</h2>
+  <table class="tbl-eu">
+    <thead><tr><th>#</th><th>Milestone</th><th>Deliverable</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Print-Ready Memo</td><td>MEMO_STATUS_2026-02-21.md.html</td><td><span class="b b-ok">DONE</span></td></tr>
+      <tr><td>2</td><td>Claude Code Skill</td><td>SKILL.md (global + project)</td><td><span class="b b-ok">DONE</span></td></tr>
+      <tr><td>3</td><td>Plugin Distribution</td><td>plugin.json + manifest</td><td><span class="b b-ok">DONE</span></td></tr>
+      <tr><td>4</td><td>Universal LLM Prompt</td><td>kimera-universal-prompt.md</td><td><span class="b b-ok">DONE</span></td></tr>
+      <tr><td>5</td><td>Marketing Prompt</td><td>MARKETING-PROMPT.md</td><td><span class="b b-ok">DONE</span></td></tr>
+      <tr><td>6</td><td>Dual License</td><td>CC BY-NC 4.0 + Aperitivo License</td><td><span class="b b-ok">DONE</span></td></tr>
+      <tr><td>7</td><td>GitHub Publication</td><td>Bottega-Alu/kimera</td><td><span class="b b-n">LIVE</span></td></tr>
+      <tr><td>8</td><td>Showcase Document</td><td>KIMERA_SHOWCASE_2026-02-21.md.html</td><td><span class="b b-n">NEW</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="h2-eu">Key Metrics</h2>
+  <div class="kpi">
+    <div class="kc eu"><div class="kv">8</div><div class="kl">Files Created</div></div>
+    <div class="kc gld"><div class="kv">3</div><div class="kl">Distribution Methods</div></div>
+    <div class="kc eu"><div class="kv">15</div><div class="kl">Design Rules</div></div>
+    <div class="kc gld"><div class="kv">12</div><div class="kl">SEO Topics</div></div>
+  </div>
+
+  <h2 class="h2-eu">Supported LLMs</h2>
+  <table class="tbl-eu">
+    <thead><tr><th>Platform</th><th>Integration</th><th>Method</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Claude Code</strong></td><td>Native Skill / Plugin</td><td><code>/kimera</code> command</td><td><span class="b b-ok">NATIVE</span></td></tr>
+      <tr><td><strong>ChatGPT</strong></td><td>Custom GPT Instructions</td><td>System prompt</td><td><span class="b b-i">READY</span></td></tr>
+      <tr><td><strong>Gemini</strong></td><td>System prompt prefix</td><td>System prompt</td><td><span class="b b-i">READY</span></td></tr>
+      <tr><td><strong>Llama / Mistral</strong></td><td>Any API &mdash; system message</td><td>System prompt</td><td><span class="b b-i">READY</span></td></tr>
+      <tr><td><strong>Copilot / Other</strong></td><td>Conversation prefix</td><td>Manual paste</td><td><span class="b b-w">MANUAL</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="h2-eu">Formatting Workflow</h2>
+  <div class="workflow">
+    <span class="wf-step">User</span><span class="wf-arrow">&rarr;</span>
+    <span class="wf-step wf-eu">/kimera</span><span class="wf-arrow">&rarr;</span>
+    <span class="wf-step">Configure</span><span class="wf-arrow">&rarr;</span>
+    <span class="wf-step">Parse</span><span class="wf-arrow">&rarr;</span>
+    <span class="wf-step wf-hl">Format</span><span class="wf-arrow">&rarr;</span>
+    <span class="wf-step">.md.html</span><span class="wf-arrow">&rarr;</span>
+    <span class="wf-step wf-eu">Print / Edit</span>
+  </div>
+
+  <h3>Badge Showcase</h3>
+  <p style="margin: 3px 0 4px 0;">
+    <span class="b b-ok">OK</span>&ensp;<span class="b b-ok">DONE</span>&ensp;<span class="b b-ok">ACTIVE</span>&ensp;
+    <span class="b b-w">WARNING</span>&ensp;<span class="b b-w">P1</span>&ensp;
+    <span class="b b-err">ERROR</span>&ensp;<span class="b b-err">P0</span>&ensp;
+    <span class="b b-i">INFO</span>&ensp;<span class="b b-i">READY</span>&ensp;
+    <span class="b b-n">NEW</span>&ensp;<span class="b b-n">LIVE</span>
+  </p>
+
+  <div class="bx bx-b">
+    <strong>Print Layout Engine:</strong> Kimera solves 10 critical CSS print bugs &mdash; fixed page heights prevent overflow, absolute footer positioning avoids stacking, hardcoded page numbers ensure accuracy, <code>print-color-adjust: exact</code> forces background colors across all engines.
+  </div>
+  <div class="bx bx-g">
+    <strong>Word Processor:</strong> Open <code>.md.html</code> in Word, LibreOffice, or Google Docs. Save as <code>.docx</code> / <code>.odt</code> to edit natively. Colors, tables, badges, and layout are fully preserved.
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-l">Kimera&reg; &mdash; Bottega Alu</div>
+    <div class="ftr-c">CONFIDENTIAL &mdash; &copy; Frisco / Bottega Alu 2026</div>
+    <div class="ftr-r">Page 2 / 5</div>
+  </div>
+</div>
+
+<!-- ==================== PAGE 3 — PORTUGU&Ecirc;S (BR) ==================== -->
+<div class="page">
+  <div class="hdr">
+    <div class="hdr-left">
+      <h1>Kimera&reg; Showcase</h1>
+      <div class="sub">Portugu&ecirc;s &mdash; Recursos e Compatibilidade</div>
+    </div>
+    <div class="hdr-right">
+      <div class="dt">21 de Fevereiro de 2026 &mdash; 12:00 BRT</div>
+      <div>Ref: <strong>KIMERA-DEMO-2026-02-21</strong></div>
+      <div>Autor: <strong>Frisco &mdash; Bottega Alu</strong></div>
+    </div>
+  </div>
+  <div class="conf">&#9888; CONFIDENCIAL &mdash; Propriedade Intelectual de Frisco / Bottega Alu &mdash; Distribui&ccedil;&atilde;o n&atilde;o autorizada proibida &#9888;</div>
+  <div class="accent-bar accent-br"></div>
+
+  <h2 class="h2-br">Vis&atilde;o Geral</h2>
+  <p class="narrative">
+    <strong>Kimera</strong> &eacute; um formato de documento e uma habilidade de IA que parsa e formata documentos profissionais, paginados e prontos para impress&atilde;o a partir de conversas com intelig&ecirc;ncia artificial. Os arquivos de sa&iacute;da utilizam o formato dual <code>.md.html</code> &mdash; conte&uacute;do estruturado em Markdown renderizado como HTML aut&ocirc;nomo. Um arquivo. Zero depend&ecirc;ncias. Abra no navegador. Imprima. Edite no Word. Funciona offline, para sempre. O nome vem da Quimera, a criatura mitol&oacute;gica que funde seres diferentes em um s&oacute;.
+  </p>
+
+  <h2 class="h2-br">Recursos do Kimera</h2>
+  <table class="tbl-br">
+    <thead><tr><th>Recurso</th><th>Descri&ccedil;&atilde;o</th><th>Impacto</th></tr></thead>
+    <tbody>
+      <tr><td>Formato .md.html</td><td>HTML aut&ocirc;nomo com CSS embutido, sem depend&ecirc;ncias</td><td><span class="b b-ok">ALTO</span></td></tr>
+      <tr><td>Design System</td><td>5 cores sem&acirc;nticas, KPI cards, badges, info boxes</td><td><span class="b b-ok">ALTO</span></td></tr>
+      <tr><td>Word Processor</td><td>Abrir e editar em Word, LibreOffice, Google Docs</td><td><span class="b b-ok">ALTO</span></td></tr>
+      <tr><td>LLM Agn&oacute;stico</td><td>Claude, ChatGPT, Gemini, Llama, Copilot</td><td><span class="b b-ok">ALTO</span></td></tr>
+      <tr><td>Offline</td><td>Sem recursos externos, funciona para sempre</td><td><span class="b b-i">M&Eacute;DIO</span></td></tr>
+      <tr><td>Multi-formato</td><td>A4, US Letter, US Legal</td><td><span class="b b-i">M&Eacute;DIO</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="h2-br">M&eacute;tricas</h2>
+  <div class="kpi">
+    <div class="kc brg"><div class="kv">5</div><div class="kl">Cores Sem&acirc;nticas</div></div>
+    <div class="kc bry"><div class="kv">3</div><div class="kl">Formatos P&aacute;gina</div></div>
+    <div class="kc brb"><div class="kv">4</div><div class="kl">Tipos Documento</div></div>
+    <div class="kc brg"><div class="kv">100%</div><div class="kl">Offline</div></div>
+  </div>
+
+  <h2 class="h2-br">Compatibilidade com Processadores de Texto</h2>
+  <table class="tbl-br">
+    <thead><tr><th>Aplicativo</th><th>Abrir</th><th>Editar</th><th>Imprimir</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Microsoft Word</strong></td><td>Arquivo &rarr; Abrir</td><td><span class="b b-ok">TOTAL</span></td><td><span class="b b-ok">DIRETO</span></td></tr>
+      <tr><td><strong>LibreOffice Writer</strong></td><td>Arquivo &rarr; Abrir</td><td><span class="b b-ok">TOTAL</span></td><td><span class="b b-ok">DIRETO</span></td></tr>
+      <tr><td><strong>Google Docs</strong></td><td>Upload</td><td><span class="b b-w">PARCIAL</span></td><td><span class="b b-ok">DIRETO</span></td></tr>
+      <tr><td><strong>Navegador</strong></td><td>Duplo clique</td><td><span class="b b-err">SOMENTE LEITURA</span></td><td><span class="b b-ok">Ctrl+P</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="bx bx-g">
+    <strong>Dica:</strong> Ap&oacute;s abrir no Word ou LibreOffice, voc&ecirc; pode salvar como <code>.docx</code> ou <code>.odt</code> para continuar editando no formato nativo. Cores, tabelas, badges e layout s&atilde;o preservados integralmente.
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-l">Kimera&reg; &mdash; Bottega Alu</div>
+    <div class="ftr-c">CONFIDENCIAL &mdash; &copy; Frisco / Bottega Alu 2026</div>
+    <div class="ftr-r">Page 3 / 5</div>
+  </div>
+</div>
+
+<!-- ==================== PAGE 4 — ITALIANO (IT) ==================== -->
+<div class="page">
+  <div class="hdr">
+    <div class="hdr-left">
+      <h1>Kimera&reg; Showcase</h1>
+      <div class="sub">Italiano &mdash; Distribuzione, Licenza e Architettura</div>
+    </div>
+    <div class="hdr-right">
+      <div class="dt">21 Febbraio 2026 &mdash; 12:00 CET</div>
+      <div>Rif: <strong>KIMERA-DEMO-2026-02-21</strong></div>
+      <div>Autore: <strong>Frisco &mdash; Bottega Alu</strong></div>
+    </div>
+  </div>
+  <div class="conf">&#9888; RISERVATO &mdash; Propriet&agrave; Intellettuale di Frisco / Bottega Alu &mdash; Distribuzione non autorizzata vietata &#9888;</div>
+  <div class="accent-bar accent-it"></div>
+
+  <h2 class="h2-it">Panoramica</h2>
+  <p class="narrative">
+    <strong>Kimera</strong> prende il nome dalla Chimera, la creatura mitologica che fonde esseri diversi in uno. Proprio come il suo omonimo, Kimera fonde struttura Markdown e rendering HTML in un unico file autonomo: il formato <code>.md.html</code>. Distribuibile come skill Claude Code, plugin marketplace, o prompt universale per qualsiasi LLM. La licenza duale offre uso gratuito per scopi non commerciali con attribuzione CC BY-NC 4.0, e una licenza commerciale al costo di un aperitivo. Un caff&egrave;, una licenza. Salute!
+  </p>
+
+  <h2 class="h2-it">Metodi di Distribuzione</h2>
+  <table class="tbl-it">
+    <thead><tr><th>Metodo</th><th>Installazione</th><th>Ambito</th><th>Stato</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Skill Globale</strong></td><td><code>cp skills/kimera/ ~/.claude/skills/</code></td><td>Tutti i progetti</td><td><span class="b b-ok">ATTIVO</span></td></tr>
+      <tr><td><strong>Skill Progetto</strong></td><td><code>cp skills/kimera/ .claude/skills/</code></td><td>Singolo progetto</td><td><span class="b b-ok">ATTIVO</span></td></tr>
+      <tr><td><strong>Plugin</strong></td><td><code>/plugin install kimera</code></td><td>Marketplace Claude</td><td><span class="b b-n">NUOVO</span></td></tr>
+      <tr><td><strong>Prompt Universale</strong></td><td>Copia come system prompt</td><td>Qualsiasi LLM</td><td><span class="b b-i">UNIVERSALE</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="h2-it">Metriche Chiave</h2>
+  <div class="kpi">
+    <div class="kc itg"><div class="kv">1</div><div class="kl">Aperitivo = Licenza</div></div>
+    <div class="kc"><div class="kv">3</div><div class="kl">Lingue</div></div>
+    <div class="kc itr"><div class="kv">4</div><div class="kl">Metodi Distribuzione</div></div>
+    <div class="kc itg"><div class="kv">&infin;</div><div class="kl">Documenti Formattabili</div></div>
+  </div>
+
+  <h2 class="h2-it">Flusso di Lavoro</h2>
+  <div class="workflow">
+    <span class="wf-step">Utente</span><span class="wf-arrow">&rarr;</span>
+    <span class="wf-step wf-it">/kimera</span><span class="wf-arrow">&rarr;</span>
+    <span class="wf-step">Configura</span><span class="wf-arrow">&rarr;</span>
+    <span class="wf-step">Parsa</span><span class="wf-arrow">&rarr;</span>
+    <span class="wf-step wf-hl">Formatta</span><span class="wf-arrow">&rarr;</span>
+    <span class="wf-step">.md.html</span><span class="wf-arrow">&rarr;</span>
+    <span class="wf-step wf-it">Stampa / Modifica</span>
+  </div>
+
+  <h2 class="h2-it">Struttura del Progetto</h2>
+  <table class="tbl-it">
+    <thead><tr><th>File</th><th>Descrizione</th><th>Tipo</th></tr></thead>
+    <tbody>
+      <tr><td><code>skills/kimera/SKILL.md</code></td><td>Skill nativa Claude Code con template completo</td><td><span class="b b-i">SKILL</span></td></tr>
+      <tr><td><code>.claude-plugin/plugin.json</code></td><td>Manifesto plugin per distribuzione marketplace</td><td><span class="b b-n">PLUGIN</span></td></tr>
+      <tr><td><code>kimera-universal-prompt.md</code></td><td>System prompt per ChatGPT, Gemini, Llama</td><td><span class="b b-w">PROMPT</span></td></tr>
+      <tr><td><code>LICENSE</code></td><td>CC BY-NC 4.0 + Aperitivo License commerciale</td><td><span class="b b-err">LEGALE</span></td></tr>
+      <tr><td><code>README.md</code></td><td>Documentazione trilingue EN/PT-BR/IT</td><td><span class="b b-i">DOCS</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="bx bx-o">
+    <strong>Licenza Aperitivo:</strong> Uso commerciale? Offrimi un aperitivo su <strong>buymeacoffee.com/bottega.alu</strong>. Un caff&egrave;, una licenza. Uso non commerciale gratuito con attribuzione &ldquo;Based on Kimera&reg; by Francesco Trani&rdquo;. Salute!
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-l">Kimera&reg; &mdash; Bottega Alu</div>
+    <div class="ftr-c">RISERVATO &mdash; &copy; Frisco / Bottega Alu 2026</div>
+    <div class="ftr-r">Page 4 / 5</div>
+  </div>
+</div>
+
+<!-- ==================== PAGE 5 — DESIGN SYSTEM & AUTHOR ==================== -->
+<div class="page">
+  <div class="hdr">
+    <div class="hdr-left">
+      <h1>Kimera&reg; Showcase</h1>
+      <div class="sub">Design System &mdash; Palette, Typography &amp; Components</div>
+    </div>
+    <div class="hdr-right">
+      <div class="dt">February 21, 2026 &mdash; 12:00 CET</div>
+      <div>Ref: <strong>KIMERA-DEMO-2026-02-21</strong></div>
+      <div>Author: <strong>Frisco &mdash; Bottega Alu</strong></div>
+    </div>
+  </div>
+  <div class="conf">&#9888; CONFIDENTIAL &mdash; Intellectual Property of Frisco / Bottega Alu &mdash; Unauthorized distribution prohibited &#9888;</div>
+
+  <h2>5-Color Semantic Palette</h2>
+  <div class="palette">
+    <div class="swatch"><div class="sw-block" style="background:#0d47a1;"></div><div class="sw-hex" style="color:#0d47a1;">#0d47a1</div><div class="sw-role">Primary</div></div>
+    <div class="swatch"><div class="sw-block" style="background:#2e7d32;"></div><div class="sw-hex" style="color:#2e7d32;">#2e7d32</div><div class="sw-role">Success</div></div>
+    <div class="swatch"><div class="sw-block" style="background:#e65100;"></div><div class="sw-hex" style="color:#e65100;">#e65100</div><div class="sw-role">Warning</div></div>
+    <div class="swatch"><div class="sw-block" style="background:#c62828;"></div><div class="sw-hex" style="color:#c62828;">#c62828</div><div class="sw-role">Error</div></div>
+    <div class="swatch"><div class="sw-block" style="background:#6a1b9a;"></div><div class="sw-hex" style="color:#6a1b9a;">#6a1b9a</div><div class="sw-role">Accent</div></div>
+  </div>
+
+  <h2>Badge System</h2>
+  <p style="margin: 4px 0 8px 0;">
+    <span class="b b-ok">OK / DONE</span>&ensp;
+    <span class="b b-w">WARNING / P1</span>&ensp;
+    <span class="b b-err">ERROR / P0</span>&ensp;
+    <span class="b b-i">INFO / ACTIVE</span>&ensp;
+    <span class="b b-n">NEW / SPECIAL</span>
+  </p>
+  <div class="bx bx-b" style="font-size: 7.5pt;">Every badge uses the <strong>triad pattern</strong>: background color + border color + text color. This ensures accessibility &mdash; readable even without color perception. Never use color alone to convey meaning.</div>
+
+  <h2>Info Boxes</h2>
+  <div class="bx bx-b"><strong>Blue / Info:</strong> General information, tips, and neutral callouts for the reader.</div>
+  <div class="bx bx-g"><strong>Green / Success:</strong> Positive outcomes, completed items, healthy status indicators.</div>
+  <div class="bx bx-o"><strong>Orange / Warning:</strong> Attention required, important caveats, P1 priority items.</div>
+  <div class="bx bx-r"><strong>Red / Error:</strong> Critical issues, P0 blockers, confidential notices, breaking changes.</div>
+
+  <h2>Typography Scale</h2>
+  <div class="typo-row"><span class="typo-size">15pt</span> <span class="typo-sample" style="font-size:15pt; font-weight:700;">Page Title (h1)</span></div>
+  <div class="typo-row"><span class="typo-size">11pt</span> <span class="typo-sample" style="font-size:11pt; font-weight:700;">Section Heading (h2)</span></div>
+  <div class="typo-row"><span class="typo-size">9.5pt</span> <span class="typo-sample" style="font-size:9.5pt; font-weight:600;">Subsection (h3)</span></div>
+  <div class="typo-row"><span class="typo-size">9pt</span> <span class="typo-sample" style="font-size:9pt;">Body text &mdash; the standard reading size for content</span></div>
+  <div class="typo-row"><span class="typo-size">8pt</span> <span class="typo-sample" style="font-size:8pt;">Table content, info boxes, compact sections</span></div>
+  <div class="typo-row"><span class="typo-size">7pt</span> <span class="typo-sample" style="font-size:7pt;">Footer text, badge labels, metadata</span></div>
+  <div class="typo-row"><span class="typo-size">6.5pt</span> <span class="typo-sample" style="font-size:6.5pt;">Legal text, fine print, copyright notices</span></div>
+
+  <div class="author-block">
+    <div class="label">Document Author</div>
+    <div class="name">Frisco &mdash; Bottega Alu</div>
+    <div class="org">github.com/Bottega-Alu/kimera</div>
+    <div class="legal">&#9888; CONFIDENTIAL &mdash; All intellectual property contained in this document belongs to the author. Unauthorized reproduction, distribution, or use is strictly prohibited. &mdash; Kimera&reg; is a trademark of Francesco Trani.</div>
+  </div>
+
+  <div class="ftr">
+    <div class="ftr-l">Kimera&reg; &mdash; Bottega Alu</div>
+    <div class="ftr-c">CONFIDENTIAL &mdash; &copy; Frisco / Bottega Alu 2026</div>
+    <div class="ftr-r">Page 5 / 5</div>
+  </div>
+</div>
+
+</body>
+</html>

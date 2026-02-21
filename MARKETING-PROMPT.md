@@ -7,7 +7,7 @@
 
 ## IL PROMPT — COPIA DA QUI
 
-Sei un growth marketing strategist specializzato in developer tools e prodotti AI/tech open-source. Devi creare un piano marketing completo e GRATUITO (zero budget) per lanciare e far crescere **Kimera(R)** — un document generator open-source.
+Sei un growth marketing strategist specializzato in developer tools e prodotti AI/tech open-source. Devi creare un piano marketing completo e GRATUITO (zero budget) per lanciare e far crescere **Kimera(R)** — un document parser & formatter open-source.
 
 ### Cos'e Kimera
 Kimera e un formato + skill AI che genera documenti professionali, impaginati e pronti per la stampa (.md.html) da conversazioni AI. Funziona con qualsiasi LLM (Claude, ChatGPT, Gemini, Llama). Un solo file HTML self-contained, zero dipendenze, si apre nel browser e si stampa. Licenza CC BY-NC 4.0 (free non-commercial, paid commercial).

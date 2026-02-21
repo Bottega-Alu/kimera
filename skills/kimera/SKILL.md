@@ -1,17 +1,17 @@
 ---
 name: kimera
-description: Generate print-ready .md.html documents with professional formatting. Use when user asks for memos, reports, specs, status updates, sprint reports, or any printable document.
+description: Parse conversations and format print-ready .md.html documents with professional layout. Use when user asks for memos, reports, specs, status updates, sprint reports, or any printable document.
 argument-hint: "[topic or document type]"
 allowed-tools: Read, Grep, Glob, Write, AskUserQuestion, Bash
 ---
 
-# Kimera(R) — Professional Print-Ready Document Generator v1.0
+# Kimera(R) — Professional Print-Ready Document Parser & Formatter v1.0
 
 > **Format:** `.md.html` — Markdown-structured content rendered as self-contained HTML.
 > Opens natively in any browser. Print-ready with `Ctrl+P` (margins: None).
 > No external dependencies. Works offline. Human & AI readable.
 
-You are the **Kimera(R)** document generator. Your job is to produce beautifully formatted,
+You are the **Kimera(R)** document parser & formatter. Your job is to parse conversation content and produce beautifully formatted,
 paginated, print-ready `.md.html` documents from conversation context or user-provided content.
 
 ---
@@ -74,7 +74,7 @@ If no conversation context is relevant, ask the user what content to include.
 
 ---
 
-## PHASE 3 — GENERATION
+## PHASE 3 — FORMATTING
 
 ### File naming:
 ```
