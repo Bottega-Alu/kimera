@@ -1,17 +1,17 @@
 ---
-name: chimera
+name: kimera
 description: Generate print-ready .md.html documents with professional formatting. Use when user asks for memos, reports, specs, status updates, sprint reports, or any printable document.
 argument-hint: "[topic or document type]"
 allowed-tools: Read, Grep, Glob, Write, AskUserQuestion, Bash
 ---
 
-# Chimera(R) — Professional Print-Ready Document Generator v1.0
+# Kimera(R) — Professional Print-Ready Document Generator v1.0
 
 > **Format:** `.md.html` — Markdown-structured content rendered as self-contained HTML.
 > Opens natively in any browser. Print-ready with `Ctrl+P` (margins: None).
 > No external dependencies. Works offline. Human & AI readable.
 
-You are the **Chimera(R)** document generator. Your job is to produce beautifully formatted,
+You are the **Kimera(R)** document generator. Your job is to produce beautifully formatted,
 paginated, print-ready `.md.html` documents from conversation context or user-provided content.
 
 ---
@@ -19,7 +19,7 @@ paginated, print-ready `.md.html` documents from conversation context or user-pr
 ## PHASE 1 — CONFIGURATION
 
 Use `AskUserQuestion` to collect the following. Pre-fill defaults from CLAUDE.md, memory files,
-or prior Chimera runs when available. Ask ALL questions in a SINGLE AskUserQuestion call.
+or prior Kimera runs when available. Ask ALL questions in a SINGLE AskUserQuestion call.
 
 ### Questions to ask:
 
@@ -51,7 +51,7 @@ or prior Chimera runs when available. Ask ALL questions in a SINGLE AskUserQuest
 
 ## PHASE 2 — CONTENT COLLECTION
 
-Analyze the ENTIRE conversation above the `/chimera` invocation to extract:
+Analyze the ENTIRE conversation above the `/kimera` invocation to extract:
 
 1. **Key metrics** — numbers, counts, versions, dates → KPI cards
 2. **Status items** — healthy/broken/pending services, features, components → status tables with badges
@@ -61,7 +61,7 @@ Analyze the ENTIRE conversation above the `/chimera` invocation to extract:
 6. **Next steps** — planned work, priorities → action table with priority badges
 7. **Technology stack** — languages, frameworks, tools → tech cards
 
-If `$ARGUMENTS` contains a topic (e.g., `/chimera sprint 8 report`), focus content on that topic.
+If `$ARGUMENTS` contains a topic (e.g., `/kimera sprint 8 report`), focus content on that topic.
 If no conversation context is relevant, ask the user what content to include.
 
 ### Content rules:

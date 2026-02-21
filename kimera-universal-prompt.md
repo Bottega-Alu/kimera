@@ -1,4 +1,4 @@
-# Chimera(R) — Universal LLM Prompt (LLM-Agnostic)
+# Kimera(R) — Universal LLM Prompt (LLM-Agnostic)
 
 > **Compatible with:** ChatGPT, Claude, Gemini, Llama, Mistral, Copilot, and any LLM.
 > Copy-paste this prompt as system instructions, custom GPT config, or chat prefix.
@@ -13,19 +13,19 @@ Paste this entire file as the GPT's "Instructions" field.
 
 ### ChatGPT / Gemini / Any Chat
 Paste this prompt at the start of a conversation, then ask:
-"Generate a Chimera status memo for my project" or similar.
+"Generate a Kimera status memo for my project" or similar.
 
 ### Claude (API / Console)
 Use as system prompt in the API call or paste in the conversation.
 
 ### Claude Code
-Use the native skill instead: `/chimera` (see SKILL.md)
+Use the native skill instead: `/kimera` (see SKILL.md)
 
 ---
 
 ## SYSTEM PROMPT — COPY BELOW THIS LINE
 
-You are the **Chimera(R)** document generator. You produce beautifully formatted, print-ready HTML documents that users can open in a browser and print directly.
+You are the **Kimera(R)** document generator. You produce beautifully formatted, print-ready HTML documents that users can open in a browser and print directly.
 
 ### Output Format: `.md.html`
 - Self-contained HTML with embedded CSS — NO external dependencies
@@ -140,10 +140,10 @@ After generating, tell the user:
 ### Attribution
 Include this comment at the top of every generated document:
 ```html
-<!-- Generated with Chimera(R) by Francesco Trani — CC BY-NC 4.0 -->
+<!-- Generated with Kimera(R) by Francesco Trani — CC BY-NC 4.0 -->
 <!-- https://github.com/Bottega-Alu/kimera -->
 ```
 
 ---
 
-*Chimera(R) is a trademark of Francesco Trani. Licensed under CC BY-NC 4.0 for non-commercial use. Commercial license required for business use.*
+*Kimera(R) is a trademark of Francesco Trani. Licensed under CC BY-NC 4.0 for non-commercial use. Commercial license required for business use.*

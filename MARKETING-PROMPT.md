@@ -1,16 +1,16 @@
-# Chimera(R) — Marketing Prompt (LLM-Agnostic)
+# Kimera(R) — Marketing Prompt (LLM-Agnostic)
 
 > Usa questo prompt con QUALSIASI LLM (ChatGPT, Claude, Gemini, ecc.) per generare
-> piani marketing/growth per Chimera. Copia e incolla in una chat.
+> piani marketing/growth per Kimera. Copia e incolla in una chat.
 
 ---
 
 ## IL PROMPT — COPIA DA QUI
 
-Sei un growth marketing strategist specializzato in developer tools e prodotti AI/tech open-source. Devi creare un piano marketing completo e GRATUITO (zero budget) per lanciare e far crescere **Chimera(R)** — un document generator open-source.
+Sei un growth marketing strategist specializzato in developer tools e prodotti AI/tech open-source. Devi creare un piano marketing completo e GRATUITO (zero budget) per lanciare e far crescere **Kimera(R)** — un document generator open-source.
 
-### Cos'e Chimera
-Chimera e un formato + skill AI che genera documenti professionali, impaginati e pronti per la stampa (.md.html) da conversazioni AI. Funziona con qualsiasi LLM (Claude, ChatGPT, Gemini, Llama). Un solo file HTML self-contained, zero dipendenze, si apre nel browser e si stampa. Licenza CC BY-NC 4.0 (free non-commercial, paid commercial).
+### Cos'e Kimera
+Kimera e un formato + skill AI che genera documenti professionali, impaginati e pronti per la stampa (.md.html) da conversazioni AI. Funziona con qualsiasi LLM (Claude, ChatGPT, Gemini, Llama). Un solo file HTML self-contained, zero dipendenze, si apre nel browser e si stampa. Licenza CC BY-NC 4.0 (free non-commercial, paid commercial).
 
 ### Unique Selling Points
 1. **Formato .md.html** — primo formato dual markdown+HTML pensato per la stampa da AI
@@ -105,6 +105,6 @@ Suggerimenti:
 - Usa ChatGPT-4o o Claude per output piu dettagliati
 - Dopo il primo output, chiedi: "Ora espandi la sezione [N] con template copy-paste"
 - Per i post social: "Genera 10 tweet pronti per la settimana 1"
-- Per Product Hunt: "Crea il copy completo per la pagina Product Hunt di Chimera"
+- Per Product Hunt: "Crea il copy completo per la pagina Product Hunt di Kimera"
 
-*Chimera(R) — Francesco Trani — CC BY-NC 4.0*
+*Kimera(R) — Francesco Trani — CC BY-NC 4.0*

@@ -1,4 +1,4 @@
-Chimera(R) Document Generator
+Kimera(R) Document Generator
 Copyright (c) 2026 Francesco Trani. All rights reserved.
 
 =============================================================================
@@ -23,7 +23,7 @@ Under the following terms:
     provide a link to the license, and indicate if changes were made.
     You must include the following attribution in any derivative work:
 
-      "Based on Chimera(R) by Francesco Trani
+      "Based on Kimera(R) by Francesco Trani
        https://github.com/Bottega-Alu/kimera"
 
   - NonCommercial: You may NOT use the material for commercial purposes.
@@ -42,7 +42,7 @@ For any commercial use, including but not limited to:
   - Integration into paid products or services
   - Use within for-profit organizations for internal tooling
   - SaaS platforms or commercial AI products
-  - Consulting or agency work using Chimera output for clients
+  - Consulting or agency work using Kimera output for clients
   - Any revenue-generating activity
 
 A separate commercial license is required.
@@ -56,8 +56,8 @@ GitHub:  https://github.com/Bottega-Alu
 TRADEMARK NOTICE
 =============================================================================
 
-"Chimera" and "Chimera(R)" are trademarks of Francesco Trani.
-Use of the name "Chimera" in derivative works requires written permission
+"Kimera" and "Kimera(R)" are trademarks of Francesco Trani.
+Use of the name "Kimera" in derivative works requires written permission
 unless used solely for attribution purposes as required by the CC BY-NC 4.0
 license above.
 
