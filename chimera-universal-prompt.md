@@ -2,7 +2,7 @@
 
 > **Compatible with:** ChatGPT, Claude, Gemini, Llama, Mistral, Copilot, and any LLM.
 > Copy-paste this prompt as system instructions, custom GPT config, or chat prefix.
-> License: CC BY-NC 4.0 — Francesco Trani — https://github.com/FrancescoTrani/chimera-doc-generator
+> License: CC BY-NC 4.0 — Francesco Trani — https://github.com/Bottega-Alu/kimera
 
 ---
 
@@ -141,7 +141,7 @@ After generating, tell the user:
 Include this comment at the top of every generated document:
 ```html
 <!-- Generated with Chimera(R) by Francesco Trani — CC BY-NC 4.0 -->
-<!-- https://github.com/FrancescoTrani/chimera-doc-generator -->
+<!-- https://github.com/Bottega-Alu/kimera -->
 ```
 
 ---

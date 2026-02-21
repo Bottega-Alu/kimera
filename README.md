@@ -31,7 +31,7 @@ Chimera is a **document format and AI skill** that generates professional, pagin
 
 ```bash
 # Install as plugin
-claude /plugin install chimera-doc-generator
+claude /plugin install kimera
 
 # Or copy to your project
 cp -r skills/chimera/ your-project/.claude/skills/chimera/
@@ -134,7 +134,7 @@ These rules solve real print-layout bugs discovered through iteration:
 ## Project Structure
 
 ```
-chimera-doc-generator/
+kimera/
 ├── .claude-plugin/
 │   └── plugin.json              # Plugin manifest for Claude Code
 ├── skills/
@@ -155,8 +155,8 @@ chimera-doc-generator/
 
 ```bash
 # From GitHub
-/plugin marketplace add FrancescoTrani/chimera-doc-generator
-/plugin install chimera-doc-generator
+/plugin marketplace add Bottega-Alu/kimera
+/plugin install kimera
 
 # From local directory
 claude --plugin-dir ./chimera-plugin
@@ -197,8 +197,8 @@ git commit -m "feat: add Chimera document generator skill"
 
 **Attribution required** (non-commercial use):
 ```
-Based on Chimera(R) by Francesco Trani
-https://github.com/FrancescoTrani/chimera-doc-generator
+Based on Kimera(R) by Francesco Trani
+https://github.com/Bottega-Alu/kimera
 ```
 
 **Chimera(R)** is a trademark of Francesco Trani.
@@ -208,7 +208,7 @@ https://github.com/FrancescoTrani/chimera-doc-generator
 ## Author
 
 **Francesco Trani**
-- GitHub: [@FrancescoTrani](https://github.com/FrancescoTrani)
+- GitHub: [@Bottega-Alu](https://github.com/Bottega-Alu)
 
 ---
 
