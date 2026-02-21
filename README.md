@@ -5,6 +5,7 @@
 > **PT** Transforme qualquer conversa de IA em um documento profissional, pronto para impressao.
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
+[![Buy Me an Aperitivo](https://img.shields.io/badge/Buy%20Me%20an%20Aperitivo-FFDD00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/bottega.alu)
 
 ---
 
@@ -245,7 +246,15 @@ git commit -m "feat: add Kimera document generator skill"
 | Use Case | License | Cost |
 |----------|---------|------|
 | Personal, educational, open-source | CC BY-NC 4.0 | Free (with attribution) |
-| Commercial use | Commercial License | Contact author |
+| Commercial use | Aperitivo License | [Buy me an aperitivo](https://buymeacoffee.com/bottega.alu) |
+
+> **Commercial license = buy the author an aperitivo.** That's it. One coffee, one license. Salute!
+>
+> *Licenza commerciale = offrimi un aperitivo. Tutto qui. Un caffe, una licenza. Salute!*
+>
+> *Licenca comercial = me pague um aperitivo. So isso. Um cafe, uma licenca. Saude!*
+>
+> [![Buy Me an Aperitivo](https://img.shields.io/badge/Buy%20Me%20an%20Aperitivo-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/bottega.alu)
 
 **Attribution required** (non-commercial use):
 ```
@@ -261,6 +270,7 @@ https://github.com/Bottega-Alu/kimera
 
 **Francesco Trani**
 - GitHub: [@Bottega-Alu](https://github.com/Bottega-Alu)
+- Aperitivo: [buymeacoffee.com/bottega.alu](https://buymeacoffee.com/bottega.alu)
 
 ---
 
