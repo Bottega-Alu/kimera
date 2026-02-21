@@ -1,0 +1,15 @@
+{
+  "name": "chimera-doc-generator",
+  "description": "Chimera(R) — Professional print-ready .md.html document generator. Creates beautifully formatted, paginated documents from AI conversations. Zero dependencies, works offline, opens in any browser.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Francesco Trani",
+    "url": "https://github.com/FrancescoTrani"
+  },
+  "license": "CC-BY-NC-4.0",
+  "keywords": ["document", "print", "pdf", "memo", "report", "formatting", "chimera"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FrancescoTrani/chimera-doc-generator"
+  }
+}

@@ -1,0 +1,375 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>LEXE Platform — Status Memo — 2026-02-21</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 9pt;
+    line-height: 1.4;
+    color: #1a1a2e;
+    background: #e0e0e0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── PAGE ── */
+  .page {
+    width: 210mm;
+    height: 297mm;
+    padding: 14mm 16mm 18mm 16mm;
+    margin: 4mm auto;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0,0,0,.15);
+  }
+  @media print {
+    body { background: #fff; }
+    .page { margin: 0; box-shadow: none; page-break-after: always; }
+    .page:last-child { page-break-after: avoid; }
+  }
+
+  /* ── HEADER ── */
+  .hdr {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2.5px solid #0d47a1;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+  }
+  .hdr-left h1 { font-size: 15pt; font-weight: 700; color: #0d47a1; }
+  .hdr-left .sub { font-size: 8pt; color: #546e7a; margin-top: 1px; }
+  .hdr-right { text-align: right; font-size: 7.5pt; color: #455a64; line-height: 1.45; }
+  .hdr-right .dt { font-weight: 700; color: #0d47a1; font-size: 8.5pt; }
+
+  /* ── CONFIDENTIAL ── */
+  .conf {
+    background: #b71c1c;
+    color: #fff;
+    text-align: center;
+    padding: 4px 0;
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  /* ── FOOTER ── */
+  .ftr {
+    position: absolute;
+    bottom: 10mm;
+    left: 16mm;
+    right: 16mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1.5px solid #0d47a1;
+    padding-top: 4px;
+    font-size: 7pt;
+    color: #546e7a;
+  }
+  .ftr-l { font-weight: 600; color: #0d47a1; }
+  .ftr-c { color: #b71c1c; font-weight: 700; letter-spacing: .8px; font-size: 6.5pt; }
+  .ftr-r { font-weight: 600; }
+
+  /* ── SECTIONS ── */
+  h2 {
+    font-size: 11pt;
+    color: #0d47a1;
+    border-left: 3.5px solid #1565c0;
+    padding-left: 8px;
+    margin: 11px 0 6px 0;
+    font-weight: 700;
+  }
+  h3 { font-size: 9.5pt; color: #1565c0; margin: 8px 0 4px 0; font-weight: 600; }
+
+  /* ── TABLES ── */
+  table { width: 100%; border-collapse: collapse; margin: 4px 0 8px 0; font-size: 8pt; }
+  thead th {
+    background: #0d47a1;
+    color: #fff;
+    padding: 4px 6px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+  }
+  tbody td { padding: 3.5px 6px; border-bottom: 1px solid #e0e0e0; }
+  tbody tr:nth-child(even) { background: #f5f7fa; }
+
+  /* ── BADGES ── */
+  .b { display: inline-block; padding: 1px 6px; border-radius: 8px; font-size: 6.5pt; font-weight: 700; }
+  .b-ok  { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+  .b-w   { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+  .b-err { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+  .b-i   { background: #e3f2fd; color: #0d47a1; border: 1px solid #90caf9; }
+  .b-n   { background: #f3e5f5; color: #6a1b9a; border: 1px solid #ce93d8; }
+
+  /* ── BOXES ── */
+  .bx { border-radius: 4px; padding: 6px 10px; margin: 5px 0; font-size: 8pt; }
+  .bx-b { background: #e3f2fd; border-left: 3px solid #1565c0; }
+  .bx-g { background: #e8f5e9; border-left: 3px solid #2e7d32; }
+  .bx-r { background: #ffebee; border-left: 3px solid #c62828; }
+
+  /* ── KPI CARDS ── */
+  .kpi { display: flex; gap: 8px; margin: 8px 0 10px 0; }
+  .kc {
+    flex: 1; background: #f5f7fa; border: 1px solid #e0e0e0;
+    border-top: 3px solid #1565c0; border-radius: 0 0 4px 4px;
+    padding: 7px 6px; text-align: center;
+  }
+  .kc.g { border-top-color: #2e7d32; }
+  .kc.o { border-top-color: #e65100; }
+  .kc.p { border-top-color: #6a1b9a; }
+  .kv { font-size: 16pt; font-weight: 700; color: #0d47a1; line-height: 1; }
+  .kc.g .kv { color: #2e7d32; }
+  .kc.o .kv { color: #e65100; }
+  .kc.p .kv { color: #6a1b9a; }
+  .kl { font-size: 6.5pt; color: #78909c; text-transform: uppercase; letter-spacing: .4px; margin-top: 2px; }
+
+  strong { color: #0d47a1; }
+  .hl { background: #e8f5e9; }
+</style>
+
+</head>
+<body>
+
+<!-- ═══════════════════ PAGE 1 / 3 ═══════════════════ -->
+
+<div class="page">
+
+<div class="hdr">
+    <div class="hdr-left">
+      <h1>LEXE Platform — Status Memo</h1>
+      <div class="sub">Infrastructure, services & knowledge base operational overview</div>
+    </div>
+    <div class="hdr-right">
+      <div class="dt">21 February 2026 — 14:30 CET</div>
+      <div>Ref: <strong>LEXE-MEMO-2026-0221</strong></div>
+      <div>Author: <strong>Francesco Trani</strong></div>
+    </div>
+  </div>
+  <div class="conf">&#9888; CONFIDENTIAL — Intellectual Property of Francesco Trani — Unauthorized distribution prohibited &#9888;</div>
+
+<div class="kpi">
+    <div class="kc"><div class="kv">12</div><div class="kl">Prod Containers</div></div>
+    <div class="kc g"><div class="kv">12</div><div class="kl">Repositories</div></div>
+    <div class="kc o"><div class="kv">9</div><div class="kl">Stage Containers</div></div>
+    <div class="kc p"><div class="kv">8</div><div class="kl">Sprints Done</div></div>
+  </div>
+
+<h2>1. Infrastructure</h2>
+  <table>
+    <thead><tr><th>Environment</th><th>Server</th><th>Containers</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Production</strong></td><td>49.12.85.92 (Hetzner)</td><td>12</td><td><span class="b b-ok">&#10003; All Healthy</span></td></tr>
+      <tr><td><strong>Staging</strong></td><td>91.99.229.111 (Hetzner)</td><td>9</td><td><span class="b b-ok">&#10003; All Healthy</span></td></tr>
+    </tbody>
+  </table>
+
+<h3>Production Container Stack</h3>
+  <table>
+    <thead><tr><th>Container</th><th>Role</th><th>Port</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>lexe-core</td><td>API Gateway + Auth OIDC + Admin API</td><td>8000</td><td><span class="b b-ok">Healthy</span></td></tr>
+      <tr><td>lexe-webchat</td><td>Frontend Chat UI</td><td>3013</td><td><span class="b b-ok">Healthy</span></td></tr>
+      <tr><td>lexe-logto</td><td>CIAM Auth (OIDC)</td><td>3001</td><td><span class="b b-ok">Healthy</span></td></tr>
+      <tr><td>lexe-litellm</td><td>LLM Gateway</td><td>4000</td><td><span class="b b-ok">Healthy</span></td></tr>
+      <tr><td>lexe-max</td><td>KB Legal (normativa, massime, embeddings)</td><td>5436</td><td><span class="b b-ok">Healthy</span></td></tr>
+      <tr><td>lexe-tools</td><td>Legal Tools API (Normattiva, EUR-Lex)</td><td>8020</td><td><span class="b b-ok">Healthy</span></td></tr>
+      <tr><td>lexe-memory</td><td>Memory L0-L4 + Brainprint</td><td>8103</td><td><span class="b b-ok">Healthy</span></td></tr>
+      <tr><td>lexe-orchestrator</td><td>ORCHIDEA Pipeline</td><td>8002</td><td><span class="b b-i">FF Off</span></td></tr>
+      <tr><td>lexe-postgres</td><td>DB System (core, memory)</td><td>5435</td><td><span class="b b-ok">Healthy</span></td></tr>
+      <tr><td>lexe-valkey</td><td>Cache / Session L1</td><td>6379</td><td><span class="b b-ok">Healthy</span></td></tr>
+      <tr><td>lexe-temporal</td><td>Workflow Orchestration</td><td>7233</td><td><span class="b b-ok">Healthy</span></td></tr>
+      <tr><td>lexe-temporal-ui</td><td>Temporal Dashboard</td><td>8080</td><td><span class="b b-ok">Healthy</span></td></tr>
+    </tbody>
+  </table>
+
+<h3>Service URLs</h3>
+  <table>
+    <thead><tr><th>Service</th><th>Production</th><th>Staging</th></tr></thead>
+    <tbody>
+      <tr><td>Webchat</td><td>https://ai.lexe.pro</td><td>https://stage-chat.lexe.pro</td></tr>
+      <tr><td>API</td><td>https://api.lexe.pro</td><td>https://api.stage.lexe.pro</td></tr>
+      <tr><td>Auth OIDC</td><td>https://auth.lexe.pro</td><td>https://auth.stage.lexe.pro</td></tr>
+      <tr><td>LLM Gateway</td><td>https://llm.lexe.pro</td><td>https://llm.stage.lexe.pro</td></tr>
+    </tbody>
+  </table>
+
+<div class="ftr">
+    <div class="ftr-l">LEXE Legal AI Platform</div>
+    <div class="ftr-c">CONFIDENTIAL — © Francesco Trani 2026</div>
+    <div class="ftr-r">Page 1 / 3</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ PAGE 2 / 3 ═══════════════════ -->
+
+<div class="page">
+
+<div class="hdr">
+    <div class="hdr-left">
+      <h1>LEXE Platform — Status Memo</h1>
+      <div class="sub">Repositories, completed sprints & legal knowledge base</div>
+    </div>
+    <div class="hdr-right">
+      <div class="dt">21 February 2026 — 14:30 CET</div>
+      <div>Author: <strong>Francesco Trani</strong></div>
+    </div>
+  </div>
+  <div class="conf">&#9888; CONFIDENTIAL — Intellectual Property of Francesco Trani — Unauthorized distribution prohibited &#9888;</div>
+
+<h2>2. Repositories (12)</h2>
+  <table>
+    <thead><tr><th>Repository</th><th>Branch</th><th>Last Commit</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><strong>lexe-admin</strong></td><td>stage</td><td>Fix OIDC callback (useHandleSignInCallback)</td><td><span class="b b-n">New</span></td></tr>
+      <tr><td><strong>lexe-core</strong></td><td>stage</td><td>Sanitize deepening labels, cap follow-ups to 3</td><td><span class="b b-ok">Active</span></td></tr>
+      <tr><td><strong>lexe-webchat</strong></td><td>stage</td><td>Null-safe DeepeningChips (tools optional)</td><td><span class="b b-ok">Active</span></td></tr>
+      <tr><td><strong>lexe-max</strong></td><td>stage</td><td>Migration 075 — align prod massimari schema</td><td><span class="b b-ok">Active</span></td></tr>
+      <tr><td><strong>lexe-tools-it</strong></td><td>stage</td><td>Fix asyncpg vector type for embeddings</td><td><span class="b b-ok">Active</span></td></tr>
+      <tr><td><strong>lexe-memory</strong></td><td>stage</td><td>Content-based dedup L1 working memory</td><td><span class="b b-ok">Active</span></td></tr>
+      <tr><td><strong>lexe-infra</strong></td><td>stage</td><td>Dedicated Logto app ID for admin</td><td><span class="b b-ok">Active</span></td></tr>
+      <tr><td><strong>lexe-orchestrator</strong></td><td>stage</td><td>Add uv.lock</td><td><span class="b b-i">Stable</span></td></tr>
+      <tr><td><strong>lexe-privacy</strong></td><td>stage</td><td>Standardize lint + ruff format</td><td><span class="b b-i">Stable</span></td></tr>
+      <tr><td><strong>lexe-tools-br</strong></td><td>main</td><td>Repository map placeholder</td><td><span class="b b-i">Placeholder</span></td></tr>
+      <tr><td><strong>lexe-docs</strong></td><td>stage</td><td>Uptimer (uptime monitoring) in backlog</td><td><span class="b b-i">Stable</span></td></tr>
+    </tbody>
+  </table>
+
+<h2>3. Completed Sprints</h2>
+  <table>
+    <thead><tr><th>Sprint</th><th>Date</th><th>Scope</th><th>Highlights</th></tr></thead>
+    <tbody>
+      <tr><td><strong>WS5-8</strong></td><td>12-13 Feb</td><td>Legal Tools + DB + Staging</td><td>Normattiva/EUR-Lex, migrations 001-003, auth E2E, follow-ups</td></tr>
+      <tr><td><strong>Admin</strong></td><td>13 Feb</td><td>Backend + Frontend</td><td>33 REST endpoints, RBAC 6 roles, 10 sections, 27 React components</td></tr>
+      <tr><td><strong>Mem S1-4</strong></td><td>14-16 Feb</td><td>lexe-memory full</td><td>Delta L0/L1, Brainprint, DB idempotency, LLM summaries, RLS</td></tr>
+      <tr><td><strong>S3-4</strong></td><td>17 Feb</td><td>Tool Policy + Catalogs</td><td>Execution logs, LiteLLM virtual keys, 3 catalog CRUD (61 endpoints)</td></tr>
+      <tr><td><strong>S6</strong></td><td>18 Feb</td><td>Model Config + LEGIS</td><td>_apply_model_config() 6 call points, 3 LEGIS roles, 430 LOC removed</td></tr>
+      <tr class="hl"><td><strong>MANUS</strong></td><td>19 Feb</td><td>Full Agentic Pipeline</td><td><strong>3,691 LOC</strong> — classifier, parallel agents, auditor, synthesizer, 9 React comp.</td></tr>
+      <tr class="hl"><td><strong>S8</strong></td><td>20 Feb</td><td>Adaptive Pipeline</td><td>Intent Detection 4 levels x 7 scenarios, E2E 6/6 (5.5s-79s)</td></tr>
+      <tr><td><strong>KB</strong></td><td>20 Feb</td><td>Normativa Search</td><td>Hybrid dense+sparse+RRF, V3 schema, 69 codes, 41K embeddings</td></tr>
+    </tbody>
+  </table>
+
+<h2>4. Legal Knowledge Base (lexe-max)</h2>
+  <table>
+    <thead><tr><th>Resource</th><th style="text-align:right">Staging</th><th style="text-align:right">Production</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Codes / Laws (kb.work)</td><td style="text-align:right"><strong>69</strong></td><td style="text-align:right"><strong>95</strong></td><td>Prod includes aliases</td></tr>
+      <tr><td>Articles (kb.normativa)</td><td style="text-align:right"><strong>10,154</strong></td><td style="text-align:right"><strong>13,397</strong></td><td>49 codes in staging</td></tr>
+      <tr><td>Chunks + Embeddings</td><td style="text-align:right"><strong>41,256</strong></td><td style="text-align:right"><strong>17,343</strong></td><td>1536d, text-embedding-3-small</td></tr>
+      <tr><td>FTS (Italian tsvector)</td><td style="text-align:right"><strong>41,256</strong></td><td style="text-align:right"><strong>17,343</strong></td><td>Full-text search</td></tr>
+      <tr><td>Massime (case law)</td><td style="text-align:right"><strong>46,767</strong></td><td style="text-align:right"><strong>46,767</strong></td><td>38,718 active</td></tr>
+      <tr><td>Graph Edges (CITES)</td><td style="text-align:right"><strong>58,737</strong></td><td style="text-align:right"><strong>58,737</strong></td><td>run_id=1 active</td></tr>
+    </tbody>
+  </table>
+
+<div class="ftr">
+    <div class="ftr-l">LEXE Legal AI Platform</div>
+    <div class="ftr-c">CONFIDENTIAL — © Francesco Trani 2026</div>
+    <div class="ftr-r">Page 2 / 3</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ PAGE 3 / 3 ═══════════════════ -->
+
+<div class="page">
+
+<div class="hdr">
+    <div class="hdr-left">
+      <h1>LEXE Platform — Status Memo</h1>
+      <div class="sub">Open issues, architecture & next steps</div>
+    </div>
+    <div class="hdr-right">
+      <div class="dt">21 February 2026 — 14:30 CET</div>
+      <div>Author: <strong>Francesco Trani</strong></div>
+    </div>
+  </div>
+  <div class="conf">&#9888; CONFIDENTIAL — Intellectual Property of Francesco Trani — Unauthorized distribution prohibited &#9888;</div>
+
+<h2>5. Open Issues</h2>
+  <table>
+    <thead><tr><th>Issue</th><th>Sev.</th><th>Description</th><th>Impact</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Memory Extraction</strong></td>
+        <td><span class="b b-err">P0</span></td>
+        <td>"sono rimasta vedova" extracted as "si chiama rimasta". LLM prompt too naive, no semantic validation.</td>
+        <td>Polluted memory, wrong future answers</td>
+      </tr>
+      <tr>
+        <td><strong>Truncated LLM Responses</strong></td>
+        <td><span class="b b-err">P0</span></td>
+        <td>SSE timeout: response 30s, idle 15s. Long answers get cut off.</td>
+        <td>Degraded UX, incomplete responses</td>
+      </tr>
+      <tr>
+        <td><strong>KB codes filter</strong></td>
+        <td><span class="b b-w">P1</span></td>
+        <td>SQL LIMIT type error in kb_normativa_search endpoint.</td>
+        <td>Code filter broken</td>
+      </tr>
+      <tr>
+        <td><strong>404 access-requests</strong></td>
+        <td><span class="b b-i">P2</span></td>
+        <td>LEO-specific endpoint still referenced by webchat.</td>
+        <td>404 in logs, no functional impact</td>
+      </tr>
+    </tbody>
+  </table>
+
+<h2>6. Architecture — Main Flows</h2>
+  <div class="bx bx-b"><strong>Auth:</strong> Browser → Webchat → Logto (OIDC) → JWT w/ org_id → lexe-core validates issuer+audience → resolves tenant via core.tenants.logto_organization_id</div>
+  <div class="bx bx-g"><strong>Chat (Adaptive):</strong> Intent Detection (4 levels x 7 scenarios) → DIRECT | SIMPLE | STANDARD | COMPLEX → Tool calls + KB search → LLM streaming SSE → Follow-ups</div>
+  <div class="bx bx-b"><strong>MANUS (Agentic):</strong> Classifier → Work Plan → Parallel Agents (Norm + Caselaw + Doctrine) → Auditor → Synthesizer (Sec. A-F + NBA) → React rendering</div>
+
+<h2>7. Next Steps</h2>
+  <table>
+    <thead><tr><th>#</th><th>Action</th><th>Priority</th><th>Target</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Fix memory extraction — rework LLM prompt + semantic validation</td><td><span class="b b-err">P0</span></td><td>Sprint 9</td></tr>
+      <tr><td>2</td><td>Fix truncated responses — increase SSE timeouts + investigate backend</td><td><span class="b b-err">P0</span></td><td>Sprint 9</td></tr>
+      <tr><td>3</td><td>Deploy MANUS + Adaptive Pipeline to <strong>production</strong></td><td><span class="b b-w">P1</span></td><td>Post P0 fix</td></tr>
+      <tr><td>4</td><td>Align KB staging ↔ production (chunks/embeddings gap)</td><td><span class="b b-w">P1</span></td><td>Sprint 10</td></tr>
+      <tr><td>5</td><td>Fix kb_normativa_search codes filter (SQL type error)</td><td><span class="b b-w">P1</span></td><td>Sprint 9</td></tr>
+      <tr><td>6</td><td>Admin Panel — complete LLM model config per tenant</td><td><span class="b b-i">P2</span></td><td>Sprint 10</td></tr>
+      <tr><td>7</td><td>Remove residual LEO-specific endpoints from webchat</td><td><span class="b b-i">P2</span></td><td>Sprint 10</td></tr>
+    </tbody>
+  </table>
+
+<h2>8. Technology Stack</h2>
+  <div class="kpi">
+    <div class="kc"><div class="kv" style="font-size:10pt">Python + FastAPI</div><div class="kl">Backend</div></div>
+    <div class="kc g"><div class="kv" style="font-size:10pt">React + TypeScript</div><div class="kl">Frontend</div></div>
+    <div class="kc o"><div class="kv" style="font-size:10pt">PostgreSQL + pgvector</div><div class="kl">Database</div></div>
+    <div class="kc p"><div class="kv" style="font-size:10pt">Docker + Traefik</div><div class="kl">Infra</div></div>
+  </div>
+  <div class="bx bx-b"><strong>Full stack:</strong> Logto (CIAM) · LiteLLM (LLM Gateway) · Valkey (Cache) · Temporal (Workflows) · pgvector (1536d) · text-embedding-3-small · Gemini 2.5 Flash · Hetzner Cloud</div>
+
+<div style="text-align:center; margin-top: 16px; padding: 10px 14px; background: #f5f7fa; border: 1px solid #e0e0e0; border-radius: 4px;">
+    <div style="font-size: 7pt; color: #78909c; text-transform: uppercase; letter-spacing: 1.5px;">Author</div>
+    <div style="font-size: 11pt; font-weight: 700; color: #0d47a1; margin: 3px 0;">Francesco Trani</div>
+    <div style="font-size: 7pt; color: #78909c;">LEXE Legal AI — All rights reserved</div>
+    <div style="font-size: 6.5pt; color: #b71c1c; font-weight: 600; margin-top: 4px; letter-spacing: .4px;">
+      This document contains confidential and proprietary information.<br>Unauthorized reproduction or distribution is strictly prohibited.
+    </div>
+  </div>
+
+<div class="ftr">
+    <div class="ftr-l">LEXE Legal AI Platform</div>
+    <div class="ftr-c">CONFIDENTIAL — © Francesco Trani 2026</div>
+    <div class="ftr-r">Page 3 / 3</div>
+  </div>
+</div>
+
+</body>
+</html>

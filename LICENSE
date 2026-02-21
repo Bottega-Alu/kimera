@@ -1,0 +1,75 @@
+Chimera(R) Document Generator
+Copyright (c) 2026 Francesco Trani. All rights reserved.
+
+=============================================================================
+DUAL LICENSE
+=============================================================================
+
+This work is licensed under TWO separate licenses depending on usage:
+
+
+1. NON-COMMERCIAL USE — Creative Commons BY-NC 4.0
+-----------------------------------------------------------------------------
+
+Licensed under the Creative Commons Attribution-NonCommercial 4.0
+International License (CC BY-NC 4.0).
+
+You are free to:
+  - Share: copy and redistribute the material in any medium or format
+  - Adapt: remix, transform, and build upon the material
+
+Under the following terms:
+  - Attribution: You must give appropriate credit to Francesco Trani,
+    provide a link to the license, and indicate if changes were made.
+    You must include the following attribution in any derivative work:
+
+      "Based on Chimera(R) by Francesco Trani
+       https://github.com/FrancescoTrani/chimera-doc-generator"
+
+  - NonCommercial: You may NOT use the material for commercial purposes.
+
+  - No additional restrictions: You may not apply legal terms or
+    technological measures that legally restrict others from doing
+    anything the license permits.
+
+Full license text: https://creativecommons.org/licenses/by-nc/4.0/legalcode
+
+
+2. COMMERCIAL USE — Commercial License Required
+-----------------------------------------------------------------------------
+
+For any commercial use, including but not limited to:
+  - Integration into paid products or services
+  - Use within for-profit organizations for internal tooling
+  - SaaS platforms or commercial AI products
+  - Consulting or agency work using Chimera output for clients
+  - Any revenue-generating activity
+
+A separate commercial license is required.
+
+Contact: Francesco Trani
+Email:   [INSERT EMAIL]
+GitHub:  https://github.com/FrancescoTrani
+
+
+=============================================================================
+TRADEMARK NOTICE
+=============================================================================
+
+"Chimera" and "Chimera(R)" are trademarks of Francesco Trani.
+Use of the name "Chimera" in derivative works requires written permission
+unless used solely for attribution purposes as required by the CC BY-NC 4.0
+license above.
+
+
+=============================================================================
+DISCLAIMER
+=============================================================================
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
