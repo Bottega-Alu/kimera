@@ -1,4 +1,4 @@
-# Kimera(R) — Professional Print-Ready Document Super Formatter & Viewer
+# Kimera(R) v2.0 — Professional Print-Ready Document Super Formatter & Viewer
 
 > **EN** Parse AI conversations into professional, print-ready HTML documents.
 > **IT** Parsa conversazioni AI in documenti HTML professionali, pronti per la stampa.
@@ -37,11 +37,13 @@ Kimera is a **parser & super formatter** that transforms AI conversations into p
 ### Key Features | Caratteristiche | Recursos
 
 - **Print-perfect** — Fixed-height pages, correct pagination, no phantom blank pages
+- **Footer-safe layout** — `.bd` content wrapper with CSS `max-height` physically prevents footer overlap (v2.0)
 - **Self-contained** — Zero external dependencies (no CDN, no JS, no fonts to load)
 - **Works offline** — Save the file, open it anywhere, anytime
 - **LLM-agnostic** — Works with Claude, ChatGPT, Gemini, Llama, Copilot, and any LLM
 - **Clean structure** — Semantic HTML parseable by both humans and machines
 - **Professional design** — 5-color semantic system, KPI cards, status badges, info boxes
+- **Automated QA** — Playwright-based verification script catches overflow, footer overlap, structural issues (v2.1)
 - **Multi-format** — A4, US Letter, US Legal page sizes
 - **Multi-type** — Status Memos, Sprint Reports, Technical Specs, Custom documents
 - **Word processor compatible** — Open and edit in MS Word, LibreOffice Writer, Google Docs
@@ -168,15 +170,40 @@ These rules solve real print-layout bugs discovered through iteration:
 | # | Rule | Why |
 |---|------|-----|
 | 1 | `height: 297mm` (fixed, not min-height) | Prevents content overflow to extra pages |
-| 2 | `overflow: hidden` on `.page` | Prevents phantom blank pages in print |
+| 2 | `overflow: hidden` on `.page` AND `.bd` | Double protection: no phantom pages + no footer overlap |
 | 3 | `@page { margin: 0 }` | All spacing inside `.page` padding for consistency |
-| 4 | Footer `position: absolute` (not fixed) | `fixed` causes all footers to stack on last page |
-| 5 | Hardcoded `Page N/X` per page | CSS counters are unreliable across print engines |
-| 6 | Header + banner repeated per `.page` div | Manual repetition — CSS can't reliably repeat headers |
-| 7 | `print-color-adjust: exact` | Forces browsers to print background colors |
-| 8 | No external resources | Ensures offline functionality and longevity |
-| 9 | `box-shadow` screen-only | Clean print output via `@media print` removal |
-| 10 | Badge triad (bg + border + text) | Accessibility — readable even without color |
+| 4 | **`.bd` content wrapper is MANDATORY** (v2.0) | CSS `max-height` physically prevents footer overlap — the primary layout safety mechanism |
+| 5 | Footer `position: absolute` (not fixed) | `fixed` causes all footers to stack on last page |
+| 6 | Hardcoded `Page N/X` per page | CSS counters are unreliable across print engines |
+| 7 | Header + banner repeated per `.page` div | Manual repetition — CSS can't reliably repeat headers |
+| 8 | `print-color-adjust: exact` | Forces browsers to print background colors |
+| 9 | No external resources | Ensures offline functionality and longevity |
+| 10 | `box-shadow` screen-only | Clean print output via `@media print` removal |
+| 11 | Badge triad (bg + border + text) | Accessibility — readable even without color |
+| 12 | Page structure: `.hdr` → `.conf` → `.bd` → `.ftr` | Content NEVER outside `.bd` |
+
+### Page Layout (v2.0) | Layout Pagina | Layout de Pagina
+
+```
+.page (fixed height: 297mm A4)
+├── .hdr          Header with title + metadata
+├── .conf         Confidential banner
+├── .bd           Content body (max-height: 218mm A4)
+│   ├── h2, h3    Section headings
+│   ├── table     Data tables
+│   ├── .bx       Info boxes
+│   ├── .kpi      KPI card rows
+│   └── ...       All content goes here
+└── .ftr          Footer (position: absolute, bottom: 8mm)
+```
+
+### Safe Zone per Format | Zone Sicure | Zonas Seguras
+
+| Format | `.bd` max-height | Pixels (96dpi) | Content budget (85-95%) |
+|--------|-----------------|----------------|------------------------|
+| A4 | 218mm | ~824px | 700-780px |
+| US Letter | 200mm | ~756px | 640-720px |
+| US Legal | 277mm | ~1047px | 890-995px |
 
 ---
 
@@ -188,7 +215,7 @@ kimera/
 │   └── plugin.json                # Plugin manifest for Claude Code
 ├── skills/
 │   └── kimera/
-│       └── SKILL.md               # Claude Code native skill
+│       └── SKILL.md               # Claude Code native skill (v2.0)
 ├── kimera-universal-prompt.md     # LLM-agnostic prompt (ChatGPT, Gemini, etc.)
 ├── examples/
 │   └── (example outputs)
@@ -196,6 +223,8 @@ kimera/
 ├── MARKETING-PROMPT.md            # Growth marketing prompt template
 └── README.md                      # This file
 ```
+
+> **QA Script**: Kimera v2.0 includes a Playwright-based QA verification script (`kimera-qa.mjs`) that is auto-generated per document. It checks every page for overflow, footer overlap, missing structural elements, and page number correctness. Documents are not delivered until QA passes with zero CRITICAL/ERROR issues.
 
 ---
 
@@ -270,6 +299,22 @@ https://github.com/Bottega-Alu/kimera
 **Francesco Trani**
 - GitHub: [@Bottega-Alu](https://github.com/Bottega-Alu)
 - Aperitivo: [buymeacoffee.com/bottega.alu](https://buymeacoffee.com/bottega.alu)
+
+---
+
+## Changelog | Storico Versioni | Historico de Versoes
+
+### v2.0 (2026-03-16)
+- **`.bd` content wrapper** — CSS `max-height` physically prevents footer overlap (the #1 layout bug)
+- **QA script v2.1** — Playwright-based verification: checks `.bd` existence, content overflow, footer overlap, structural elements
+- **Recalculated safe zones** — A4: 218mm/824px, Letter: 200mm/756px, Legal: 277mm/1047px
+- **20 critical design rules** (was 10) — comprehensive layout safety checklist
+- **Conservative content budget** — 700-780px per page (was 730-820px)
+
+### v1.0 (2026-02-21)
+- Initial release with 5-color semantic palette, KPI cards, badges, info boxes
+- A4/Letter/Legal support, print-ready layout
+- Claude Code skill + LLM-agnostic universal prompt
 
 ---
 
