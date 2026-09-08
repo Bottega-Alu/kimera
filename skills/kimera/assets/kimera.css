@@ -181,14 +181,22 @@ table {
 }
 thead { display: table-header-group; }
 tfoot { display: table-footer-group; }
-tr { break-inside: avoid; }
+/* No `tr { break-inside: avoid }`. Measured on Chromium 145: it does not lose
+   text on an over-tall row, but it first pushes the whole row to the next page
+   and only then breaks it, leaving up to two thirds of a page empty. Letting
+   rows fragment is the lesser evil and matches the no-blank-space rule. */
+tr { break-inside: auto; }
 th, td {
   text-align: left;
   vertical-align: top;
   padding: 1.5mm 2.2mm;
   overflow-wrap: anywhere;
 }
+/* Headers keep normal min-content sizing: `anywhere` would let the table
+   algorithm squeeze a column down to a single character ("C O L O N N A").
+   `break-word` still breaks a header that genuinely cannot fit its line. */
 thead th {
+  overflow-wrap: break-word;
   padding: 1.7mm 2.2mm;
   background: #eef2f7;
   color: var(--k-primary);
