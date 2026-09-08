@@ -305,7 +305,10 @@ ALLOWED_CLASSES = {
 _STYLE_RE = re.compile(r"text-align:\s*(?:left|center|right)\s*;?", re.IGNORECASE)
 _ID_RE = re.compile(r"[A-Za-z][A-Za-z0-9_:.\-]*")
 _TAG_NAME_RE = re.compile(r"<\s*([a-zA-Z][a-zA-Z0-9]*)")
-_IMG_ALT_RE = re.compile(r"<img\b[^>]*?\balt=\"([^\"]*)\"", re.IGNORECASE)
+_IMG_ALT_RE = re.compile(
+    r"""<img\b[^>]*?\balt\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>'"]+))""",
+    re.IGNORECASE,
+)
 # Tags whose text content is discarded as well as the tag itself.
 CONTENT_DISCARDING_TAGS = {"script", "style"}
 
@@ -418,7 +421,10 @@ def inspect_source_support(raw_html: str, clean_html: str) -> dict:
     # what `![alt](src)` compiles to. A bare `<img src=x onerror=...>` smuggled in
     # as raw HTML is an attack payload, not content, and is merely reported as a
     # dropped tag.
-    images = [alt.strip() for alt in _IMG_ALT_RE.findall(raw_html)]
+    images = [
+        (m.group(1) or m.group(2) or m.group(3) or "").strip()
+        for m in _IMG_ALT_RE.finditer(raw_html)
+    ]
     return {
         "images": images,
         "dropped_tags": dropped,

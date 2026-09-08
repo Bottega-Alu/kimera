@@ -88,7 +88,9 @@ large empty area on the previous page. Let the print engine paginate.
 - **Raw HTML.** Tags are removed and the text between them is kept — except for
   `script` and `style`, whose contents are discarded entirely. `javascript:`
   links, event handlers, ids and inline styles are stripped. Write Markdown; the
-  `content-preserved` check will flag anything that was actually lost.
+  `source-support` check lists every tag the sanitiser removed. (`content-preserved`
+  will not: it compares the rendered HTML with the PDF, and by then the HTML is
+  already the sanitised version.)
 - **Images.** There is no `img` support in this version. An `![alt](file.png)` in
   the source makes the `source-support` check FAIL rather than disappearing
   quietly: replace the figure with text or a table, or remove it.

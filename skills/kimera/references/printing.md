@@ -17,7 +17,11 @@ UTF-8), `3` runtime missing. An exit `2` means the input is wrong, not the
 document: fix the input and run again - it does not count as one of the two
 allowed verification attempts.
 
-## The seven checks
+## The eight checks
+
+These are the exact `name` values the report emits, in the order they appear:
+`paper-size`, `page-count`, `body-bounds`, `footer`, `content-preserved`,
+`source-support`, `no-leaked-tokens`, `chromium-version`.
 
 | Check | What it proves |
 |---|---|

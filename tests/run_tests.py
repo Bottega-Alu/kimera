@@ -584,9 +584,11 @@ def unit_checks(cases) -> list:
     """Regressions that live inside verify.py and have no CLI surface.
 
     M-1: the footer check must fail when the left string is absent.
-    M-2: the whitespace-free fallback of content-preserved must be per page, so
-         that two words on either side of a page break cannot spell out a token
-         that was never printed.
+    M-2: the line-unwrapping fallback of content-preserved must not invent words.
+         Two cases, both taken from real extraction shapes:
+         (a) cross-page - the last word of one page and the first of the next;
+         (b) cross-block AND cross-cell on the SAME page - two adjacent table
+             header cells, which PyMuPDF reports as separate lines of one block.
     """
     verify = _load_verify()
     results = []
@@ -620,26 +622,78 @@ def unit_checks(cases) -> list:
     })
 
     # M-2 --------------------------------------------------------------------
+    def content_check(expected):
+        outcome = verify.verify_pdf(
+            pdf, paper="A4", footer_left="Kimera Test Suite", lang="it",
+            expected_text=expected,
+        )
+        return next(c for c in outcome["checks"] if c["name"] == "content-preserved")
+
     doc = fitz.open(pdf)
     words_p1 = re.findall(r"\w{4,}", doc[0].get_text())
     words_p2 = re.findall(r"\w{4,}", doc[1].get_text()) if doc.page_count > 1 else []
+    # Two horizontally adjacent header cells of the repeated thead.
+    body_bottom = doc[0].rect.height - 22.0 * 72.0 / 25.4
+    header_cells = []
+    for block in doc[0].get_text("dict")["blocks"]:
+        if block.get("type", 0) != 0 or block["bbox"][1] >= body_bottom:
+            continue  # the footer band is not part of the body comparison
+        lines = block.get("lines", [])
+        if len(lines) < 2:
+            continue
+        first, second = lines[0], lines[1]
+        overlap = min(first["bbox"][3], second["bbox"][3]) - max(first["bbox"][1], second["bbox"][1])
+        if overlap > 0.5 * (first["bbox"][3] - first["bbox"][1]):
+            header_cells = [
+                "".join(s.get("text", "") for s in ln.get("spans", [])) for ln in (first, second)
+            ]
+            break
     doc.close()
+
     if words_p1 and words_p2:
         straddling = (words_p1[-1] + words_p2[0]).lower()
-        result = verify.verify_pdf(
-            pdf, paper="A4", footer_left="Kimera Test Suite", lang="it",
-            expected_text=straddling,
-        )
-        content = next(c for c in result["checks"] if c["name"] == "content-preserved")
+        check = content_check(straddling)
         results.append({
-            "name": "M-2-flat-per-page",
-            "ok": not content["ok"],
-            "details": "a token straddling a page break is reported missing (%r)" % straddling[:32]
-            if not content["ok"] else "MISSED: %s" % content["details"],
+            "name": "M-2-cross-page",
+            "ok": not check["ok"],
+            "details": "a token straddling a page break is reported missing (%r)" % straddling[:36]
+            if not check["ok"] else "MISSED: %s" % check["details"],
         })
     else:
-        results.append({"name": "M-2-flat-per-page", "ok": False,
+        results.append({"name": "M-2-cross-page", "ok": False,
                         "details": "could not build a straddling token"})
+
+    if len(header_cells) == 2:
+        sideways = ("".join(header_cells)).lower().replace(" ", "")
+        check = content_check(sideways)
+        results.append({
+            "name": "M-2-cross-cell",
+            "ok": not check["ok"],
+            "details": "two side-by-side cells of one block do not spell a token (%r)" % sideways[:36]
+            if not check["ok"] else "MISSED: %s" % check["details"],
+        })
+    else:
+        results.append({"name": "M-2-cross-cell", "ok": False,
+                        "details": "could not find two side-by-side lines in one block"})
+
+    # ...and the fallback must still work: a long token really broken across
+    # stacked lines by overflow-wrap has to be found.
+    long_case = next(
+        (c for c in cases
+         if c["fixture"] == "f-long-lines" and c["paper"] == "A4" and c.get("pdf")), None
+    )
+    if long_case:
+        check = verify.verify_pdf(
+            Path(long_case["pdf"]), paper="A4", footer_left="Kimera Test Suite", lang="it",
+            expected_text="X" * 400,
+        )
+        content = next(c for c in check["checks"] if c["name"] == "content-preserved")
+        results.append({
+            "name": "M-2-keeps-wraps",
+            "ok": content["ok"],
+            "details": "a 400-char token broken across stacked lines is still found"
+            if content["ok"] else "REGRESSION: %s" % content["details"],
+        })
     return results
 
 

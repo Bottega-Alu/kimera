@@ -73,8 +73,9 @@ DIAGNOSIS = {
             "sovrascritto. Consegna segnalando il problema."
         ),
         "leaked-token": (
-            "Token interno rimasto nel documento: la direttiva `\\pagebreak` non e stata "
-            "convertita. Assicurati che stia da sola su una riga, fuori dai blocchi di codice."
+            "Direttiva `\\pagebreak` rimasta come testo nel documento. Per farla valere come "
+            "interruzione deve stare da sola su una riga, fuori dai blocchi di codice; "
+            "per citarla nel testo racchiudila in un code span fra apici inversi."
         ),
         "chromium-old": (
             "Chromium troppo vecchio: esegui scripts/setup.ps1 per aggiornare il browser."
@@ -114,8 +115,9 @@ DIAGNOSIS = {
             "Deliver while reporting the problem."
         ),
         "leaked-token": (
-            "Internal token left in the document: the `\\pagebreak` directive was not converted. "
-            "Make sure it sits alone on its own line, outside code blocks."
+            "A `\\pagebreak` directive was left as text in the document. To act as a break it "
+            "must sit alone on its own line, outside code blocks; to mention it in prose, wrap "
+            "it in a backtick code span."
         ),
         "chromium-old": "Chromium is too old: run scripts/setup.ps1 to refresh the browser.",
     },
@@ -158,6 +160,42 @@ def _text_blocks(page):
 
 def _collapse(text: str) -> str:
     return re.sub(r"\s+", " ", text or "").strip()
+
+
+def _unwrapped_blocks(page, body_bottom):
+    """Per-block text normalised for the two ways the page separates a word.
+
+    A token can be absent from the plain extraction for two innocent reasons:
+
+    * ``overflow-wrap: anywhere`` split it across two stacked lines with no
+      space, and
+    * letter-spacing (the uppercase document label) made the extractor insert a
+      space between every glyph, so "FIXTURE" comes back as "F I X T U R E".
+
+    Both are undone here, and nothing else is: whitespace is removed *inside* a
+    line, stacked lines are glued, but two lines that share a visual row - which
+    is how PyMuPDF reports the cells of a table row - stay separated by a space.
+    Gluing those would invent words nobody printed ("Valore" + "Nota" ->
+    "valorenota"). Blocks and pages are never joined either.
+    """
+    out = []
+    for block in page.get_text("dict").get("blocks", []):
+        if block.get("type", 0) != 0 or block.get("bbox", (0, 0, 0, 0))[1] >= body_bottom:
+            continue
+        joined = ""
+        previous = None
+        for line in block.get("lines", []):
+            text = re.sub(r"\s+", "", "".join(s.get("text", "") for s in line.get("spans", [])))
+            bbox = line.get("bbox")
+            if previous is not None and bbox:
+                overlap = min(previous[3], bbox[3]) - max(previous[1], bbox[1])
+                height = min(previous[3] - previous[1], bbox[3] - bbox[1])
+                if height > 0 and overlap > 0.5 * height:
+                    joined += " "  # same visual row: side-by-side cells
+            joined += text
+            previous = bbox or previous
+        out.append(_norm(joined))
+    return out
 
 
 def _check(name, ok, details):
@@ -386,13 +424,16 @@ def verify_pdf(
         got = _tokens(body_text)
         missing = sorted(want - got)
         if missing:
-            # The whitespace-free fallback catches a token that overflow-wrap
-            # broke across lines. It is applied PER PAGE: concatenating the whole
-            # document would let two adjacent words on different pages spell out
-            # a token that was never actually printed.
-            flats = [_flat(text) for text in page_bodies]
+            # Fallback for tokens that overflow-wrap broke across lines, scoped
+            # to a single block and to genuinely stacked lines - see
+            # _unwrapped_blocks for why anything coarser invents words.
+            unwrapped = [
+                text
+                for info in pages
+                for text in _unwrapped_blocks(info["page"], info["body_bottom"])
+            ]
             missing = [
-                token for token in missing if not any(token in flat for flat in flats)
+                token for token in missing if not any(token in text for text in unwrapped)
             ]
         want_chars = len(_ALNUM_RE.findall(_norm(expected_text)))
         got_chars = len(_ALNUM_RE.findall(_norm(body_text)))
