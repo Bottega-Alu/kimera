@@ -27,7 +27,7 @@ SCRIPTS_DIR = SCRIPT_PATH.parent
 SKILL_ROOT = SCRIPTS_DIR.parent
 ASSETS_DIR = SKILL_ROOT / "assets"
 
-REQUIRED_MODULES = ("markdown", "nh3", "playwright", "fitz")
+REQUIRED_MODULES = ("markdown", "pymdownx", "nh3", "playwright", "fitz")
 MIN_CHROMIUM_MAJOR = 131
 
 EXIT_OK = 0
@@ -260,7 +260,11 @@ MD_EXTENSIONS = [
     "footnotes",
     "def_list",
     "abbr",
+    "pymdownx.tilde",
 ]
+
+# subscript off: `~x~` stays literal text, only `~~x~~` becomes <del>.
+MD_EXTENSION_CONFIGS = {"pymdownx.tilde": {"subscript": False, "smart_delete": True}}
 
 ALLOWED_TAGS = {
     "p", "h1", "h2", "h3", "h4", "h5", "h6",
@@ -280,13 +284,17 @@ ALLOWED_ATTRIBUTES = {
     "span": {"class"},
     "p": {"class"},
     "li": {"id"},
+    "ol": {"start"},
     "sup": {"id"},
     "th": {"style"},
     "td": {"style"},
 }
 
-# Only these class names survive. Everything the admonition/footnotes
-# extensions emit is here; anything a user smuggles in is dropped.
+# Only these class names survive; every other class value is dropped. Note that
+# raw HTML in the source CAN still carry one of these (a hand-written
+# `<div class="admonition danger">` renders as a callout, a
+# `<p class="page-break">` forces a page break). That is cosmetic, not a
+# security hole: no script, style, event handler or positioning survives.
 ALLOWED_CLASSES = {
     "admonition", "admonition-title",
     "footnote", "footnote-ref", "footnote-backref",
@@ -296,6 +304,10 @@ ALLOWED_CLASSES = {
 
 _STYLE_RE = re.compile(r"text-align:\s*(?:left|center|right)\s*;?", re.IGNORECASE)
 _ID_RE = re.compile(r"[A-Za-z][A-Za-z0-9_:.\-]*")
+_TAG_NAME_RE = re.compile(r"<\s*([a-zA-Z][a-zA-Z0-9]*)")
+_IMG_ALT_RE = re.compile(r"<img\b[^>]*?\balt=\"([^\"]*)\"", re.IGNORECASE)
+# Tags whose text content is discarded as well as the tag itself.
+CONTENT_DISCARDING_TAGS = {"script", "style"}
 
 PAGEBREAK_TOKEN = "KIMERA_PAGEBREAK_MARK"
 _PAGEBREAK_LINE = re.compile(r"^(?:\\pagebreak|\\newpage)[ \t]*$")
@@ -323,8 +335,17 @@ class KimeraError(Exception):
 # --------------------------------------------------------------------------- #
 
 def protect_pagebreaks(source: str) -> str:
-    """Turn a lone ``\\pagebreak`` / ``\\newpage`` line into a token, outside code fences."""
-    out = []
+    """Normalise ``\\pagebreak`` / ``\\newpage`` directives, outside code fences.
+
+    Every directive becomes a token standing alone in its own paragraph, with a
+    blank line on each side, so the Markdown parser can never glue it to the
+    text around it (inside a list item, at the end of a paragraph). Runs of
+    consecutive directives - with or without blank lines between them - collapse
+    into a single break, because two breaks in a row can only produce a blank
+    page.
+    """
+    sentinel = "\x00KIMERA-PB\x00"
+    lines = []
     fence_char = None
     fence_len = 0
     for line in source.split("\n"):
@@ -335,12 +356,26 @@ def protect_pagebreaks(source: str) -> str:
                 fence_char, fence_len = marker[0], len(marker)
             elif marker[0] == fence_char and len(marker) >= fence_len:
                 fence_char, fence_len = None, 0
-            out.append(line)
+            lines.append(line)
             continue
         if fence_char is None and _PAGEBREAK_LINE.match(line):
-            out.append(PAGEBREAK_TOKEN)
+            lines.append(sentinel)
             continue
-        out.append(line)
+        lines.append(line)
+
+    out = []
+    index = 0
+    total = len(lines)
+    while index < total:
+        if lines[index] != sentinel:
+            out.append(lines[index])
+            index += 1
+            continue
+        while index < total and (lines[index] == sentinel or not lines[index].strip()):
+            index += 1
+        while out and not out[-1].strip():
+            out.pop()
+        out.extend(["", PAGEBREAK_TOKEN, ""])
     return "\n".join(out)
 
 
@@ -352,6 +387,8 @@ def _attribute_filter(tag: str, attribute: str, value: str):
         return value if _STYLE_RE.fullmatch(value.strip()) else None
     if attribute == "id":
         return value if _ID_RE.fullmatch(value) else None
+    if attribute == "start":
+        return value if value.isdigit() else None
     return value
 
 
@@ -367,23 +404,59 @@ def sanitize(raw_html: str) -> str:
     )
 
 
+def inspect_source_support(raw_html: str, clean_html: str) -> dict:
+    """Compare the parser output with the sanitised output, before rendering.
+
+    This is the only place that can tell the difference between "the PDF matches
+    the HTML" and "the HTML matches what the author wrote". ``content-preserved``
+    checks the former; this checks the latter.
+    """
+    before = {m.group(1).lower() for m in _TAG_NAME_RE.finditer(raw_html)}
+    after = {m.group(1).lower() for m in _TAG_NAME_RE.finditer(clean_html)}
+    dropped = sorted(tag for tag in before - after if tag not in ALLOWED_TAGS)
+    # Only an `img` carrying an `alt` attribute counts as a lost figure: that is
+    # what `![alt](src)` compiles to. A bare `<img src=x onerror=...>` smuggled in
+    # as raw HTML is an attack payload, not content, and is merely reported as a
+    # dropped tag.
+    images = [alt.strip() for alt in _IMG_ALT_RE.findall(raw_html)]
+    return {
+        "images": images,
+        "dropped_tags": dropped,
+        "content_discarded_tags": sorted(t for t in dropped if t in CONTENT_DISCARDING_TAGS),
+        "pagebreak_token_leaked": False,
+    }
+
+
 def markdown_to_html(source: str):
-    """Return (sanitized body html, front-matter dict)."""
-    md = markdown.Markdown(extensions=MD_EXTENSIONS, output_format="html")
-    body = md.convert(protect_pagebreaks(source))
+    """Return (sanitized body html, front-matter dict, source-support report)."""
+    md = markdown.Markdown(
+        extensions=MD_EXTENSIONS,
+        extension_configs=MD_EXTENSION_CONFIGS,
+        output_format="html",
+    )
+    raw = md.convert(protect_pagebreaks(source))
     meta = {}
     for key, values in getattr(md, "Meta", {}).items():
         if values:
             meta[key.strip().lower()] = " ".join(v.strip() for v in values).strip()
-    body = sanitize(body)
+    body = sanitize(raw)
+    support = inspect_source_support(raw, body)
+
     body = re.sub(
-        r"<p>\s*%s\s*</p>" % PAGEBREAK_TOKEN,
+        r"<p>\s*(?:%s\s*)+</p>" % PAGEBREAK_TOKEN,
         '<div class="page-break"></div>',
         body,
     )
-    # A page break at the very end would create a blank trailing page.
+    # Belt and braces: the token must never reach the page, whatever block the
+    # parser decided to wrap it in.
+    if PAGEBREAK_TOKEN in body:
+        support["pagebreak_token_leaked"] = True
+        body = re.sub(r"\s*%s\s*" % PAGEBREAK_TOKEN, " ", body)
+    # A break before any content only yields a header-only page; a break after
+    # all content only yields a blank one.
+    body = re.sub(r'\A(?:\s*<div class="page-break"></div>)+', "", body)
     body = re.sub(r'(?:\s*<div class="page-break"></div>)+\s*\Z', "", body)
-    return body.strip(), meta
+    return body.strip(), meta, support
 
 
 def html_to_text(fragment: str) -> str:
@@ -516,6 +589,46 @@ def build_document(body: str, ctx: dict) -> str:
         for part in (label_block, title_block, subtitle_block, meta_block, body, end_block)
     )
     return document, expected_text
+
+
+def build_support_check(support: dict) -> dict:
+    """Turn the source-support inventory into a check entry.
+
+    Images are a hard failure: they vanish from the output entirely and no
+    downstream check can see the loss. Tags stripped by the sanitiser only
+    produce a warning, because their text survives.
+    """
+    problems = []
+    ok = True
+    level = "ok"
+    if support["images"]:
+        ok = False
+        level = "error"
+        shown = ", ".join(alt for alt in support["images"][:5] if alt) or "(no alt text)"
+        problems.append(
+            "%d image(s) in the source, not supported: %s" % (len(support["images"]), shown)
+        )
+    if support["dropped_tags"]:
+        if ok:
+            level = "warn"
+        detail = "tag(s) removed by the sanitiser, their text kept: %s" % ", ".join(
+            support["dropped_tags"]
+        )
+        if support["content_discarded_tags"]:
+            detail += " (content discarded too: %s)" % ", ".join(
+                support["content_discarded_tags"]
+            )
+        problems.append(detail)
+    if support["pagebreak_token_leaked"]:
+        if ok:
+            level = "warn"
+        problems.append("a page-break directive could not be converted and was removed")
+    return {
+        "name": "source-support",
+        "ok": ok,
+        "level": level,
+        "details": "; ".join(problems) if problems else "no unsupported construct in the source",
+    }
 
 
 # --------------------------------------------------------------------------- #
@@ -652,9 +765,10 @@ def format_summary(report: dict) -> str:
     )
     lines.append("  status    : %s" % report["status"])
     for check in report.get("checks", []):
-        lines.append(
-            "     [%s] %-18s %s" % ("ok" if check["ok"] else "FAIL", check["name"], check["details"])
-        )
+        mark = "ok" if check["ok"] else "FAIL"
+        if check["ok"] and check.get("level") == "warn":
+            mark = "warn"
+        lines.append("     [%s] %-18s %s" % (mark, check["name"], check["details"]))
     if report.get("diagnosis"):
         lines.append("  diagnosis :")
         for item in report["diagnosis"]:
@@ -671,10 +785,18 @@ def run(argv) -> int:
     source = Path(args.source).expanduser()
     if not source.is_file():
         raise KimeraError("source-not-found", "No such Markdown file: %s" % source)
-    text = source.read_text(encoding="utf-8")
+    try:
+        text = source.read_text(encoding="utf-8")
+    except UnicodeDecodeError as exc:
+        raise KimeraError(
+            "source-not-utf8",
+            "The source is not valid UTF-8 (byte %d: %s)." % (exc.start, exc.reason),
+            source=str(source),
+            hint="save the source as UTF-8 / salva il sorgente in UTF-8",
+        ) from exc
 
     t0 = time.perf_counter()
-    body, meta = markdown_to_html(text)
+    body, meta, support = markdown_to_html(text)
 
     lang = pick(args.lang, meta.get("lang")).lower() or "it"
     if lang not in STRINGS:
@@ -752,16 +874,30 @@ def run(argv) -> int:
             footer_left=ctx["footer_left"],
             lang=lang,
             expected_text=expected_text,
+            html_text=document,
             chromium_version=chromium,
             footer_gap_mm=3.0,
         )
         report["timings_s"]["verify"] = round(time.perf_counter() - t2, 3)
 
-        report["checks"] = result["checks"]
-        report["diagnosis"] = result["diagnosis"]
+        # source-support is a render-time check (it needs the pre-sanitisation
+        # HTML) but it only surfaces with --verify, next to content-preserved.
+        support_check = build_support_check(support)
+        checks = list(result["checks"])
+        position = next(
+            (i for i, c in enumerate(checks) if c["name"] == "content-preserved"), len(checks) - 1
+        )
+        checks.insert(position + 1, support_check)
+        diagnosis = list(result["diagnosis"])
+        if support["images"]:
+            diagnosis.append(verify.DIAGNOSIS[lang]["unsupported-image"])
+
+        report["checks"] = checks
+        report["diagnosis"] = diagnosis
+        report["source_support"] = support
         report["pages"] = result["pages"]
-        report["verified"] = result["ok"]
-        report["status"] = "VERIFIED" if result["ok"] else "FAILED"
+        report["verified"] = result["ok"] and support_check["ok"]
+        report["status"] = "VERIFIED" if report["verified"] else "FAILED"
         report["pdf"] = str(pdf_path.resolve()) if keep else None
         if not keep:
             try:

@@ -11,7 +11,11 @@ renderer never estimates a page height.
 Without `--verify` only the HTML is produced and the summary says
 `NOT VERIFIED`. Say so when delivering.
 
-Exit codes: `0` fine, `1` a check failed, `2` internal error, `3` runtime missing.
+Exit codes: `0` fine, `1` a check failed, `2` input or internal error reported as
+structured JSON on stderr (missing source, unknown `--paper`, source not valid
+UTF-8), `3` runtime missing. An exit `2` means the input is wrong, not the
+document: fix the input and run again - it does not count as one of the two
+allowed verification attempts.
 
 ## The seven checks
 
@@ -21,13 +25,27 @@ Exit codes: `0` fine, `1` a check failed, `2` internal error, `3` runtime missin
 | `page-count` | at least one page, and no page that carries neither text nor drawing |
 | `body-bounds` | every text block sits inside the 16 / 18 / 22 / 18 mm text area |
 | `footer` | `Pagina N di M` and the left string on every page, at least 3 mm below the body, and nothing else in that band |
-| `content-preserved` | every word of 4+ characters in the source is present in the PDF body |
-| `no-leaked-tokens` | no internal renderer token and no unconverted `\pagebreak` |
+| `content-preserved` | every word of 4+ characters **in the rendered HTML** reached the PDF body |
+| `source-support` | the **source** contained nothing this version silently drops |
+| `no-leaked-tokens` | no internal renderer token in the PDF, no unconverted `\pagebreak` outside code in the HTML |
 | `chromium-version` | Chromium 131 or newer produced the file |
 
+The two content checks cover different halves of the pipeline, and neither alone
+is enough:
+
+- `content-preserved` compares the **rendered HTML with the PDF**. It catches a
+  block the print engine truncated. It cannot see anything the sanitiser removed
+  before rendering, because by then the HTML is already the reduced version.
+- `source-support` compares the **parser output with the sanitised HTML**, before
+  anything is rendered. An image (`![alt](file.png)`) is a hard FAIL: it would
+  otherwise vanish with every other check green. Tags the sanitiser stripped are
+  a WARN listing their names, because their text survives.
+
 `content-preserved` is an inclusion test, not a count: the table header repeats on
-every page, so counting would be wrong. The character ratio it prints is
-indicative only.
+every page, so counting would be wrong. Its whitespace-free fallback (for words
+broken by `overflow-wrap`) is applied per page, so two words on either side of a
+page break cannot spell out a word that was never printed. The character ratio it
+prints is indicative only.
 
 ## Reading a failure
 
@@ -40,7 +58,9 @@ not loop, and never "fix" it by shrinking margins or fonts.
 | `horizontal-overflow` | an unbreakable table header or an extremely wide table. Shorten the header, drop a column, move long text out of the table. |
 | `footer-intrusion` | an unbreakable block reaching into the footer band. Split it into shorter blocks. Persisting means a renderer bug: report it. |
 | `blank-page` | a forced break, most often a `\pagebreak`. Remove it. |
-| `missing-tokens` | text lost to sanitisation: raw HTML, or an image. Rewrite that part in plain Markdown. |
+| `missing-tokens` | text present in the HTML but not in the PDF: the print engine truncated a block. Split it into shorter parts. |
+| `unsupported-image` | the source contains an image. Replace the figure with text or a table, or remove it. |
+| `blank-page` after a `\pagebreak` | should not happen any more: leading, trailing and consecutive directives are normalised away by the renderer. If it does, report it. |
 | `footer-wrong`, `paper-wrong`, `top-overflow` | renderer bugs. Not fixable from the content: deliver and report. |
 | `chromium-old` | run `scripts/setup.ps1` again. |
 

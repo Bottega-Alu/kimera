@@ -1,26 +1,45 @@
 {
-  "generated_at": "2026-09-08T05:36:57Z",
+  "generated_at": "2026-09-08T06:22:43Z",
   "python": "C:\\Python311\\python.exe",
   "python_version": "3.11.9",
   "chromium": "145.0.7632.6",
-  "skill_md_bytes": 2537,
+  "skill_md_bytes": 2925,
   "papers": [
     "A4",
     "Letter",
     "Legal"
   ],
   "totals": {
-    "runs": 19,
-    "passed": 19,
-    "failed": 0
+    "runs": 31,
+    "passed": 31,
+    "failed": 0,
+    "unit_checks": 3,
+    "unit_failed": 0
   },
+  "unit_checks": [
+    {
+      "name": "M-1-footer-left",
+      "ok": true,
+      "details": "absent left footer string is rejected"
+    },
+    {
+      "name": "M-1-no-false-pos",
+      "ok": true,
+      "details": "the real left footer string is accepted"
+    },
+    {
+      "name": "M-2-flat-per-page",
+      "ok": true,
+      "details": "a token straddling a page break is reported missing ('cellapagina')"
+    }
+  ],
   "timings_s": {
-    "render_avg": 0.045,
-    "pdf_avg": 0.819,
-    "verify_avg": 0.02,
-    "cli_total_avg": 0.939,
-    "wall_avg": 1.16,
-    "wall_total": 22.501
+    "render_avg": 0.065,
+    "pdf_avg": 0.82,
+    "verify_avg": 0.018,
+    "cli_total_avg": 0.96,
+    "wall_avg": 1.182,
+    "wall_total": 37.306
   },
   "runs": [
     {
@@ -28,7 +47,7 @@
       "paper": "A4",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\a-short-doc.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\a-short-doc-a4.md.html --paper A4 --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\a-short-doc-a4.report.json",
       "exit_code": 0,
-      "wall_s": 1.483,
+      "wall_s": 1.158,
       "problems": [],
       "checks": [
         {
@@ -54,7 +73,13 @@
         {
           "name": "content-preserved",
           "ok": true,
-          "details": "all 74 source token(s) present; characters 1.00x source (indicative)"
+          "details": "all 74 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
         },
         {
           "name": "no-leaked-tokens",
@@ -69,13 +94,19 @@
       ],
       "pages": 2,
       "timings_s": {
-        "render": 0.082,
-        "pdf": 1.047,
-        "verify": 0.014,
-        "total": 1.204
+        "render": 0.054,
+        "pdf": 0.812,
+        "verify": 0.024,
+        "total": 0.954
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\a-short-doc-a4.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
       "markers": {
         "expected": 9,
         "problems": []
@@ -91,7 +122,7 @@
       "paper": "Letter",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\a-short-doc.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\a-short-doc-letter.md.html --paper Letter --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\a-short-doc-letter.report.json",
       "exit_code": 0,
-      "wall_s": 1.101,
+      "wall_s": 1.269,
       "problems": [],
       "checks": [
         {
@@ -117,7 +148,13 @@
         {
           "name": "content-preserved",
           "ok": true,
-          "details": "all 74 source token(s) present; characters 1.00x source (indicative)"
+          "details": "all 74 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
         },
         {
           "name": "no-leaked-tokens",
@@ -132,13 +169,19 @@
       ],
       "pages": 2,
       "timings_s": {
-        "render": 0.038,
-        "pdf": 0.814,
-        "verify": 0.013,
-        "total": 0.913
+        "render": 0.056,
+        "pdf": 0.947,
+        "verify": 0.01,
+        "total": 1.061
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\a-short-doc-letter.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
       "markers": {
         "expected": 9,
         "problems": []
@@ -150,7 +193,7 @@
       "paper": "Legal",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\a-short-doc.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\a-short-doc-legal.md.html --paper Legal --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\a-short-doc-legal.report.json",
       "exit_code": 0,
-      "wall_s": 1.154,
+      "wall_s": 1.236,
       "problems": [],
       "checks": [
         {
@@ -176,7 +219,13 @@
         {
           "name": "content-preserved",
           "ok": true,
-          "details": "all 74 source token(s) present; characters 1.00x source (indicative)"
+          "details": "all 74 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
         },
         {
           "name": "no-leaked-tokens",
@@ -191,13 +240,19 @@
       ],
       "pages": 2,
       "timings_s": {
-        "render": 0.037,
-        "pdf": 0.786,
-        "verify": 0.014,
-        "total": 0.896
+        "render": 0.076,
+        "pdf": 0.876,
+        "verify": 0.01,
+        "total": 1.012
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\a-short-doc-legal.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
       "markers": {
         "expected": 9,
         "problems": []
@@ -209,7 +264,7 @@
       "paper": "A4",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\b-table-80-rows.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\b-table-80-rows-a4.md.html --paper A4 --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\b-table-80-rows-a4.report.json",
       "exit_code": 0,
-      "wall_s": 1.062,
+      "wall_s": 1.409,
       "problems": [],
       "checks": [
         {
@@ -235,7 +290,13 @@
         {
           "name": "content-preserved",
           "ok": true,
-          "details": "all 157 source token(s) present; characters 1.01x source (indicative)"
+          "details": "all 157 rendered token(s) reached the PDF; characters 1.01x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
         },
         {
           "name": "no-leaked-tokens",
@@ -250,13 +311,19 @@
       ],
       "pages": 3,
       "timings_s": {
-        "render": 0.045,
-        "pdf": 0.747,
-        "verify": 0.016,
-        "total": 0.858
+        "render": 0.125,
+        "pdf": 0.887,
+        "verify": 0.021,
+        "total": 1.094
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\b-table-80-rows-a4.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
       "markers": {
         "expected": 80,
         "problems": []
@@ -273,7 +340,7 @@
       "paper": "Letter",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\b-table-80-rows.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\b-table-80-rows-letter.md.html --paper Letter --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\b-table-80-rows-letter.report.json",
       "exit_code": 0,
-      "wall_s": 1.151,
+      "wall_s": 1.357,
       "problems": [],
       "checks": [
         {
@@ -299,7 +366,13 @@
         {
           "name": "content-preserved",
           "ok": true,
-          "details": "all 157 source token(s) present; characters 1.01x source (indicative)"
+          "details": "all 157 rendered token(s) reached the PDF; characters 1.01x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
         },
         {
           "name": "no-leaked-tokens",
@@ -314,13 +387,19 @@
       ],
       "pages": 3,
       "timings_s": {
-        "render": 0.052,
-        "pdf": 0.771,
-        "verify": 0.016,
-        "total": 0.887
+        "render": 0.077,
+        "pdf": 0.92,
+        "verify": 0.023,
+        "total": 1.082
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\b-table-80-rows-letter.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
       "markers": {
         "expected": 80,
         "problems": []
@@ -332,7 +411,7 @@
       "paper": "Legal",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\b-table-80-rows.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\b-table-80-rows-legal.md.html --paper Legal --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\b-table-80-rows-legal.report.json",
       "exit_code": 0,
-      "wall_s": 1.143,
+      "wall_s": 1.587,
       "problems": [],
       "checks": [
         {
@@ -358,7 +437,13 @@
         {
           "name": "content-preserved",
           "ok": true,
-          "details": "all 157 source token(s) present; characters 1.01x source (indicative)"
+          "details": "all 157 rendered token(s) reached the PDF; characters 1.01x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
         },
         {
           "name": "no-leaked-tokens",
@@ -373,13 +458,19 @@
       ],
       "pages": 3,
       "timings_s": {
-        "render": 0.053,
-        "pdf": 0.78,
-        "verify": 0.018,
-        "total": 0.896
+        "render": 0.096,
+        "pdf": 1.032,
+        "verify": 0.03,
+        "total": 1.236
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\b-table-80-rows-legal.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
       "markers": {
         "expected": 80,
         "problems": []
@@ -391,7 +482,7 @@
       "paper": "A4",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\c-tall-table-row.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\c-tall-table-row-a4.md.html --paper A4 --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\c-tall-table-row-a4.report.json",
       "exit_code": 0,
-      "wall_s": 1.074,
+      "wall_s": 1.445,
       "problems": [],
       "checks": [
         {
@@ -417,7 +508,13 @@
         {
           "name": "content-preserved",
           "ok": true,
-          "details": "all 34 source token(s) present; characters 1.00x source (indicative)"
+          "details": "all 34 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
         },
         {
           "name": "no-leaked-tokens",
@@ -432,13 +529,19 @@
       ],
       "pages": 4,
       "timings_s": {
-        "render": 0.042,
-        "pdf": 0.754,
-        "verify": 0.032,
-        "total": 0.886
+        "render": 0.089,
+        "pdf": 0.992,
+        "verify": 0.037,
+        "total": 1.195
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\c-tall-table-row-a4.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
       "markers": {
         "expected": 6,
         "problems": []
@@ -455,7 +558,7 @@
       "paper": "Letter",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\c-tall-table-row.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\c-tall-table-row-letter.md.html --paper Letter --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\c-tall-table-row-letter.report.json",
       "exit_code": 0,
-      "wall_s": 1.109,
+      "wall_s": 1.214,
       "problems": [],
       "checks": [
         {
@@ -481,7 +584,13 @@
         {
           "name": "content-preserved",
           "ok": true,
-          "details": "all 34 source token(s) present; characters 1.00x source (indicative)"
+          "details": "all 34 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
         },
         {
           "name": "no-leaked-tokens",
@@ -496,13 +605,19 @@
       ],
       "pages": 4,
       "timings_s": {
-        "render": 0.04,
-        "pdf": 0.771,
-        "verify": 0.035,
-        "total": 0.911
+        "render": 0.064,
+        "pdf": 0.859,
+        "verify": 0.027,
+        "total": 1.003
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\c-tall-table-row-letter.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
       "markers": {
         "expected": 6,
         "problems": []
@@ -514,7 +629,7 @@
       "paper": "Legal",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\c-tall-table-row.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\c-tall-table-row-legal.md.html --paper Legal --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\c-tall-table-row-legal.report.json",
       "exit_code": 0,
-      "wall_s": 1.232,
+      "wall_s": 1.148,
       "problems": [],
       "checks": [
         {
@@ -540,7 +655,13 @@
         {
           "name": "content-preserved",
           "ok": true,
-          "details": "all 34 source token(s) present; characters 1.00x source (indicative)"
+          "details": "all 34 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
         },
         {
           "name": "no-leaked-tokens",
@@ -555,13 +676,19 @@
       ],
       "pages": 3,
       "timings_s": {
-        "render": 0.045,
-        "pdf": 0.846,
-        "verify": 0.03,
-        "total": 0.98
+        "render": 0.062,
+        "pdf": 0.788,
+        "verify": 0.028,
+        "total": 0.931
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\c-tall-table-row-legal.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
       "markers": {
         "expected": 6,
         "problems": []
@@ -573,7 +700,7 @@
       "paper": "A4",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\d-long-paragraph.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\d-long-paragraph-a4.md.html --paper A4 --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\d-long-paragraph-a4.report.json",
       "exit_code": 0,
-      "wall_s": 1.205,
+      "wall_s": 1.333,
       "problems": [],
       "checks": [
         {
@@ -599,7 +726,13 @@
         {
           "name": "content-preserved",
           "ok": true,
-          "details": "all 45 source token(s) present; characters 1.00x source (indicative)"
+          "details": "all 45 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
         },
         {
           "name": "no-leaked-tokens",
@@ -614,13 +747,19 @@
       ],
       "pages": 5,
       "timings_s": {
-        "render": 0.058,
-        "pdf": 0.833,
-        "verify": 0.032,
-        "total": 0.988
+        "render": 0.063,
+        "pdf": 0.983,
+        "verify": 0.026,
+        "total": 1.131
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\d-long-paragraph-a4.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
       "markers": {
         "expected": 5,
         "problems": []
@@ -637,7 +776,7 @@
       "paper": "Letter",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\d-long-paragraph.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\d-long-paragraph-letter.md.html --paper Letter --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\d-long-paragraph-letter.report.json",
       "exit_code": 0,
-      "wall_s": 1.024,
+      "wall_s": 1.143,
       "problems": [],
       "checks": [
         {
@@ -663,7 +802,13 @@
         {
           "name": "content-preserved",
           "ok": true,
-          "details": "all 45 source token(s) present; characters 1.00x source (indicative)"
+          "details": "all 45 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
         },
         {
           "name": "no-leaked-tokens",
@@ -678,13 +823,19 @@
       ],
       "pages": 5,
       "timings_s": {
-        "render": 0.041,
-        "pdf": 0.726,
-        "verify": 0.02,
-        "total": 0.834
+        "render": 0.079,
+        "pdf": 0.763,
+        "verify": 0.021,
+        "total": 0.919
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\d-long-paragraph-letter.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
       "markers": {
         "expected": 5,
         "problems": []
@@ -696,7 +847,7 @@
       "paper": "Legal",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\d-long-paragraph.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\d-long-paragraph-legal.md.html --paper Legal --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\d-long-paragraph-legal.report.json",
       "exit_code": 0,
-      "wall_s": 1.016,
+      "wall_s": 1.086,
       "problems": [],
       "checks": [
         {
@@ -722,7 +873,13 @@
         {
           "name": "content-preserved",
           "ok": true,
-          "details": "all 45 source token(s) present; characters 1.00x source (indicative)"
+          "details": "all 45 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
         },
         {
           "name": "no-leaked-tokens",
@@ -737,13 +894,19 @@
       ],
       "pages": 4,
       "timings_s": {
-        "render": 0.044,
-        "pdf": 0.716,
-        "verify": 0.021,
-        "total": 0.829
+        "render": 0.067,
+        "pdf": 0.731,
+        "verify": 0.02,
+        "total": 0.864
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\d-long-paragraph-legal.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
       "markers": {
         "expected": 5,
         "problems": []
@@ -755,7 +918,7 @@
       "paper": "A4",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\e-code-200-lines.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\e-code-200-lines-a4.md.html --paper A4 --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\e-code-200-lines-a4.report.json",
       "exit_code": 0,
-      "wall_s": 1.109,
+      "wall_s": 1.127,
       "problems": [],
       "checks": [
         {
@@ -781,7 +944,13 @@
         {
           "name": "content-preserved",
           "ok": true,
-          "details": "all 220 source token(s) present; characters 1.00x source (indicative)"
+          "details": "all 220 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
         },
         {
           "name": "no-leaked-tokens",
@@ -796,13 +965,19 @@
       ],
       "pages": 4,
       "timings_s": {
-        "render": 0.038,
-        "pdf": 0.805,
-        "verify": 0.024,
-        "total": 0.92
+        "render": 0.055,
+        "pdf": 0.759,
+        "verify": 0.03,
+        "total": 0.902
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\e-code-200-lines-a4.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
       "markers": {
         "expected": 5,
         "problems": []
@@ -819,7 +994,7 @@
       "paper": "Letter",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\e-code-200-lines.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\e-code-200-lines-letter.md.html --paper Letter --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\e-code-200-lines-letter.report.json",
       "exit_code": 0,
-      "wall_s": 1.166,
+      "wall_s": 1.112,
       "problems": [],
       "checks": [
         {
@@ -845,7 +1020,13 @@
         {
           "name": "content-preserved",
           "ok": true,
-          "details": "all 220 source token(s) present; characters 1.00x source (indicative)"
+          "details": "all 220 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
         },
         {
           "name": "no-leaked-tokens",
@@ -860,13 +1041,19 @@
       ],
       "pages": 4,
       "timings_s": {
-        "render": 0.039,
-        "pdf": 0.79,
-        "verify": 0.02,
-        "total": 0.905
+        "render": 0.056,
+        "pdf": 0.773,
+        "verify": 0.022,
+        "total": 0.904
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\e-code-200-lines-letter.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
       "markers": {
         "expected": 5,
         "problems": []
@@ -878,7 +1065,7 @@
       "paper": "Legal",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\e-code-200-lines.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\e-code-200-lines-legal.md.html --paper Legal --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\e-code-200-lines-legal.report.json",
       "exit_code": 0,
-      "wall_s": 1.141,
+      "wall_s": 1.362,
       "problems": [],
       "checks": [
         {
@@ -904,7 +1091,13 @@
         {
           "name": "content-preserved",
           "ok": true,
-          "details": "all 220 source token(s) present; characters 1.00x source (indicative)"
+          "details": "all 220 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
         },
         {
           "name": "no-leaked-tokens",
@@ -919,13 +1112,19 @@
       ],
       "pages": 4,
       "timings_s": {
-        "render": 0.037,
-        "pdf": 0.815,
-        "verify": 0.021,
-        "total": 0.921
+        "render": 0.061,
+        "pdf": 0.918,
+        "verify": 0.034,
+        "total": 1.101
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\e-code-200-lines-legal.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
       "markers": {
         "expected": 5,
         "problems": []
@@ -937,7 +1136,7 @@
       "paper": "A4",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\f-long-lines.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\f-long-lines-a4.md.html --paper A4 --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\f-long-lines-a4.report.json",
       "exit_code": 0,
-      "wall_s": 1.118,
+      "wall_s": 1.244,
       "problems": [],
       "checks": [
         {
@@ -963,7 +1162,13 @@
         {
           "name": "content-preserved",
           "ok": true,
-          "details": "all 34 source token(s) present; characters 1.00x source (indicative)"
+          "details": "all 34 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
         },
         {
           "name": "no-leaked-tokens",
@@ -978,13 +1183,19 @@
       ],
       "pages": 1,
       "timings_s": {
-        "render": 0.037,
-        "pdf": 0.804,
-        "verify": 0.014,
-        "total": 0.917
+        "render": 0.061,
+        "pdf": 0.877,
+        "verify": 0.018,
+        "total": 1.02
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\f-long-lines-a4.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
       "markers": {
         "expected": 6,
         "problems": []
@@ -999,7 +1210,7 @@
       "paper": "Letter",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\f-long-lines.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\f-long-lines-letter.md.html --paper Letter --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\f-long-lines-letter.report.json",
       "exit_code": 0,
-      "wall_s": 1.2,
+      "wall_s": 1.197,
       "problems": [],
       "checks": [
         {
@@ -1025,7 +1236,13 @@
         {
           "name": "content-preserved",
           "ok": true,
-          "details": "all 34 source token(s) present; characters 1.00x source (indicative)"
+          "details": "all 34 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
         },
         {
           "name": "no-leaked-tokens",
@@ -1040,13 +1257,19 @@
       ],
       "pages": 1,
       "timings_s": {
-        "render": 0.037,
-        "pdf": 0.853,
-        "verify": 0.016,
-        "total": 0.955
+        "render": 0.059,
+        "pdf": 0.852,
+        "verify": 0.014,
+        "total": 0.976
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\f-long-lines-letter.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
       "markers": {
         "expected": 6,
         "problems": []
@@ -1058,7 +1281,7 @@
       "paper": "Legal",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\f-long-lines.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\f-long-lines-legal.md.html --paper Legal --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\f-long-lines-legal.report.json",
       "exit_code": 0,
-      "wall_s": 1.215,
+      "wall_s": 1.196,
       "problems": [],
       "checks": [
         {
@@ -1084,7 +1307,13 @@
         {
           "name": "content-preserved",
           "ok": true,
-          "details": "all 34 source token(s) present; characters 1.00x source (indicative)"
+          "details": "all 34 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
         },
         {
           "name": "no-leaked-tokens",
@@ -1099,15 +1328,921 @@
       ],
       "pages": 1,
       "timings_s": {
-        "render": 0.044,
-        "pdf": 0.888,
-        "verify": 0.018,
-        "total": 1.003
+        "render": 0.059,
+        "pdf": 0.848,
+        "verify": 0.019,
+        "total": 0.979
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\f-long-lines-legal.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
       "markers": {
         "expected": 6,
+        "problems": []
+      },
+      "ok": true
+    },
+    {
+      "fixture": "g-pagebreaks",
+      "paper": "A4",
+      "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\g-pagebreaks.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\g-pagebreaks-a4.md.html --paper A4 --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\g-pagebreaks-a4.report.json",
+      "exit_code": 0,
+      "wall_s": 1.007,
+      "problems": [],
+      "checks": [
+        {
+          "name": "paper-size",
+          "ok": true,
+          "details": "A4, 3 page(s) at 209.89x297.01mm (+/-0.5mm)"
+        },
+        {
+          "name": "page-count",
+          "ok": true,
+          "details": "3 page(s), none blank"
+        },
+        {
+          "name": "body-bounds",
+          "ok": true,
+          "details": "every text block inside 16/18/22/18 mm (tol 1.0pt)"
+        },
+        {
+          "name": "footer",
+          "ok": true,
+          "details": "'Pagina 1 di 3' .. 'Pagina 3 di 3' present on every page, 5.0mm below the body"
+        },
+        {
+          "name": "content-preserved",
+          "ok": true,
+          "details": "all 40 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
+        },
+        {
+          "name": "no-leaked-tokens",
+          "ok": true,
+          "details": "no renderer token in the PDF"
+        },
+        {
+          "name": "chromium-version",
+          "ok": true,
+          "details": "145.0.7632.6 (minimum 131)"
+        }
+      ],
+      "pages": 3,
+      "timings_s": {
+        "render": 0.054,
+        "pdf": 0.693,
+        "verify": 0.01,
+        "total": 0.808
+      },
+      "chromium": "145.0.7632.6",
+      "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\g-pagebreaks-a4.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
+      "markers": {
+        "expected": 6,
+        "problems": []
+      },
+      "png": [
+        "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\png\\g-pagebreaks-a4-p01.png",
+        "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\png\\g-pagebreaks-a4-p02.png",
+        "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\png\\g-pagebreaks-a4-p03.png"
+      ],
+      "ok": true
+    },
+    {
+      "fixture": "g-pagebreaks",
+      "paper": "Letter",
+      "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\g-pagebreaks.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\g-pagebreaks-letter.md.html --paper Letter --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\g-pagebreaks-letter.report.json",
+      "exit_code": 0,
+      "wall_s": 1.025,
+      "problems": [],
+      "checks": [
+        {
+          "name": "paper-size",
+          "ok": true,
+          "details": "Letter, 3 page(s) at 215.90x279.40mm (+/-0.5mm)"
+        },
+        {
+          "name": "page-count",
+          "ok": true,
+          "details": "3 page(s), none blank"
+        },
+        {
+          "name": "body-bounds",
+          "ok": true,
+          "details": "every text block inside 16/18/22/18 mm (tol 1.0pt)"
+        },
+        {
+          "name": "footer",
+          "ok": true,
+          "details": "'Pagina 1 di 3' .. 'Pagina 3 di 3' present on every page, 5.2mm below the body"
+        },
+        {
+          "name": "content-preserved",
+          "ok": true,
+          "details": "all 40 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
+        },
+        {
+          "name": "no-leaked-tokens",
+          "ok": true,
+          "details": "no renderer token in the PDF"
+        },
+        {
+          "name": "chromium-version",
+          "ok": true,
+          "details": "145.0.7632.6 (minimum 131)"
+        }
+      ],
+      "pages": 3,
+      "timings_s": {
+        "render": 0.051,
+        "pdf": 0.724,
+        "verify": 0.015,
+        "total": 0.839
+      },
+      "chromium": "145.0.7632.6",
+      "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\g-pagebreaks-letter.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
+      "markers": {
+        "expected": 6,
+        "problems": []
+      },
+      "ok": true
+    },
+    {
+      "fixture": "g-pagebreaks",
+      "paper": "Legal",
+      "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\g-pagebreaks.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\g-pagebreaks-legal.md.html --paper Legal --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\g-pagebreaks-legal.report.json",
+      "exit_code": 0,
+      "wall_s": 1.011,
+      "problems": [],
+      "checks": [
+        {
+          "name": "paper-size",
+          "ok": true,
+          "details": "Legal, 3 page(s) at 215.90x355.60mm (+/-0.5mm)"
+        },
+        {
+          "name": "page-count",
+          "ok": true,
+          "details": "3 page(s), none blank"
+        },
+        {
+          "name": "body-bounds",
+          "ok": true,
+          "details": "every text block inside 16/18/22/18 mm (tol 1.0pt)"
+        },
+        {
+          "name": "footer",
+          "ok": true,
+          "details": "'Pagina 1 di 3' .. 'Pagina 3 di 3' present on every page, 5.2mm below the body"
+        },
+        {
+          "name": "content-preserved",
+          "ok": true,
+          "details": "all 40 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
+        },
+        {
+          "name": "no-leaked-tokens",
+          "ok": true,
+          "details": "no renderer token in the PDF"
+        },
+        {
+          "name": "chromium-version",
+          "ok": true,
+          "details": "145.0.7632.6 (minimum 131)"
+        }
+      ],
+      "pages": 3,
+      "timings_s": {
+        "render": 0.058,
+        "pdf": 0.697,
+        "verify": 0.011,
+        "total": 0.815
+      },
+      "chromium": "145.0.7632.6",
+      "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\g-pagebreaks-legal.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
+      "markers": {
+        "expected": 6,
+        "problems": []
+      },
+      "ok": true
+    },
+    {
+      "fixture": "h-image",
+      "paper": "A4",
+      "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\h-image.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\h-image-a4.md.html --paper A4 --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\h-image-a4.report.json",
+      "exit_code": 1,
+      "wall_s": 1.082,
+      "problems": [],
+      "checks": [
+        {
+          "name": "paper-size",
+          "ok": true,
+          "details": "A4, 1 page(s) at 209.89x297.01mm (+/-0.5mm)"
+        },
+        {
+          "name": "page-count",
+          "ok": true,
+          "details": "1 page(s), none blank"
+        },
+        {
+          "name": "body-bounds",
+          "ok": true,
+          "details": "every text block inside 16/18/22/18 mm (tol 1.0pt)"
+        },
+        {
+          "name": "footer",
+          "ok": true,
+          "details": "'Pagina 1 di 1' .. 'Pagina 1 di 1' present on every page, 5.0mm below the body"
+        },
+        {
+          "name": "content-preserved",
+          "ok": true,
+          "details": "all 14 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": false,
+          "level": "error",
+          "details": "1 image(s) in the source, not supported: Diagramma ALTTESTOPERSO della piattaforma; tag(s) removed by the sanitiser, their text kept: img"
+        },
+        {
+          "name": "no-leaked-tokens",
+          "ok": true,
+          "details": "no renderer token in the PDF"
+        },
+        {
+          "name": "chromium-version",
+          "ok": true,
+          "details": "145.0.7632.6 (minimum 131)"
+        }
+      ],
+      "pages": 1,
+      "timings_s": {
+        "render": 0.054,
+        "pdf": 0.766,
+        "verify": 0.009,
+        "total": 0.893
+      },
+      "chromium": "145.0.7632.6",
+      "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\h-image-a4.pdf",
+      "source_support": {
+        "images": [
+          "Diagramma ALTTESTOPERSO della piattaforma"
+        ],
+        "dropped_tags": [
+          "img"
+        ],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
+      "markers": {
+        "expected": 2,
+        "problems": []
+      },
+      "png": [
+        "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\png\\h-image-a4-p01.png"
+      ],
+      "ok": true
+    },
+    {
+      "fixture": "h-image",
+      "paper": "Letter",
+      "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\h-image.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\h-image-letter.md.html --paper Letter --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\h-image-letter.report.json",
+      "exit_code": 1,
+      "wall_s": 1.147,
+      "problems": [],
+      "checks": [
+        {
+          "name": "paper-size",
+          "ok": true,
+          "details": "Letter, 1 page(s) at 215.90x279.40mm (+/-0.5mm)"
+        },
+        {
+          "name": "page-count",
+          "ok": true,
+          "details": "1 page(s), none blank"
+        },
+        {
+          "name": "body-bounds",
+          "ok": true,
+          "details": "every text block inside 16/18/22/18 mm (tol 1.0pt)"
+        },
+        {
+          "name": "footer",
+          "ok": true,
+          "details": "'Pagina 1 di 1' .. 'Pagina 1 di 1' present on every page, 5.2mm below the body"
+        },
+        {
+          "name": "content-preserved",
+          "ok": true,
+          "details": "all 14 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": false,
+          "level": "error",
+          "details": "1 image(s) in the source, not supported: Diagramma ALTTESTOPERSO della piattaforma; tag(s) removed by the sanitiser, their text kept: img"
+        },
+        {
+          "name": "no-leaked-tokens",
+          "ok": true,
+          "details": "no renderer token in the PDF"
+        },
+        {
+          "name": "chromium-version",
+          "ok": true,
+          "details": "145.0.7632.6 (minimum 131)"
+        }
+      ],
+      "pages": 1,
+      "timings_s": {
+        "render": 0.058,
+        "pdf": 0.82,
+        "verify": 0.008,
+        "total": 0.938
+      },
+      "chromium": "145.0.7632.6",
+      "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\h-image-letter.pdf",
+      "source_support": {
+        "images": [
+          "Diagramma ALTTESTOPERSO della piattaforma"
+        ],
+        "dropped_tags": [
+          "img"
+        ],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
+      "markers": {
+        "expected": 2,
+        "problems": []
+      },
+      "ok": true
+    },
+    {
+      "fixture": "h-image",
+      "paper": "Legal",
+      "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\h-image.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\h-image-legal.md.html --paper Legal --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\h-image-legal.report.json",
+      "exit_code": 1,
+      "wall_s": 1.069,
+      "problems": [],
+      "checks": [
+        {
+          "name": "paper-size",
+          "ok": true,
+          "details": "Legal, 1 page(s) at 215.90x355.60mm (+/-0.5mm)"
+        },
+        {
+          "name": "page-count",
+          "ok": true,
+          "details": "1 page(s), none blank"
+        },
+        {
+          "name": "body-bounds",
+          "ok": true,
+          "details": "every text block inside 16/18/22/18 mm (tol 1.0pt)"
+        },
+        {
+          "name": "footer",
+          "ok": true,
+          "details": "'Pagina 1 di 1' .. 'Pagina 1 di 1' present on every page, 5.2mm below the body"
+        },
+        {
+          "name": "content-preserved",
+          "ok": true,
+          "details": "all 14 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": false,
+          "level": "error",
+          "details": "1 image(s) in the source, not supported: Diagramma ALTTESTOPERSO della piattaforma; tag(s) removed by the sanitiser, their text kept: img"
+        },
+        {
+          "name": "no-leaked-tokens",
+          "ok": true,
+          "details": "no renderer token in the PDF"
+        },
+        {
+          "name": "chromium-version",
+          "ok": true,
+          "details": "145.0.7632.6 (minimum 131)"
+        }
+      ],
+      "pages": 1,
+      "timings_s": {
+        "render": 0.055,
+        "pdf": 0.729,
+        "verify": 0.008,
+        "total": 0.837
+      },
+      "chromium": "145.0.7632.6",
+      "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\h-image-legal.pdf",
+      "source_support": {
+        "images": [
+          "Diagramma ALTTESTOPERSO della piattaforma"
+        ],
+        "dropped_tags": [
+          "img"
+        ],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
+      "markers": {
+        "expected": 2,
+        "problems": []
+      },
+      "ok": true
+    },
+    {
+      "fixture": "i-raw-html",
+      "paper": "A4",
+      "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\i-raw-html.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\i-raw-html-a4.md.html --paper A4 --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\i-raw-html-a4.report.json",
+      "exit_code": 0,
+      "wall_s": 0.989,
+      "problems": [],
+      "checks": [
+        {
+          "name": "paper-size",
+          "ok": true,
+          "details": "A4, 2 page(s) at 209.89x297.01mm (+/-0.5mm)"
+        },
+        {
+          "name": "page-count",
+          "ok": true,
+          "details": "2 page(s), none blank"
+        },
+        {
+          "name": "body-bounds",
+          "ok": true,
+          "details": "every text block inside 16/18/22/18 mm (tol 1.0pt)"
+        },
+        {
+          "name": "footer",
+          "ok": true,
+          "details": "'Pagina 1 di 2' .. 'Pagina 2 di 2' present on every page, 5.0mm below the body"
+        },
+        {
+          "name": "content-preserved",
+          "ok": true,
+          "details": "all 21 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "warn",
+          "details": "tag(s) removed by the sanitiser, their text kept: iframe, script, style (content discarded too: script, style)"
+        },
+        {
+          "name": "no-leaked-tokens",
+          "ok": true,
+          "details": "no renderer token in the PDF"
+        },
+        {
+          "name": "chromium-version",
+          "ok": true,
+          "details": "145.0.7632.6 (minimum 131)"
+        }
+      ],
+      "pages": 2,
+      "timings_s": {
+        "render": 0.058,
+        "pdf": 0.684,
+        "verify": 0.008,
+        "total": 0.802
+      },
+      "chromium": "145.0.7632.6",
+      "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\i-raw-html-a4.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [
+          "iframe",
+          "script",
+          "style"
+        ],
+        "content_discarded_tags": [
+          "script",
+          "style"
+        ],
+        "pagebreak_token_leaked": false
+      },
+      "markers": {
+        "expected": 5,
+        "problems": []
+      },
+      "png": [
+        "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\png\\i-raw-html-a4-p01.png",
+        "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\png\\i-raw-html-a4-p02.png"
+      ],
+      "ok": true
+    },
+    {
+      "fixture": "i-raw-html",
+      "paper": "Letter",
+      "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\i-raw-html.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\i-raw-html-letter.md.html --paper Letter --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\i-raw-html-letter.report.json",
+      "exit_code": 0,
+      "wall_s": 1.011,
+      "problems": [],
+      "checks": [
+        {
+          "name": "paper-size",
+          "ok": true,
+          "details": "Letter, 2 page(s) at 215.90x279.40mm (+/-0.5mm)"
+        },
+        {
+          "name": "page-count",
+          "ok": true,
+          "details": "2 page(s), none blank"
+        },
+        {
+          "name": "body-bounds",
+          "ok": true,
+          "details": "every text block inside 16/18/22/18 mm (tol 1.0pt)"
+        },
+        {
+          "name": "footer",
+          "ok": true,
+          "details": "'Pagina 1 di 2' .. 'Pagina 2 di 2' present on every page, 5.2mm below the body"
+        },
+        {
+          "name": "content-preserved",
+          "ok": true,
+          "details": "all 21 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "warn",
+          "details": "tag(s) removed by the sanitiser, their text kept: iframe, script, style (content discarded too: script, style)"
+        },
+        {
+          "name": "no-leaked-tokens",
+          "ok": true,
+          "details": "no renderer token in the PDF"
+        },
+        {
+          "name": "chromium-version",
+          "ok": true,
+          "details": "145.0.7632.6 (minimum 131)"
+        }
+      ],
+      "pages": 2,
+      "timings_s": {
+        "render": 0.053,
+        "pdf": 0.708,
+        "verify": 0.01,
+        "total": 0.817
+      },
+      "chromium": "145.0.7632.6",
+      "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\i-raw-html-letter.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [
+          "iframe",
+          "script",
+          "style"
+        ],
+        "content_discarded_tags": [
+          "script",
+          "style"
+        ],
+        "pagebreak_token_leaked": false
+      },
+      "markers": {
+        "expected": 5,
+        "problems": []
+      },
+      "ok": true
+    },
+    {
+      "fixture": "i-raw-html",
+      "paper": "Legal",
+      "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\i-raw-html.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\i-raw-html-legal.md.html --paper Legal --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\i-raw-html-legal.report.json",
+      "exit_code": 0,
+      "wall_s": 0.98,
+      "problems": [],
+      "checks": [
+        {
+          "name": "paper-size",
+          "ok": true,
+          "details": "Legal, 2 page(s) at 215.90x355.60mm (+/-0.5mm)"
+        },
+        {
+          "name": "page-count",
+          "ok": true,
+          "details": "2 page(s), none blank"
+        },
+        {
+          "name": "body-bounds",
+          "ok": true,
+          "details": "every text block inside 16/18/22/18 mm (tol 1.0pt)"
+        },
+        {
+          "name": "footer",
+          "ok": true,
+          "details": "'Pagina 1 di 2' .. 'Pagina 2 di 2' present on every page, 5.2mm below the body"
+        },
+        {
+          "name": "content-preserved",
+          "ok": true,
+          "details": "all 21 rendered token(s) reached the PDF; characters 1.00x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "warn",
+          "details": "tag(s) removed by the sanitiser, their text kept: iframe, script, style (content discarded too: script, style)"
+        },
+        {
+          "name": "no-leaked-tokens",
+          "ok": true,
+          "details": "no renderer token in the PDF"
+        },
+        {
+          "name": "chromium-version",
+          "ok": true,
+          "details": "145.0.7632.6 (minimum 131)"
+        }
+      ],
+      "pages": 2,
+      "timings_s": {
+        "render": 0.053,
+        "pdf": 0.685,
+        "verify": 0.009,
+        "total": 0.795
+      },
+      "chromium": "145.0.7632.6",
+      "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\i-raw-html-legal.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [
+          "iframe",
+          "script",
+          "style"
+        ],
+        "content_discarded_tags": [
+          "script",
+          "style"
+        ],
+        "pagebreak_token_leaked": false
+      },
+      "markers": {
+        "expected": 5,
+        "problems": []
+      },
+      "ok": true
+    },
+    {
+      "fixture": "j-rich-syntax",
+      "paper": "A4",
+      "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\j-rich-syntax.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\j-rich-syntax-a4.md.html --paper A4 --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\j-rich-syntax-a4.report.json",
+      "exit_code": 0,
+      "wall_s": 1.074,
+      "problems": [],
+      "checks": [
+        {
+          "name": "paper-size",
+          "ok": true,
+          "details": "A4, 1 page(s) at 209.89x297.01mm (+/-0.5mm)"
+        },
+        {
+          "name": "page-count",
+          "ok": true,
+          "details": "1 page(s), none blank"
+        },
+        {
+          "name": "body-bounds",
+          "ok": true,
+          "details": "every text block inside 16/18/22/18 mm (tol 1.0pt)"
+        },
+        {
+          "name": "footer",
+          "ok": true,
+          "details": "'Pagina 1 di 1' .. 'Pagina 1 di 1' present on every page, 5.0mm below the body"
+        },
+        {
+          "name": "content-preserved",
+          "ok": true,
+          "details": "all 26 rendered token(s) reached the PDF; characters 1.02x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
+        },
+        {
+          "name": "no-leaked-tokens",
+          "ok": true,
+          "details": "no renderer token in the PDF"
+        },
+        {
+          "name": "chromium-version",
+          "ok": true,
+          "details": "145.0.7632.6 (minimum 131)"
+        }
+      ],
+      "pages": 1,
+      "timings_s": {
+        "render": 0.074,
+        "pdf": 0.728,
+        "verify": 0.009,
+        "total": 0.865
+      },
+      "chromium": "145.0.7632.6",
+      "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\j-rich-syntax-a4.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
+      "markers": {
+        "expected": 9,
+        "problems": []
+      },
+      "png": [
+        "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\png\\j-rich-syntax-a4-p01.png"
+      ],
+      "ok": true
+    },
+    {
+      "fixture": "j-rich-syntax",
+      "paper": "Letter",
+      "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\j-rich-syntax.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\j-rich-syntax-letter.md.html --paper Letter --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\j-rich-syntax-letter.report.json",
+      "exit_code": 0,
+      "wall_s": 1.238,
+      "problems": [],
+      "checks": [
+        {
+          "name": "paper-size",
+          "ok": true,
+          "details": "Letter, 1 page(s) at 215.90x279.40mm (+/-0.5mm)"
+        },
+        {
+          "name": "page-count",
+          "ok": true,
+          "details": "1 page(s), none blank"
+        },
+        {
+          "name": "body-bounds",
+          "ok": true,
+          "details": "every text block inside 16/18/22/18 mm (tol 1.0pt)"
+        },
+        {
+          "name": "footer",
+          "ok": true,
+          "details": "'Pagina 1 di 1' .. 'Pagina 1 di 1' present on every page, 5.2mm below the body"
+        },
+        {
+          "name": "content-preserved",
+          "ok": true,
+          "details": "all 26 rendered token(s) reached the PDF; characters 1.02x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
+        },
+        {
+          "name": "no-leaked-tokens",
+          "ok": true,
+          "details": "no renderer token in the PDF"
+        },
+        {
+          "name": "chromium-version",
+          "ok": true,
+          "details": "145.0.7632.6 (minimum 131)"
+        }
+      ],
+      "pages": 1,
+      "timings_s": {
+        "render": 0.057,
+        "pdf": 0.883,
+        "verify": 0.014,
+        "total": 1.031
+      },
+      "chromium": "145.0.7632.6",
+      "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\j-rich-syntax-letter.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
+      "markers": {
+        "expected": 9,
+        "problems": []
+      },
+      "ok": true
+    },
+    {
+      "fixture": "j-rich-syntax",
+      "paper": "Legal",
+      "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\j-rich-syntax.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\j-rich-syntax-legal.md.html --paper Legal --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\j-rich-syntax-legal.report.json",
+      "exit_code": 0,
+      "wall_s": 1.112,
+      "problems": [],
+      "checks": [
+        {
+          "name": "paper-size",
+          "ok": true,
+          "details": "Legal, 1 page(s) at 215.90x355.60mm (+/-0.5mm)"
+        },
+        {
+          "name": "page-count",
+          "ok": true,
+          "details": "1 page(s), none blank"
+        },
+        {
+          "name": "body-bounds",
+          "ok": true,
+          "details": "every text block inside 16/18/22/18 mm (tol 1.0pt)"
+        },
+        {
+          "name": "footer",
+          "ok": true,
+          "details": "'Pagina 1 di 1' .. 'Pagina 1 di 1' present on every page, 5.2mm below the body"
+        },
+        {
+          "name": "content-preserved",
+          "ok": true,
+          "details": "all 26 rendered token(s) reached the PDF; characters 1.02x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
+        },
+        {
+          "name": "no-leaked-tokens",
+          "ok": true,
+          "details": "no renderer token in the PDF"
+        },
+        {
+          "name": "chromium-version",
+          "ok": true,
+          "details": "145.0.7632.6 (minimum 131)"
+        }
+      ],
+      "pages": 1,
+      "timings_s": {
+        "render": 0.063,
+        "pdf": 0.75,
+        "verify": 0.008,
+        "total": 0.869
+      },
+      "chromium": "145.0.7632.6",
+      "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\j-rich-syntax-legal.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
+      "markers": {
+        "expected": 9,
         "problems": []
       },
       "ok": true
@@ -1117,7 +2252,7 @@
       "paper": "A4",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\examples\\demo-it.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\demo-it-a4.md.html --paper A4 --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\demo-it-a4.report.json",
       "exit_code": 0,
-      "wall_s": 1.342,
+      "wall_s": 1.28,
       "problems": [],
       "checks": [
         {
@@ -1143,7 +2278,13 @@
         {
           "name": "content-preserved",
           "ok": true,
-          "details": "all 338 source token(s) present; characters 1.01x source (indicative)"
+          "details": "all 338 rendered token(s) reached the PDF; characters 1.01x (indicative)"
+        },
+        {
+          "name": "source-support",
+          "ok": true,
+          "level": "ok",
+          "details": "no unsupported construct in the source"
         },
         {
           "name": "no-leaked-tokens",
@@ -1158,13 +2299,19 @@
       ],
       "pages": 4,
       "timings_s": {
-        "render": 0.042,
-        "pdf": 1.023,
-        "verify": 0.015,
-        "total": 1.137
+        "render": 0.065,
+        "pdf": 0.95,
+        "verify": 0.019,
+        "total": 1.085
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\demo-it-a4.pdf",
+      "source_support": {
+        "images": [],
+        "dropped_tags": [],
+        "content_discarded_tags": [],
+        "pagebreak_token_leaked": false
+      },
       "markers": {
         "expected": 0,
         "problems": []

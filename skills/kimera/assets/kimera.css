@@ -113,6 +113,12 @@ ul, ol { margin: 0 0 2.8mm; padding-left: 5.8mm; }
 li { margin-bottom: 1.1mm; }
 li > ul, li > ol { margin-top: 1.1mm; margin-bottom: 0; }
 li::marker { color: var(--k-primary); }
+/* Four distinguishable nesting levels: the browser default repeats square from
+   level 3 down, which makes levels 3 and 4 indistinguishable in print. */
+ul { list-style-type: disc; }
+ul ul { list-style-type: circle; }
+ul ul ul { list-style-type: square; }
+ul ul ul ul { list-style-type: "– "; }
 
 blockquote {
   margin: 3.6mm 0;
@@ -206,6 +212,12 @@ thead th {
   text-transform: uppercase;
   border-bottom: 1.2pt solid var(--k-primary);
 }
+/* Measured on Chromium 145, not assumed: `tbody tr:first-child
+   { break-after: avoid }` and `tbody tr:last-child { break-before: avoid }`
+   were tried against the table-widow case (60-row table, filler swept 0..28,
+   splits leaving 2..27 rows on a page). Output was byte-identical with and
+   without them: Chromium does not honour break-before/break-after: avoid on
+   table rows. Removed rather than kept as decoration. */
 tbody td { border-bottom: .5pt solid var(--k-rule-soft); }
 tbody tr:nth-child(even) td { background: var(--k-zebra); }
 table code { font-size: .9em; }
@@ -227,6 +239,10 @@ table code { font-size: .9em; }
   break-inside: auto;
 }
 .admonition > :last-child { margin-bottom: 0; }
+/* `break-after: avoid` on the title had no observable effect either: across 24
+   probes (callout of 8 and of 40 paragraphs, filler swept 38..51) Chromium
+   never split an admonition immediately after its title, with or without the
+   rule. Left out for the same reason as the table rules above. */
 .admonition-title {
   margin: 0 0 1.4mm;
   font-size: 9.6pt;
@@ -259,7 +275,11 @@ a.footnote-ref, a.footnote-backref { text-decoration: none; }
 
 /* ------------------------------------------------------------- structural --- */
 
-.page-break { break-before: page; height: 0; margin: 0; }
+/* The renderer only ever emits an empty div. Raw HTML in the source can also
+   carry the class, so the zero height is scoped to the empty div: a
+   `<p class="page-break">with text</p>` must break the page, not collapse. */
+.page-break { break-before: page; }
+div.page-break { height: 0; margin: 0; }
 
 .doc-end {
   margin-top: 8mm;

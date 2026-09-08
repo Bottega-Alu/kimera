@@ -30,13 +30,18 @@ lines: `Title:`, `Subtitle:`, `Project:`, `Author:`, `Date:`, `Label:`, `Lang:`,
 
 ## 3. Render
 
+`SKILL_DIR` is the directory holding this SKILL.md - the base directory
+announced when the skill was loaded.
+
 ```bash
 python SKILL_DIR/scripts/render.py FILE.md --verify [--paper A4|Letter|Legal] [--lang it|en]
 ```
 
-CLI flags win over front matter. Exit code 3 means the Python runtime is missing:
-run `powershell -ExecutionPolicy Bypass -File SKILL_DIR/scripts/setup.ps1` once,
-then retry.
+CLI flags win over front matter. Exit 3: the Python runtime is missing - run
+`powershell -ExecutionPolicy Bypass -File SKILL_DIR/scripts/setup.ps1` once, then
+retry. Exit 2: an input error, reported as JSON on stderr (source missing, bad
+`--paper`, source not UTF-8) - fix the input and rerun; it is not one of the two
+FAIL attempts below.
 
 ## 4. Read the summary
 
@@ -53,8 +58,9 @@ browser headers and footers turned off.
 
 ## Limits
 
-No raw HTML - tags are stripped, their text is kept. No images. No guaranteed
-fidelity in Word or LibreOffice.
+No raw HTML - tags are stripped, their text is kept. No images: one in the
+source makes `source-support` FAIL. No guaranteed fidelity in Word or
+LibreOffice.
 
 Markdown syntax, callouts and page breaks: `references/authoring.md`.
 Printing and failure diagnosis: `references/printing.md`.

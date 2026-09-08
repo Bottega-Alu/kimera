@@ -56,9 +56,13 @@ DIAGNOSIS = {
             "interruzione forzata. Rimuovi l'interruzione dal Markdown."
         ),
         "missing-tokens": (
-            "Testo perso rispetto al sorgente: HTML grezzo rimosso dalla sanitizzazione, "
-            "un'immagine (non supportata in questa versione) o un blocco troncato. "
-            "Riscrivi quella parte in Markdown puro."
+            "Testo presente nell'HTML ma non nel PDF: un blocco e stato troncato dal motore "
+            "di stampa. Spezza quel blocco in parti piu corte. Se persiste e un bug del "
+            "renderer: consegna segnalandolo."
+        ),
+        "unsupported-image": (
+            "Immagini non supportate in questa versione: sostituisci la figura con testo o "
+            "una tabella, oppure rimuovila. Il contenuto dell'immagine non finisce nel PDF."
         ),
         "footer-wrong": (
             "Piè di pagina errato o assente: bug del renderer, non risolvibile lato "
@@ -94,8 +98,12 @@ DIAGNOSIS = {
             "Remove the break from the Markdown."
         ),
         "missing-tokens": (
-            "Text lost with respect to the source: raw HTML removed by sanitisation, an image "
-            "(unsupported in this version) or a truncated block. Rewrite that part in plain Markdown."
+            "Text present in the HTML but not in the PDF: the print engine truncated a block. "
+            "Split it into shorter parts. If it persists it is a renderer bug: report it."
+        ),
+        "unsupported-image": (
+            "Images are not supported in this version: replace the figure with text or a table, "
+            "or remove it. Its content never reaches the PDF."
         ),
         "footer-wrong": (
             "Wrong or missing footer: renderer bug, not fixable from the content. "
@@ -115,7 +123,10 @@ DIAGNOSIS = {
 
 _TOKEN_RE = re.compile(r"\w{4,}", re.UNICODE)
 _ALNUM_RE = re.compile(r"\w", re.UNICODE)
-_LEAK_LINE_RE = re.compile(r"^\s*\\(?:pagebreak|newpage)\s*$")
+_PAGEBREAK_LITERAL_RE = re.compile(r"\\(?:pagebreak|newpage)\b")
+# Regions of the final HTML where a literal `\pagebreak` is legitimate content
+# (someone documenting the directive) or renderer plumbing, not a leak.
+_LEAK_EXEMPT_RE = re.compile(r"(?is)<(pre|code|style|script)\b[^>]*>.*?</\1>")
 
 
 # --------------------------------------------------------------------------- #
@@ -167,6 +178,7 @@ def verify_pdf(
     footer_left="",
     lang="it",
     expected_text="",
+    html_text="",
     chromium_version=None,
     footer_gap_mm=3.0,
     tolerance_pt=1.0,
@@ -333,12 +345,19 @@ def verify_pdf(
         if footer_left:
             left_text = _collapse(footer_left)
             stem = remainder.rstrip(".… ")
+            matched = False
             if remainder == left_text:
-                remainder = ""
+                matched, remainder = True, ""
             elif stem and left_text.startswith(stem) and remainder != stem:
-                remainder = ""  # the left box was ellipsised by text-overflow
+                matched, remainder = True, ""  # ellipsised by text-overflow
             elif left_text and left_text in remainder:
+                matched = True
                 remainder = _collapse(remainder.replace(left_text, " ", 1))
+            if not matched:
+                footer_problems.append(
+                    "p%d: left footer string %r absent from %r"
+                    % (number, left_text[:40], band[:80])
+                )
         if remainder:
             footer_problems.append("p%d: unexpected footer text %r" % (number, remainder[:80]))
         if this_gap < footer_gap_mm:
@@ -359,42 +378,54 @@ def verify_pdf(
         )
 
     # -------------------------------------------------- 5 content-preserved --
-    body_text = "\n".join(b[4] for info in pages for b in info["body"])
+    page_bodies = ["\n".join(b[4] for b in info["body"]) for info in pages]
+    body_text = "\n".join(page_bodies)
     full_text = "\n".join(doc[i].get_text() for i in range(total))
     if expected_text.strip():
         want = _tokens(expected_text)
         got = _tokens(body_text)
         missing = sorted(want - got)
         if missing:
-            flat = _flat(body_text)
-            missing = [token for token in missing if token not in flat]
+            # The whitespace-free fallback catches a token that overflow-wrap
+            # broke across lines. It is applied PER PAGE: concatenating the whole
+            # document would let two adjacent words on different pages spell out
+            # a token that was never actually printed.
+            flats = [_flat(text) for text in page_bodies]
+            missing = [
+                token for token in missing if not any(token in flat for flat in flats)
+            ]
         want_chars = len(_ALNUM_RE.findall(_norm(expected_text)))
         got_chars = len(_ALNUM_RE.findall(_norm(body_text)))
         ratio = (got_chars / want_chars) if want_chars else 1.0
         if missing:
             checks.append(
                 _check("content-preserved", False,
-                       "%d/%d source token(s) missing from the PDF body (chars %.2fx): %s"
+                       "%d/%d rendered token(s) missing from the PDF body (chars %.2fx): %s"
                        % (len(missing), len(want), ratio, ", ".join(missing[:20])))
             )
             add_diag("missing-tokens")
         else:
             checks.append(
                 _check("content-preserved", True,
-                       "all %d source token(s) present; characters %.2fx source (indicative)"
+                       "all %d rendered token(s) reached the PDF; characters %.2fx (indicative)"
                        % (len(want), ratio))
             )
     else:
-        checks.append(_check("content-preserved", True, "no source text supplied - skipped"))
+        checks.append(_check("content-preserved", True, "no rendered text supplied - skipped"))
 
     # ------------------------------------------------------ 6 leaked tokens --
+    # A renderer token in the PDF is always a bug, so that half is checked on the
+    # PDF. A literal `\pagebreak` is only a bug when it reaches the *rendered*
+    # document outside a code block: a document that shows the directive inside a
+    # fence is correct, and looking at PDF text alone cannot tell the two apart.
     leaks = []
     if "KIMERA_" in full_text:
-        leaks.append("KIMERA_ token")
-    for line in full_text.splitlines():
-        if _LEAK_LINE_RE.match(line):
-            leaks.append("unconverted %r" % line.strip())
-            break
+        leaks.append("KIMERA_ token in the PDF")
+    if html_text:
+        outside = _LEAK_EXEMPT_RE.sub(" ", html_text)
+        found = _PAGEBREAK_LITERAL_RE.findall(outside)
+        if found:
+            leaks.append("%d unconverted %s directive(s) outside code" % (len(found), found[0]))
     if leaks:
         checks.append(_check("no-leaked-tokens", False, "; ".join(leaks)))
         add_diag("leaked-token")
@@ -443,6 +474,7 @@ def main(argv=None) -> int:
     parser.add_argument("--lang", default="it", choices=sorted(PAGE_STRINGS))
     parser.add_argument("--footer-left", default="")
     parser.add_argument("--expected-text-file", help="UTF-8 file with the expected body text.")
+    parser.add_argument("--html", help="the rendered .md.html, for the leaked-directive check.")
     parser.add_argument("--chromium", default=None)
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args(argv)
@@ -460,6 +492,7 @@ def main(argv=None) -> int:
         footer_left=args.footer_left,
         lang=args.lang,
         expected_text=expected,
+        html_text=(Path(args.html).read_text(encoding="utf-8") if args.html else ""),
         chromium_version=args.chromium,
     )
     if args.json:

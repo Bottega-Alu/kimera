@@ -40,13 +40,14 @@ Insert a blank line or a heading first.
 | Construct | Notes |
 |---|---|
 | `#` to `######` | `#` inside the body renders as a section title, not the document title |
-| paragraphs, `**bold**`, `*italic*`, `~~strikethrough~~` | |
-| `- ` / `1. ` lists, nested | sane list parsing, mixed nesting works |
+| paragraphs, `**bold**`, `*italic*` | |
+| `~~strikethrough~~` | renders struck through; a single `~x~` stays literal text |
+| `- ` / `1. ` lists, nested | four distinguishable bullet levels; an ordered list starting at `7.` keeps its numbering |
 | tables (GFM pipe syntax) | header repeats on every page; `:---:` / `---:` alignment honoured |
 | fenced code ``` ``` ``` | no syntax highlighting, wraps instead of overflowing |
 | inline `` `code` `` | |
 | `> ` blockquote | |
-| links `[text](https://...)` and `<https://...>` | only `http`, `https` and `mailto` survive |
+| links `[text](https://...)` and `<https://...>` | absolute links survive only with `http`, `https` or `mailto`; relative (`./file.md`) and protocol-relative (`//host/x`) links also survive, so check those yourself |
 | footnotes `[^1]` | collected at the end of the document |
 | definition lists (`Term` / `:   definition`) | |
 | abbreviations (`*[API]: Application ...`) | |
@@ -67,7 +68,17 @@ and the type name is used as the title.
 ## Page breaks
 
 A line containing only `\pagebreak` (or `\newpage`), outside code fences, starts
-a new page. A trailing one is ignored so it cannot produce a blank last page.
+a new page. The renderer normalises the directives before parsing:
+
+- each one is lifted into its own paragraph, so writing it on the continuation
+  line of a list item works and never prints the raw word;
+- consecutive directives, with or without blank lines between them, collapse into
+  a single break - two in a row could only make a blank page;
+- a leading directive (before any content) and a trailing one are dropped: they
+  could only produce a header-only page or a blank one.
+
+A break inside a list splits it into two lists. Showing the directive as an
+example inside a code fence is fine and does not trigger the leak check.
 
 Use it sparingly: a forced break in the middle of a document usually leaves a
 large empty area on the previous page. Let the print engine paginate.
@@ -78,9 +89,15 @@ large empty area on the previous page. Let the print engine paginate.
   `script` and `style`, whose contents are discarded entirely. `javascript:`
   links, event handlers, ids and inline styles are stripped. Write Markdown; the
   `content-preserved` check will flag anything that was actually lost.
-- **Images.** There is no `img` support in this version; describe or link instead.
-- **Custom classes, ids, inline styles.** Only the classes the renderer itself
-  produces survive the sanitiser.
+- **Images.** There is no `img` support in this version. An `![alt](file.png)` in
+  the source makes the `source-support` check FAIL rather than disappearing
+  quietly: replace the figure with text or a table, or remove it.
+- **Custom classes, ids, inline styles.** Only the small set of class names the
+  renderer itself produces survives the sanitiser. Note the consequence: raw HTML
+  in the source *can* still carry one of them, so a hand-written
+  `<div class="admonition danger">` renders as a callout and a
+  `<p class="page-break">` forces a page break. That is cosmetic - no script,
+  style, event handler or positioning ever survives.
 - **Syntax highlighting** in code blocks.
 - **Word / LibreOffice fidelity.** The `.md.html` opens in those applications
   because it is HTML, but the print layout is only guaranteed in Chromium.

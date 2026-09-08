@@ -3,6 +3,7 @@
 # Chromium 145) is already present on this machine, so `playwright install
 # chromium` is a no-op instead of a ~150 MB download.
 markdown==3.10.3
+pymdown-extensions==11.0.2
 nh3==0.3.7
 playwright==1.58.0
 pymupdf==1.27.2
