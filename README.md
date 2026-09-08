@@ -200,10 +200,6 @@ cp -r skills/kimera .claude/skills/kimera
 
 Then run `setup.ps1` from the installed copy once.
 
-> `kimera-universal-prompt.md` and `MARKETING-PROMPT.md` in this repository date
-> from v1 and describe the old model-side template. They have not been updated for
-> 2.0.
-
 ---
 
 ## License
