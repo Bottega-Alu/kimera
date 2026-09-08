@@ -1,0 +1,20 @@
+# Kimera 2.0
+
+# Absolute path of the local Python runtime, written by scripts/setup.ps1.
+# Machine-specific: never commit it.
+skills/kimera/python.txt
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Test artefacts. tests/results/test-results.json IS committed on purpose:
+# it is the measured evidence of the last run.
+tests/fixtures/
+tests/results/*.pdf
+tests/results/*.md.html
+tests/results/*.json
+!tests/results/test-results.json
+tests/results/png/
