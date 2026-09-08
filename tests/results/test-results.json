@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-08T05:31:55Z",
+  "generated_at": "2026-09-08T05:36:57Z",
   "python": "C:\\Python311\\python.exe",
   "python_version": "3.11.9",
   "chromium": "145.0.7632.6",
-  "skill_md_bytes": 24607,
+  "skill_md_bytes": 2537,
   "papers": [
     "A4",
     "Letter",
@@ -15,12 +15,12 @@
     "failed": 0
   },
   "timings_s": {
-    "render_avg": 0.042,
-    "pdf_avg": 0.833,
-    "verify_avg": 0.019,
-    "cli_total_avg": 0.949,
-    "wall_avg": 1.152,
-    "wall_total": 22.358
+    "render_avg": 0.045,
+    "pdf_avg": 0.819,
+    "verify_avg": 0.02,
+    "cli_total_avg": 0.939,
+    "wall_avg": 1.16,
+    "wall_total": 22.501
   },
   "runs": [
     {
@@ -28,7 +28,7 @@
       "paper": "A4",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\a-short-doc.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\a-short-doc-a4.md.html --paper A4 --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\a-short-doc-a4.report.json",
       "exit_code": 0,
-      "wall_s": 1.186,
+      "wall_s": 1.483,
       "problems": [],
       "checks": [
         {
@@ -69,10 +69,10 @@
       ],
       "pages": 2,
       "timings_s": {
-        "render": 0.038,
-        "pdf": 0.844,
+        "render": 0.082,
+        "pdf": 1.047,
         "verify": 0.014,
-        "total": 0.952
+        "total": 1.204
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\a-short-doc-a4.pdf",
@@ -91,7 +91,7 @@
       "paper": "Letter",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\a-short-doc.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\a-short-doc-letter.md.html --paper Letter --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\a-short-doc-letter.report.json",
       "exit_code": 0,
-      "wall_s": 1.169,
+      "wall_s": 1.101,
       "problems": [],
       "checks": [
         {
@@ -132,10 +132,10 @@
       ],
       "pages": 2,
       "timings_s": {
-        "render": 0.039,
-        "pdf": 0.836,
-        "verify": 0.012,
-        "total": 0.955
+        "render": 0.038,
+        "pdf": 0.814,
+        "verify": 0.013,
+        "total": 0.913
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\a-short-doc-letter.pdf",
@@ -150,7 +150,7 @@
       "paper": "Legal",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\a-short-doc.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\a-short-doc-legal.md.html --paper Legal --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\a-short-doc-legal.report.json",
       "exit_code": 0,
-      "wall_s": 1.136,
+      "wall_s": 1.154,
       "problems": [],
       "checks": [
         {
@@ -192,9 +192,9 @@
       "pages": 2,
       "timings_s": {
         "render": 0.037,
-        "pdf": 0.794,
-        "verify": 0.013,
-        "total": 0.916
+        "pdf": 0.786,
+        "verify": 0.014,
+        "total": 0.896
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\a-short-doc-legal.pdf",
@@ -209,7 +209,7 @@
       "paper": "A4",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\b-table-80-rows.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\b-table-80-rows-a4.md.html --paper A4 --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\b-table-80-rows-a4.report.json",
       "exit_code": 0,
-      "wall_s": 1.117,
+      "wall_s": 1.062,
       "problems": [],
       "checks": [
         {
@@ -250,10 +250,10 @@
       ],
       "pages": 3,
       "timings_s": {
-        "render": 0.043,
-        "pdf": 0.826,
-        "verify": 0.015,
-        "total": 0.931
+        "render": 0.045,
+        "pdf": 0.747,
+        "verify": 0.016,
+        "total": 0.858
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\b-table-80-rows-a4.pdf",
@@ -273,7 +273,7 @@
       "paper": "Letter",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\b-table-80-rows.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\b-table-80-rows-letter.md.html --paper Letter --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\b-table-80-rows-letter.report.json",
       "exit_code": 0,
-      "wall_s": 1.037,
+      "wall_s": 1.151,
       "problems": [],
       "checks": [
         {
@@ -314,10 +314,10 @@
       ],
       "pages": 3,
       "timings_s": {
-        "render": 0.043,
-        "pdf": 0.737,
-        "verify": 0.015,
-        "total": 0.843
+        "render": 0.052,
+        "pdf": 0.771,
+        "verify": 0.016,
+        "total": 0.887
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\b-table-80-rows-letter.pdf",
@@ -332,7 +332,7 @@
       "paper": "Legal",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\b-table-80-rows.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\b-table-80-rows-legal.md.html --paper Legal --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\b-table-80-rows-legal.report.json",
       "exit_code": 0,
-      "wall_s": 1.116,
+      "wall_s": 1.143,
       "problems": [],
       "checks": [
         {
@@ -373,10 +373,10 @@
       ],
       "pages": 3,
       "timings_s": {
-        "render": 0.049,
-        "pdf": 0.789,
-        "verify": 0.023,
-        "total": 0.923
+        "render": 0.053,
+        "pdf": 0.78,
+        "verify": 0.018,
+        "total": 0.896
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\b-table-80-rows-legal.pdf",
@@ -391,7 +391,7 @@
       "paper": "A4",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\c-tall-table-row.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\c-tall-table-row-a4.md.html --paper A4 --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\c-tall-table-row-a4.report.json",
       "exit_code": 0,
-      "wall_s": 1.425,
+      "wall_s": 1.074,
       "problems": [],
       "checks": [
         {
@@ -432,10 +432,10 @@
       ],
       "pages": 4,
       "timings_s": {
-        "render": 0.054,
-        "pdf": 1.076,
-        "verify": 0.026,
-        "total": 1.212
+        "render": 0.042,
+        "pdf": 0.754,
+        "verify": 0.032,
+        "total": 0.886
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\c-tall-table-row-a4.pdf",
@@ -455,7 +455,7 @@
       "paper": "Letter",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\c-tall-table-row.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\c-tall-table-row-letter.md.html --paper Letter --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\c-tall-table-row-letter.report.json",
       "exit_code": 0,
-      "wall_s": 1.269,
+      "wall_s": 1.109,
       "problems": [],
       "checks": [
         {
@@ -496,10 +496,10 @@
       ],
       "pages": 4,
       "timings_s": {
-        "render": 0.05,
-        "pdf": 0.898,
-        "verify": 0.032,
-        "total": 1.039
+        "render": 0.04,
+        "pdf": 0.771,
+        "verify": 0.035,
+        "total": 0.911
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\c-tall-table-row-letter.pdf",
@@ -514,7 +514,7 @@
       "paper": "Legal",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\c-tall-table-row.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\c-tall-table-row-legal.md.html --paper Legal --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\c-tall-table-row-legal.report.json",
       "exit_code": 0,
-      "wall_s": 1.114,
+      "wall_s": 1.232,
       "problems": [],
       "checks": [
         {
@@ -555,10 +555,10 @@
       ],
       "pages": 3,
       "timings_s": {
-        "render": 0.051,
-        "pdf": 0.753,
-        "verify": 0.034,
-        "total": 0.891
+        "render": 0.045,
+        "pdf": 0.846,
+        "verify": 0.03,
+        "total": 0.98
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\c-tall-table-row-legal.pdf",
@@ -573,7 +573,7 @@
       "paper": "A4",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\d-long-paragraph.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\d-long-paragraph-a4.md.html --paper A4 --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\d-long-paragraph-a4.report.json",
       "exit_code": 0,
-      "wall_s": 1.012,
+      "wall_s": 1.205,
       "problems": [],
       "checks": [
         {
@@ -614,10 +614,10 @@
       ],
       "pages": 5,
       "timings_s": {
-        "render": 0.04,
-        "pdf": 0.706,
-        "verify": 0.022,
-        "total": 0.822
+        "render": 0.058,
+        "pdf": 0.833,
+        "verify": 0.032,
+        "total": 0.988
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\d-long-paragraph-a4.pdf",
@@ -637,7 +637,7 @@
       "paper": "Letter",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\d-long-paragraph.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\d-long-paragraph-letter.md.html --paper Letter --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\d-long-paragraph-letter.report.json",
       "exit_code": 0,
-      "wall_s": 1.011,
+      "wall_s": 1.024,
       "problems": [],
       "checks": [
         {
@@ -678,10 +678,10 @@
       ],
       "pages": 5,
       "timings_s": {
-        "render": 0.04,
-        "pdf": 0.703,
-        "verify": 0.021,
-        "total": 0.818
+        "render": 0.041,
+        "pdf": 0.726,
+        "verify": 0.02,
+        "total": 0.834
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\d-long-paragraph-letter.pdf",
@@ -696,7 +696,7 @@
       "paper": "Legal",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\d-long-paragraph.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\d-long-paragraph-legal.md.html --paper Legal --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\d-long-paragraph-legal.report.json",
       "exit_code": 0,
-      "wall_s": 1.109,
+      "wall_s": 1.016,
       "problems": [],
       "checks": [
         {
@@ -737,10 +737,10 @@
       ],
       "pages": 4,
       "timings_s": {
-        "render": 0.041,
-        "pdf": 0.771,
+        "render": 0.044,
+        "pdf": 0.716,
         "verify": 0.021,
-        "total": 0.882
+        "total": 0.829
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\d-long-paragraph-legal.pdf",
@@ -755,7 +755,7 @@
       "paper": "A4",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\e-code-200-lines.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\e-code-200-lines-a4.md.html --paper A4 --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\e-code-200-lines-a4.report.json",
       "exit_code": 0,
-      "wall_s": 1.094,
+      "wall_s": 1.109,
       "problems": [],
       "checks": [
         {
@@ -796,10 +796,10 @@
       ],
       "pages": 4,
       "timings_s": {
-        "render": 0.039,
-        "pdf": 0.802,
-        "verify": 0.02,
-        "total": 0.91
+        "render": 0.038,
+        "pdf": 0.805,
+        "verify": 0.024,
+        "total": 0.92
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\e-code-200-lines-a4.pdf",
@@ -819,7 +819,7 @@
       "paper": "Letter",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\e-code-200-lines.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\e-code-200-lines-letter.md.html --paper Letter --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\e-code-200-lines-letter.report.json",
       "exit_code": 0,
-      "wall_s": 1.229,
+      "wall_s": 1.166,
       "problems": [],
       "checks": [
         {
@@ -861,9 +861,9 @@
       "pages": 4,
       "timings_s": {
         "render": 0.039,
-        "pdf": 0.936,
+        "pdf": 0.79,
         "verify": 0.02,
-        "total": 1.042
+        "total": 0.905
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\e-code-200-lines-letter.pdf",
@@ -878,7 +878,7 @@
       "paper": "Legal",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\e-code-200-lines.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\e-code-200-lines-legal.md.html --paper Legal --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\e-code-200-lines-legal.report.json",
       "exit_code": 0,
-      "wall_s": 1.051,
+      "wall_s": 1.141,
       "problems": [],
       "checks": [
         {
@@ -919,10 +919,10 @@
       ],
       "pages": 4,
       "timings_s": {
-        "render": 0.036,
-        "pdf": 0.743,
+        "render": 0.037,
+        "pdf": 0.815,
         "verify": 0.021,
-        "total": 0.85
+        "total": 0.921
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\e-code-200-lines-legal.pdf",
@@ -937,7 +937,7 @@
       "paper": "A4",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\f-long-lines.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\f-long-lines-a4.md.html --paper A4 --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\f-long-lines-a4.report.json",
       "exit_code": 0,
-      "wall_s": 1.381,
+      "wall_s": 1.118,
       "problems": [],
       "checks": [
         {
@@ -978,10 +978,10 @@
       ],
       "pages": 1,
       "timings_s": {
-        "render": 0.04,
-        "pdf": 1.079,
-        "verify": 0.013,
-        "total": 1.189
+        "render": 0.037,
+        "pdf": 0.804,
+        "verify": 0.014,
+        "total": 0.917
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\f-long-lines-a4.pdf",
@@ -999,7 +999,7 @@
       "paper": "Letter",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\f-long-lines.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\f-long-lines-letter.md.html --paper Letter --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\f-long-lines-letter.report.json",
       "exit_code": 0,
-      "wall_s": 1.171,
+      "wall_s": 1.2,
       "problems": [],
       "checks": [
         {
@@ -1040,10 +1040,10 @@
       ],
       "pages": 1,
       "timings_s": {
-        "render": 0.044,
-        "pdf": 0.877,
-        "verify": 0.013,
-        "total": 0.982
+        "render": 0.037,
+        "pdf": 0.853,
+        "verify": 0.016,
+        "total": 0.955
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\f-long-lines-letter.pdf",
@@ -1058,7 +1058,7 @@
       "paper": "Legal",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\fixtures\\f-long-lines.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\f-long-lines-legal.md.html --paper Legal --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\f-long-lines-legal.report.json",
       "exit_code": 0,
-      "wall_s": 1.112,
+      "wall_s": 1.215,
       "problems": [],
       "checks": [
         {
@@ -1099,10 +1099,10 @@
       ],
       "pages": 1,
       "timings_s": {
-        "render": 0.037,
-        "pdf": 0.811,
+        "render": 0.044,
+        "pdf": 0.888,
         "verify": 0.018,
-        "total": 0.918
+        "total": 1.003
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\f-long-lines-legal.pdf",
@@ -1117,7 +1117,7 @@
       "paper": "A4",
       "command": "C:\\Python311\\python.exe C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\skills\\kimera\\scripts\\render.py C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\examples\\demo-it.md --out C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\demo-it-a4.md.html --paper A4 --verify --report C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\demo-it-a4.report.json",
       "exit_code": 0,
-      "wall_s": 1.155,
+      "wall_s": 1.342,
       "problems": [],
       "checks": [
         {
@@ -1158,10 +1158,10 @@
       ],
       "pages": 4,
       "timings_s": {
-        "render": 0.047,
-        "pdf": 0.842,
-        "verify": 0.016,
-        "total": 0.952
+        "render": 0.042,
+        "pdf": 1.023,
+        "verify": 0.015,
+        "total": 1.137
       },
       "chromium": "145.0.7632.6",
       "pdf": "C:\\PROJECTS\\_wt\\kimera\\kimera-2.0\\tests\\results\\demo-it-a4.pdf",

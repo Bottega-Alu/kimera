@@ -74,7 +74,10 @@ large empty area on the previous page. Let the print engine paginate.
 
 ## Not supported
 
-- **Raw HTML.** Tags are removed, the text between them is kept. Write Markdown.
+- **Raw HTML.** Tags are removed and the text between them is kept — except for
+  `script` and `style`, whose contents are discarded entirely. `javascript:`
+  links, event handlers, ids and inline styles are stripped. Write Markdown; the
+  `content-preserved` check will flag anything that was actually lost.
 - **Images.** There is no `img` support in this version; describe or link instead.
 - **Custom classes, ids, inline styles.** Only the classes the renderer itself
   produces survive the sanitiser.
