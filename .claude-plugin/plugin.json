@@ -1,13 +1,13 @@
 {
   "name": "kimera",
-  "description": "Kimera(R) — Professional print-ready document parser & super formatter. Parses AI conversations into beautifully structured, paginated HTML documents. Zero dependencies, works offline, opens in any browser.",
-  "version": "1.0.0",
+  "description": "Kimera(R) 2.0 — Markdown to print-ready document. A local renderer turns a Markdown source into a self-contained HTML file and a PDF paginated by Chromium via CSS @page, then verifies the real page geometry. Requires Python 3.10+ with Python-Markdown, nh3, Playwright (Chromium 131+) and PyMuPDF, installed once by scripts/setup.ps1.",
+  "version": "2.0.0",
   "author": {
     "name": "Francesco Trani",
     "url": "https://github.com/Bottega-Alu"
   },
   "license": "CC-BY-NC-4.0",
-  "keywords": ["document", "print", "pdf", "memo", "report", "formatting", "kimera"],
+  "keywords": ["document", "print", "pdf", "memo", "report", "markdown", "formatting", "kimera"],
   "repository": {
     "type": "git",
     "url": "https://github.com/Bottega-Alu/kimera"

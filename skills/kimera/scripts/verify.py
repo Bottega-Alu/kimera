@@ -170,6 +170,7 @@ def verify_pdf(
     chromium_version=None,
     footer_gap_mm=3.0,
     tolerance_pt=1.0,
+    top_tolerance_pt=3.0,
     paper_tolerance_mm=0.5,
 ):
     """Run every geometric and textual check on a rendered PDF.
@@ -266,12 +267,17 @@ def verify_pdf(
         checks.append(_check("page-count", True, "%d page(s), none blank" % total))
 
     # --------------------------------------------------------- 3 body-bounds --
+    # The top bound gets its own, larger tolerance: PyMuPDF block boxes are font
+    # ascender/descender boxes, not ink boxes, so the first line of a page sits
+    # ~1.5pt "above" the margin without a single pixel of ink being there. The
+    # bounds that actually matter (left/right overflow, footer intrusion) keep
+    # the tight tolerance.
     violations = []
     kinds = set()
     for info in pages:
         left = ml - tolerance_pt
         right = info["width"] - mr + tolerance_pt
-        top = mt - tolerance_pt
+        top = mt - top_tolerance_pt
         bottom = info["body_bottom"] + tolerance_pt
         for x0, y0, x1, y1, text in info["body"]:
             kind = None
