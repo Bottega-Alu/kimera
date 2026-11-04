@@ -244,3 +244,14 @@ https://github.com/Bottega-Alu/kimera
 
 ### 1.0 (2026-02-21)
 - Initial release: model-side HTML template, 5-colour palette, A4/Letter/Legal.
+
+### 2.0.1: scoped verification and lean authoring
+
+The entrypoint loads references only when needed. Metadata parsing consumes only
+known one-line keys, preserving ordinary opening lines such as `Nota: ...`.
+Layout remedies must preserve supplied content. `VERIFIED` reports automated
+geometry and token inclusion checks, not exact text equality or visual approval;
+the JSON report exposes that scope. Preview final PDFs separately.
+
+Run regression checks with the Kimera runtime: `python tests/test_metadata.py`;
+run the full rendering suite with `python tests/run_tests.py`.

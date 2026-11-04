@@ -1,116 +1,73 @@
-# Authoring a Kimera document
+# Authoring
 
-The source is plain Markdown, parsed by Python-Markdown and then run through an
-nh3 allowlist. Anything outside the allowlist is dropped while its text is kept,
-so nothing silently disappears from the page - but a construct that is not
-supported will simply not be styled.
+Use Markdown, parsed by Python-Markdown and sanitised by nh3.
 
-## Front matter
+## Metadata
 
-Optional. It must sit on the very first lines, one `Key: value` per line,
-followed by a blank line. CLI flags always win.
+Optional known keys on the first lines, one value per line, then a blank line:
 
-```
-Title: Stato della piattaforma Atlante
-Subtitle: Memo di stato, sprint 24
+```text
+Title: Stato della piattaforma
+Subtitle: Sprint 24
 Project: Atlante
 Author: Squadra Piattaforma
 Date: 2026-09-08
-Label: Memo di stato
+Label: Memo
 Lang: it
 Paper: A4
 Confidential: Distribuzione interna.
 ```
 
-`Label` is the small uppercase kicker above the title. `Confidential` prints one
-line at the end of the document - only ever use it when the user asked for it.
-Nothing is mandatory and nothing is invented: a missing field simply does not
-appear.
+Use only supplied or known values; add `Confidential` only when requested.
+`Label` is the kicker above the title. CLI flags override metadata.
+Unknown keys (`Nota: qualcosa`), duplicate keys and ordinary lines end metadata
+parsing and remain in the body. A leading blank line makes even `Title:` literal
+body text. Multiline metadata values are unsupported.
 
-The title is resolved as `--title`, then front matter, then the first `# H1` of
-the document, then the file name. When the title comes from the first `# H1`
-(or matches it) that heading is removed from the body so it is not printed twice.
+Title priority: `--title`, metadata, first H1, filename. The first H1 is removed
+from the body only when used as the title or matching the explicit title.
 
-Because front matter is detected on the first lines, a document that genuinely
-starts with a line like `Nota: qualcosa` will have it swallowed as metadata.
-Insert a blank line or a heading first.
+## Syntax
 
-## Supported syntax
+- Headings H1-H6, paragraphs, bold, italic, `~~strike~~` (single `~` stays literal).
+- Nested lists: four bullet styles; ordered lists preserve their starting number.
+- Pipe tables: repeated headers; colon-based column alignment is honoured.
+- Fenced and inline code: wrapping, without syntax highlighting.
+- Blockquotes, footnotes collected at the end, definition lists and abbreviations.
+- Links: absolute `http`, `https`, `mailto`, plus relative and protocol-relative
+  links. Check relative destinations yourself.
 
-| Construct | Notes |
-|---|---|
-| `#` to `######` | `#` inside the body renders as a section title, not the document title |
-| paragraphs, `**bold**`, `*italic*` | |
-| `~~strikethrough~~` | renders struck through; a single `~x~` stays literal text |
-| `- ` / `1. ` lists, nested | four distinguishable bullet levels; an ordered list starting at `7.` keeps its numbering |
-| tables (GFM pipe syntax) | header repeats on every page; `:---:` / `---:` alignment honoured |
-| fenced code ``` ``` ``` | no syntax highlighting, wraps instead of overflowing |
-| inline `` `code` `` | |
-| `> ` blockquote | |
-| links `[text](https://...)` and `<https://...>` | absolute links survive only with `http`, `https` or `mailto`; relative (`./file.md`) and protocol-relative (`//host/x`) links also survive, so check those yourself |
-| footnotes `[^1]` | collected at the end of the document |
-| definition lists (`Term` / `:   definition`) | |
-| abbreviations (`*[API]: Application ...`) | |
+Callouts use Python-Markdown syntax with a four-space indented body:
 
-## Callouts
-
-Python-Markdown admonition syntax. The body must be indented by four spaces.
-
-```
-!!! warning "Titolo del callout"
-    Corpo del callout, su una o piu righe.
+```text
+!!! warning "Titolo"
+    Corpo del callout.
 ```
 
 Styled types: `note`, `info`, `tip`, `success`, `warning`, `danger`, `error`.
-Any other type still renders, in the neutral grey style. Omit the quoted title
-and the type name is used as the title.
+Other types use neutral styling; omitted titles default to the type name.
 
 ## Page breaks
 
-A line containing only `\pagebreak` (or `\newpage`), outside code fences, starts
-a new page. The renderer normalises the directives before parsing:
+A standalone `\pagebreak` or `\newpage` outside fenced code starts a page.
+Leading/trailing breaks are removed; consecutive breaks collapse. In a list,
+a break splits the list in two. Literal examples inside code are preserved.
+Use sparingly: forced breaks can leave large empty areas.
 
-- each one is lifted into its own paragraph, so writing it on the continuation
-  line of a list item works and never prints the raw word;
-- consecutive directives, with or without blank lines between them, collapse into
-  a single break - two in a row could only make a blank page;
-- a leading directive (before any content) and a trailing one are dropped: they
-  could only produce a header-only page or a blank one.
+## Limits
 
-A break inside a list splits it into two lists. Showing the directive as an
-example inside a code fence is fine and does not trigger the leak check.
+Images are unsupported and make `source-support` fail. Preserve required images
+in the source and report the limitation; do not remove them to pass verification.
 
-Use it sparingly: a forced break in the middle of a document usually leaves a
-large empty area on the previous page. Let the print engine paginate.
+Raw HTML is unsupported as an authoring interface. The sanitiser removes tags
+outside its allowlist, generally retaining text; `script` and `style` contents
+are discarded. Event handlers, inline styles, ids and unsafe URL schemes are
+stripped. Allowed tags and renderer class names can survive in raw HTML, so a
+handwritten admonition or page-break class can still affect layout.
 
-## Not supported
+Long strings wrap in body text, code and table cells. Table headers retain normal
+word breaking and can overflow. Reflow the table without dropping information;
+shorten wording only when the user's content requirements permit it. Many wide
+columns can remain cramped even when automated bounds checks pass.
 
-- **Raw HTML.** Tags are removed and the text between them is kept — except for
-  `script` and `style`, whose contents are discarded entirely. `javascript:`
-  links, event handlers, ids and inline styles are stripped. Write Markdown; the
-  `source-support` check lists every tag the sanitiser removed. (`content-preserved`
-  will not: it compares the rendered HTML with the PDF, and by then the HTML is
-  already the sanitised version.)
-- **Images.** There is no `img` support in this version. An `![alt](file.png)` in
-  the source makes the `source-support` check FAIL rather than disappearing
-  quietly: replace the figure with text or a table, or remove it.
-- **Custom classes, ids, inline styles.** Only the small set of class names the
-  renderer itself produces survives the sanitiser. Note the consequence: raw HTML
-  in the source *can* still carry one of them, so a hand-written
-  `<div class="admonition danger">` renders as a callout and a
-  `<p class="page-break">` forces a page break. That is cosmetic - no script,
-  style, event handler or positioning ever survives.
-- **Syntax highlighting** in code blocks.
-- **Word / LibreOffice fidelity.** The `.md.html` opens in those applications
-  because it is HTML, but the print layout is only guaranteed in Chromium.
-
-## Things that break the page, and what to do
-
-Long unbroken strings (URLs, hashes, base64) wrap anywhere, including inside
-table cells and code blocks, so they do not overflow. What can still overflow is
-a **table header** that is one very long word: headers keep normal word breaking
-on purpose, so that a column is never squeezed to a single character. Shorten the
-header.
-
-A table with many columns of long text will get cramped. Fewer columns, or move
-the long text out of the table.
+Print layout targets Chromium; Word/LibreOffice fidelity is unsupported.

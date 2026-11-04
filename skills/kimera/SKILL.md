@@ -1,66 +1,53 @@
 ---
 name: kimera
-description: Turn content into a professional, print-ready document. Writes a Markdown source, then renders it locally into a self-contained HTML file and a PDF verified against the real page geometry - correct pagination, repeated table headers, page numbers, no footer overlap. Use for memos, status updates, sprint reports, technical specs and anything meant to be printed or sent as a PDF.
+description: Render Markdown into self-contained HTML and a paginated PDF with automated layout checks. Use for printable text documents, memos, reports and specifications.
 allowed-tools: Read, Write, Bash, Glob, Grep, AskUserQuestion
 ---
 
-# Kimera 2.0
+# Kimera
 
-Begin the first message of the invocation with `Kimera 2.0`, once per invocation.
+Use the bundled renderer; layout and CSS live in code.
+For ordinary documents this file is sufficient. Execute scripts without reading
+their implementation. Read references only for the specific need below.
 
-Layout, CSS and quality checks live in code inside this skill. Never write the
-HTML by hand and never touch CSS, margins or font sizes.
+## Source
 
-## 1. Content
+Use relevant supplied content, in the user's language. Preserve supplied facts,
+numbers and wording when fidelity is requested. Never invent metadata or remove
+content to make a layout check pass. Use tables only for tabular information.
+Save the Markdown source in the requested location (otherwise the project root).
 
-Take the content from the parts of the conversation that concern the requested
-topic; do not re-read everything. Ask only if the content is genuinely missing.
+Optional metadata on the first lines: `Title:`, `Subtitle:`, `Project:`, `Author:`,
+`Date:`, `Label:`, `Lang:`, `Paper:`, `Confidential:`; then a blank line.
+Only known keys are consumed. A leading blank line makes even known keys ordinary
+body text. Read [authoring.md](references/authoring.md) for callouts, page breaks,
+metadata examples or unsupported syntax. Images are unsupported; preserve the
+source and report the limitation when an image is required.
 
-Never invent an author, a date, metrics or a confidentiality notice - metadata
-appear only when known or supplied. Write in the user's language. There is no
-minimum page count and no obligation to turn prose into tables: use a table only
-for tabular data.
+## Render and check
 
-## 2. Write the source
-
-Save `PROJECT_TYPE_YYYY-MM-DD.md` in the project root, or where the user asks.
-Keep it: it is the source for later revisions. Optional front matter on the first
-lines: `Title:`, `Subtitle:`, `Project:`, `Author:`, `Date:`, `Label:`, `Lang:`,
-`Paper:`, `Confidential:`.
-
-## 3. Render
-
-`SKILL_DIR` is the directory holding this SKILL.md - the base directory
-announced when the skill was loaded.
+`SKILL_DIR` is the directory containing this file. Quote paths containing spaces.
 
 ```bash
-python SKILL_DIR/scripts/render.py FILE.md --verify [--paper A4|Letter|Legal] [--lang it|en]
+python "SKILL_DIR/scripts/render.py" "FILE.md" --verify
 ```
 
-CLI flags win over front matter. Exit 3: the Python runtime is missing - run
-`powershell -ExecutionPolicy Bypass -File SKILL_DIR/scripts/setup.ps1` once, then
-retry. Exit 2: an input error, reported as JSON on stderr (source missing, bad
-`--paper`, source not UTF-8) - fix the input and rerun; it is not one of the two
-FAIL attempts below.
+Optional: `--paper A4|Letter|Legal`, `--lang it|en`; flags override metadata.
+Exit 3: run `scripts/setup.ps1` once, then retry. Exit 2: inspect the reported
+input or internal error; do not keep retrying an unchanged failing command.
 
-## 4. Read the summary
+On a failed layout check, apply at most one content-preserving formatting fix
+and rerun once. Never delete columns, shorten facts or replace required images
+just to pass. If still failing, report the problem with the available artifacts.
+Read [printing.md](references/printing.md) only for diagnosis or manual printing.
 
-Every check green: deliver. On FAIL apply the content-side remedy printed under
-`diagnosis` ONCE, then re-run ONCE. Still failing: deliver anyway and state the
-residual problem explicitly. Never edit the generated HTML or PDF by hand.
+`VERIFIED` means the automated checks passed, not exact source fidelity or visual
+approval. For a final PDF, inspect representative rendered pages when a preview
+tool is available, including dense tables and page breaks. State when visual
+review was not performed; do not start an open-ended polish loop.
 
-## 5. Deliver
+## Deliver
 
-Report the paths of the `.md`, `.md.html` and `.pdf`, the verification outcome
-(or `NOT VERIFIED` when rendered without `--verify`), and the manual print line:
-up-to-date Chromium, paper matching `--paper`, 100% scale, default margins,
-browser headers and footers turned off.
-
-## Limits
-
-No raw HTML - tags are stripped, their text is kept. No images: one in the
-source makes `source-support` FAIL. No guaranteed fidelity in Word or
-LibreOffice.
-
-Markdown syntax, callouts and page breaks: `references/authoring.md`.
-Printing and failure diagnosis: `references/printing.md`.
+Link the source, HTML and PDF actually produced, with the automated check outcome
+and any unresolved limitation. Without `--verify`, only HTML is produced.
+Include manual printing instructions only when the user needs to print the HTML.

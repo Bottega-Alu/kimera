@@ -39,12 +39,12 @@ DIAGNOSIS = {
     "it": {
         "horizontal-overflow": (
             "Overflow orizzontale: una cella di tabella o una riga di codice non spezzabile "
-            "esce dall'area di testo. Accorcia o spezza quel contenuto nel Markdown "
-            "(nomi/URL lunghi su piu righe, meno colonne). Non toccare margini o font."
+            "esce dall'area di testo. Ridisponi quel contenuto senza eliminare informazioni nel Markdown "
+            "(blocchi piu brevi, stessi dati). Non toccare margini o font."
         ),
         "footer-intrusion": (
             "Il testo entra nella banda del piè di pagina. Di norma e la conseguenza di un "
-            "blocco non frazionabile; riscrivi il contenuto in blocchi piu corti. "
+            "blocco non frazionabile; suddividi il contenuto in blocchi piu corti senza riscriverlo. "
             "Se persiste e un bug del renderer: consegna segnalandolo."
         ),
         "top-overflow": (
@@ -61,8 +61,8 @@ DIAGNOSIS = {
             "renderer: consegna segnalandolo."
         ),
         "unsupported-image": (
-            "Immagini non supportate in questa versione: sostituisci la figura con testo o "
-            "una tabella, oppure rimuovila. Il contenuto dell'immagine non finisce nel PDF."
+            "Immagini non supportate: conserva le figure richieste nel sorgente e segnala "
+            "il limite. Il contenuto dell'immagine non finisce nel PDF."
         ),
         "footer-wrong": (
             "Piè di pagina errato o assente: bug del renderer, non risolvibile lato "
@@ -84,11 +84,11 @@ DIAGNOSIS = {
     "en": {
         "horizontal-overflow": (
             "Horizontal overflow: an unbreakable table cell or code line runs past the text "
-            "area. Shorten or split that content in the Markdown. Do not touch margins or fonts."
+            "area. Reflow that content without removing information. Do not touch margins or fonts."
         ),
         "footer-intrusion": (
             "Text reaches into the footer band, usually because of an unbreakable block. "
-            "Rewrite it as shorter blocks. If it persists it is a renderer bug: report it."
+            "Split it into shorter blocks without rewriting it. If it persists it is a renderer bug: report it."
         ),
         "top-overflow": (
             "Text above the top margin: an element escaped the flow. Renderer bug, not "
@@ -103,8 +103,8 @@ DIAGNOSIS = {
             "Split it into shorter parts. If it persists it is a renderer bug: report it."
         ),
         "unsupported-image": (
-            "Images are not supported in this version: replace the figure with text or a table, "
-            "or remove it. Its content never reaches the PDF."
+            "Images are unsupported: preserve required figures in the source and report "
+            "the limitation. Their content never reaches the PDF."
         ),
         "footer-wrong": (
             "Wrong or missing footer: renderer bug, not fixable from the content. "

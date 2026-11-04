@@ -21,7 +21,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-KIMERA_VERSION = "2.0.0"
+KIMERA_VERSION = "2.0.1"
 SCRIPT_PATH = Path(__file__).resolve()
 SCRIPTS_DIR = SCRIPT_PATH.parent
 SKILL_ROOT = SCRIPTS_DIR.parent
@@ -252,7 +252,6 @@ STRINGS = {
 }
 
 MD_EXTENSIONS = [
-    "meta",
     "tables",
     "fenced_code",
     "sane_lists",
@@ -433,6 +432,29 @@ def inspect_source_support(raw_html: str, clean_html: str) -> dict:
     }
 
 
+METADATA_KEYS = frozenset({
+    "title", "subtitle", "project", "author", "date", "label", "lang",
+    "paper", "confidential",
+})
+
+
+def split_metadata(source: str):
+    """Consume only supported one-line metadata; preserve every other line."""
+    lines = source.lstrip("\ufeff").splitlines(keepends=True)
+    meta = {}
+    consumed = 0
+    for line in lines:
+        match = re.fullmatch(r"([A-Za-z]+):[ \t]*(.*?)[\r\n]*", line)
+        if not match or match[1].lower() not in METADATA_KEYS:
+            break
+        key = match[1].lower()
+        if key in meta:  # Do not silently overwrite a duplicate.
+            break
+        meta[key] = match[2].strip()
+        consumed += 1
+    return "".join(lines[consumed:]), meta
+
+
 def markdown_to_html(source: str):
     """Return (sanitized body html, front-matter dict, source-support report)."""
     md = markdown.Markdown(
@@ -440,11 +462,8 @@ def markdown_to_html(source: str):
         extension_configs=MD_EXTENSION_CONFIGS,
         output_format="html",
     )
+    source, meta = split_metadata(source)
     raw = md.convert(protect_pagebreaks(source))
-    meta = {}
-    for key, values in getattr(md, "Meta", {}).items():
-        if values:
-            meta[key.strip().lower()] = " ".join(v.strip() for v in values).strip()
     body = sanitize(raw)
     support = inspect_source_support(raw, body)
 
@@ -770,6 +789,8 @@ def format_summary(report: dict) -> str:
         + (", total %.2fs" % timings.get("total", 0.0))
     )
     lines.append("  status    : %s" % report["status"])
+    if report.get("checks"):
+        lines.append("  scope     : %s" % report["verification_scope"])
     for check in report.get("checks", []):
         mark = "ok" if check["ok"] else "FAIL"
         if check["ok"] and check.get("level") == "warn":
@@ -846,6 +867,8 @@ def run(argv) -> int:
         "margins_mm": dict(MARGINS_MM),
         "lang": lang,
         "verified": False,
+        "verification_scope": "automated geometry and token inclusion only; not exact text fidelity or visual approval",
+        "visual_review": "not performed by renderer",
         "status": STRINGS[lang]["not_verified"] if lang != "it" else "NON VERIFICATO",
         "python": sys.executable,
         "timings_s": {"render": round(render_s, 3)},
